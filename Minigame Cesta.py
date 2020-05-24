@@ -87,7 +87,7 @@ class cesta(pygame.sprite.Sprite):
         self.rect.bottom = tela_altura - 10
         self.speedx = 0
         self.groups = groups
-        self.assets = assets`
+        self.assets = assets
 
     def update(self):
         # Posicao cesta
@@ -143,3 +143,29 @@ class bota(pygame.sprite.Sprite):
             self.speedy = random.randint(2, 9)
 
 ######################################################################################################
+def abrir_tela(screen):
+    clock = pygame.time.Clock()
+    # Carrega o fundo
+    background = pygame.image.load(os.path.join(pasta_img, 'fundo_cesta.png')).convert()
+    background_rect = background.get_rect()
+    jogando = True
+    while jogando:
+        #velocidade do jogo
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                condicao = fim
+                jogando = False
+
+            if event.type == pygame.KEYUP:
+                condicao = jogo
+                jogando = False
+
+        screen.fill(BLACK)
+        screen.blit(background, background_rect)
+        # inverte o display.
+        pygame.display.flip()
+
+    return condicao
+###################################################################################################################
+
