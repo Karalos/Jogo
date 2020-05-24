@@ -88,7 +88,7 @@ class cesta(pygame.sprite.Sprite):
         self.rect.bottom = tela_altura - 10
         self.speedx = 0
         self.groups = groups
-        self.assets = assets
+        self.assets = assets`
 
     def update(self):
         # Posicao cesta
