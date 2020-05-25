@@ -6,16 +6,17 @@ import os
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_som=os.path.join(os.path.dirname(__file__), 'sons')
 #variaveis
+    #tela
 tela_altura=561
 tela_largura=575
 FPS=60
-#frutas
+    #frutas
 fruta_largura=75
 fruta_altura=50
-#cesta
+    #cesta
 cesta_largura=150
 cesta_altura=125
-#bota
+    #bota
 bota_largura=75
 bota_altura=50
 
@@ -25,13 +26,8 @@ jogo = 1
 fim = 2
 
 #cores
-
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
 #########################################################################################################################################################
 BACKGROUND = 'background'
 IMAG_CESTA = 'imag_cesta'
@@ -64,7 +60,6 @@ def load_assets():
 #"personagens"
 class Cesta(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
-        #Simple base class for visible game objects
         pygame.sprite.Sprite.__init__(self)
         self.image = assets[IMAG_CESTA]
         self.mask = pygame.mask.from_surface(self.image)
@@ -78,7 +73,7 @@ class Cesta(pygame.sprite.Sprite):
     def update(self):
         # Posicao cesta
         self.rect.x += self.speedx
-        #Nao sai da tela
+        #limite tela
         if self.rect.right > tela_largura:
             self.rect.right = tela_largura
         if self.rect.left < 0:
@@ -91,7 +86,7 @@ class Fruta(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, tela_largura-fruta_largura)
-        self.rect.y = random.randint(-100, -fruta_altura)
+        self.rect.y = random.randint(-200, -fruta_altura)
         self.speedx = random.randint(-3, 3)
         self.speedy = random.randint(2, 9)
 
@@ -176,28 +171,26 @@ def tela_dentro_do_jogo(window):
     for i in range(4):
         bota = Bota(assets)
         todos_sprites.add(bota)
-        todos_sprites.add(bota)
+        todas_botas.add(bota)
     # Frutas
     for i in range(4):
         fruta = Fruta(assets)
         todos_sprites.add(fruta)
-        todos_sprites.add(fruta)
+        todas_frutas.add(fruta)
 
-    DONE = 0
-    PLAYING = 1
-    condicao = PLAYING
+    condicao = True
 
     keys_down = {}
 
 #loop
     pygame.mixer.music.play(loops=-1)
-    while condicao != DONE:
+    while condicao:
         clock.tick(FPS)
         # eventos
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                condicao = DONE
-            if condicao == PLAYING:
+                condicao = False
+            if condicao:
                 # Verifica teclas
                 if event.type == pygame.KEYDOWN:
                     # Altera velocidade
@@ -219,24 +212,43 @@ def tela_dentro_do_jogo(window):
         #Atualiza o jogo
         todos_sprites.update()
 
-        if condicao == PLAYING:
-            # Verifica encontro entre cesta e bota
-            encontros1 = pygame.sprite.spritecollide(jogador, todas_botas, True, pygame.sprite.collide_mask)
-            if len(encontros1) > 0:
-                # Toca o som de dano
-                assets[SOM_ERRO].play()
-                jogador.kill()
-                keys_down = {}
+        # Verifica encontro entre cesta e bota
+        encontros1 = pygame.sprite.spritecollide(jogador, todas_botas, True, pygame.sprite.collide_mask)
+        if len(encontros1) > 0:
+            # Toca o som de dano
+            assets[SOM_ERRO].play()
+            jogador.kill()
+            keys_down = {}
+            condicao=False
 
-            encontros2 = pygame.sprite.spritecollide(jogador, todas_frutas, True, pygame.sprite.collide_mask)
-            if len(encontros2) > 0:
-                # Toca o som de dano
-                assets[SOM_ACERTO].play()
-                fruta.kill()
-                keys_down = {}
+        encontros2 = pygame.sprite.spritecollide(jogador, todas_frutas, True, pygame.sprite.collide_mask)
+        if len(encontros2) > 0:
+            # Toca o som de dano
+            assets[SOM_ACERTO].play()
+            keys_down = {}
+
 
         window.fill(BLACK) 
         window.blit(assets[BACKGROUND], (0, 0))
         # Desenhando sprites
         todos_sprites.draw(window)
         pygame.display.update()  
+####################################
+pygame.init()
+pygame.mixer.init()
+
+# ----- Gera tela principal
+window = pygame.display.set_mode((tela_altura, tela_largura))
+pygame.display.set_caption('Cesta')
+
+condicao = inicio
+while condicao != fim:
+    if condicao == inicio:
+        condicao = abrir_tela(window)
+    elif condicao == jogo:
+        condicao = tela_dentro_do_jogo(window)
+    else:
+        condicao = fim
+
+# ===== Finalização =====
+pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
