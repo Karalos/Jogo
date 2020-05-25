@@ -4,20 +4,20 @@ import os
 
 # Estabelece a pasta que contem as figuras e sons.
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
-
+pasta_som=os.path.join(os.path.dirname(__file__), 'sons')
 #variaveis
-tela_largura=561
-tela_altura=766
+tela_altura=561
+tela_largura=575
 FPS=60
 #frutas
-fruta_largura=100
-fruta_altura=76
+fruta_largura=75
+fruta_altura=50
 #cesta
-cesta_largura=100
-cesta_altura=76
+cesta_largura=150
+cesta_altura=125
 #bota
-bota_largura=100
-bota_altura=76
+bota_largura=75
+bota_altura=50
 
 #estados
 inicio = 0
@@ -25,26 +25,13 @@ jogo = 1
 fim = 2
 
 #cores
-aqua=(0,255,255)
-black=(0,0,0)
-blue=(0,0,255)
-fuchsia=(255,0,255)
-gray=(128,128,128)
-dark_gray=(40,40,40)
-light_gray=(169,169,169)
-green=(0,128,0)
-lime=(0,255,0)
-marron=(128,0,0)
-navy_blue=(0,0,128)
-olive=(128,128,0)
-purple=(128,0,128)
-red=(255,0,0)
-silver=(192,192,192)
-teal=(0,128,182)
-white=(255, 255, 255)
-yellow=(255,255,0)
-bege=(252,188,122)
-verde_claro=(125,222,78)
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 #########################################################################################################################################################
 BACKGROUND = 'background'
 IMAG_CESTA = 'imag_cesta'
@@ -52,13 +39,13 @@ IMAG_FRUTA = 'imag_fruta'
 IMAG_BOTA = 'imag_bota'
 PONTUACAO_FONT = 'pontuacao_font'
 SOM_ERRO = 'som_erro'
-som_acerto = 'som_acerto'
+SOM_ACERTO = 'som_acerto'
 
 def load_assets():
     assets = {}
     #carrega imagens
-    assets[BACKGROUND] = pygame.image.load(os.path.join(pasta_img, 'fundo_cesta.png')).convert()
-    assets[IMAG_CESTA] = pygame.image.load(os.path.join(pasta_img, 'cesta.png')).convert_alpha()
+    assets[BACKGROUND] = pygame.image.load(os.path.join(pasta_img, 'fundo_cesta.jpg')).convert()
+    assets[IMAG_CESTA] = pygame.image.load(os.path.join(pasta_img, 'cesta.jpg')).convert_alpha()
     assets[IMAG_FRUTA] = pygame.image.load(os.path.join(pasta_img, 'maca_verde.png')).convert_alpha()
     assets[IMAG_BOTA] = pygame.image.load(os.path.join(pasta_img, 'bota.png')).convert_alpha()
     #muda dimensoes imagens
@@ -67,16 +54,15 @@ def load_assets():
     assets[IMAG_BOTA] = pygame.transform.scale(assets['imag_bota'], (bota_largura, bota_altura))
 
     # SONS
-    pygame.mixer.music.load(os.path.join(SND_DIR, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
-    pygame.mixer.music.set_volume(0.4)
-    assets[BOOM_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'expl3.wav'))
-    assets[DESTROY_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'expl6.wav'))
-    assets[PEW_SOUND] = pygame.mixer.Sound(os.path.join(SND_DIR, 'pew.wav'))
+    pygame.mixer.music.load(os.path.join(pasta_som, 'tgfcoder-FrozenJam-SeamlessLoop.ogg'))
+    pygame.mixer.music.set_volume(0.2)
+    assets[SOM_ERRO] = pygame.mixer.Sound(os.path.join(pasta_som, 'expl3.wav'))
+    assets[SOM_ACERTO] = pygame.mixer.Sound(os.path.join(pasta_som, 'expl6.wav'))
     return assets
 
 ###########################################################################################################################################################
 #"personagens"
-class cesta(pygame.sprite.Sprite):
+class Cesta(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
         #Simple base class for visible game objects
         pygame.sprite.Sprite.__init__(self)
@@ -98,8 +84,8 @@ class cesta(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.left = 0
 
-class fruta(pygame.sprite.Sprite):
-    def __init__(self, assets, botom, centerx):
+class Fruta(pygame.sprite.Sprite):
+    def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets[IMAG_FRUTA]
         self.mask = pygame.mask.from_surface(self.image)
@@ -110,18 +96,18 @@ class fruta(pygame.sprite.Sprite):
         self.speedy = random.randint(2, 9)
 
     def update(self):
-        # Posicao meteoro
+        # Posicao fruta
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        # Se o meteoro passar do final da tela, volta para cima e sorteia
+        # limite tela
         if self.rect.top > tela_altura or self.rect.right < 0 or self.rect.left >tela_largura:
             self.rect.x = random.randint(0, tela_largura-fruta_largura)
             self.rect.y = random.randint(-100, -fruta_altura)
             self.speedx = random.randint(-3, 3)
             self.speedy = random.randint(2, 9)
 
-class bota(pygame.sprite.Sprite):
-    def __init__(self, assets, botom, centerx):
+class Bota(pygame.sprite.Sprite):
+    def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets[IMAG_BOTA]
         self.mask = pygame.mask.from_surface(self.image)
@@ -132,10 +118,10 @@ class bota(pygame.sprite.Sprite):
         self.speedy = random.randint(2, 9)
 
     def update(self):
-        # Posicao meteoro
+        # posicao bota
         self.rect.x += self.speedx
         self.rect.y += self.speedy
-        # Se o meteoro passar do final da tela, volta para cima e sorteia
+        # limite tela
         if self.rect.top > tela_altura or self.rect.right < 0 or self.rect.left >tela_largura:
             self.rect.x = random.randint(0, tela_largura-bota_largura)
             self.rect.y = random.randint(-100, -bota_altura)
@@ -143,10 +129,10 @@ class bota(pygame.sprite.Sprite):
             self.speedy = random.randint(2, 9)
 
 ######################################################################################################
-def abrir_tela(screen):
+def abrir_tela(tela):
     clock = pygame.time.Clock()
     # Carrega o fundo
-    background = pygame.image.load(os.path.join(pasta_img, 'fundo_cesta.png')).convert()
+    background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
     background_rect = background.get_rect()
     jogando = True
     while jogando:
@@ -161,11 +147,96 @@ def abrir_tela(screen):
                 condicao = jogo
                 jogando = False
 
-        screen.fill(BLACK)
-        screen.blit(background, background_rect)
+        tela.fill(BLACK)
+        tela.blit(background, background_rect)
         # inverte o display.
         pygame.display.flip()
 
     return condicao
 ###################################################################################################################
+def tela_dentro_do_jogo(window):
+    #ajuste de velocidade
+    clock = pygame.time.Clock()
+    assets = load_assets()
 
+    # Criando grupos 
+    todos_sprites = pygame.sprite.Group()
+    todas_frutas = pygame.sprite.Group()
+    todas_botas = pygame.sprite.Group()
+    groups = {}
+    groups['todos_sprites'] = todos_sprites
+    groups['todas_frutas'] = todas_frutas
+    groups['todas_botas'] = todas_botas
+
+    # Jogador
+    jogador = Cesta(groups, assets)
+    todos_sprites.add(jogador)
+
+    # Botas
+    for i in range(4):
+        bota = Bota(assets)
+        todos_sprites.add(bota)
+        todos_sprites.add(bota)
+    # Frutas
+    for i in range(4):
+        fruta = Fruta(assets)
+        todos_sprites.add(fruta)
+        todos_sprites.add(fruta)
+
+    DONE = 0
+    PLAYING = 1
+    condicao = PLAYING
+
+    keys_down = {}
+
+#loop
+    pygame.mixer.music.play(loops=-1)
+    while condicao != DONE:
+        clock.tick(FPS)
+        # eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                condicao = DONE
+            if condicao == PLAYING:
+                # Verifica teclas
+                if event.type == pygame.KEYDOWN:
+                    # Altera velocidade
+                    keys_down[event.key] = True
+                    if event.key == pygame.K_LEFT:
+                        jogador.speedx -= 8
+                    if event.key == pygame.K_RIGHT:
+                        jogador.speedx += 8
+                    if event.key == pygame.K_SPACE:
+                        jogador.shoot()
+                if event.type == pygame.KEYUP:
+                    # Altera a velocidade
+                    if event.key in keys_down and keys_down[event.key]:
+                        if event.key == pygame.K_LEFT:
+                            jogador.speedx += 8
+                        if event.key == pygame.K_RIGHT:
+                            jogador.speedx -= 8
+
+        #Atualiza o jogo
+        todos_sprites.update()
+
+        if condicao == PLAYING:
+            # Verifica encontro entre cesta e bota
+            encontros1 = pygame.sprite.spritecollide(jogador, todas_botas, True, pygame.sprite.collide_mask)
+            if len(encontros1) > 0:
+                # Toca o som de dano
+                assets[SOM_ERRO].play()
+                jogador.kill()
+                keys_down = {}
+
+            encontros2 = pygame.sprite.spritecollide(jogador, todas_frutas, True, pygame.sprite.collide_mask)
+            if len(encontros2) > 0:
+                # Toca o som de dano
+                assets[SOM_ACERTO].play()
+                fruta.kill()
+                keys_down = {}
+
+        window.fill(BLACK) 
+        window.blit(assets[BACKGROUND], (0, 0))
+        # Desenhando sprites
+        todos_sprites.draw(window)
+        pygame.display.update()  
