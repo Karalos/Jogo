@@ -61,5 +61,25 @@ class Tesoura(pygame.sprite.Sprite):
         self.rect.x = 
         self.rect.y = 
 
+def tela_de_instrucoes(tela):
+    clock = pygame.time.Clock()
+    background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
+    background_rect = background.get_rect()
+    jogando_i = True
+    while jogando_i:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                condicao = fim
+                jogando_i = False
 
+            if event.type == pygame.KEYDOWN:
+                condicao = jogo
+                jogando_i = False
+
+        tela.fill(preto)
+        tela.blit(background, background_rect)
+        pygame.display.flip()
+
+    return condicao
 
