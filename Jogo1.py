@@ -16,8 +16,9 @@ jogo=True
 while jogo:
     ...
     update_object(ticks)
+
     ticks = time.tick(30)  
-    ticks = time.tick(30) 
+
 from random import randint
 import pygame
 pygame.init()
@@ -228,7 +229,6 @@ while game==True:
                     poscir[0]=505
                     poscir[1]=504
 
-
     meteoro1.update()
     meteoro2.update()
     window.blit(background, (0, 0))
@@ -295,4 +295,8 @@ while game==True:
     #############################################################
     pygame.draw.circle(window,core,poscir,25)
     pygame.display.update() 
+
 pygame.quit()
+
+
+
