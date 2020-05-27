@@ -4,18 +4,18 @@ import os
 
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 
-tela_altura=561
-tela_largura=575
+tela_altura=600
+tela_largura=900
 FPS=60
 
-pedra_largura=75
-pedra_altura=50
+pedra_largura=200
+pedra_altura=350
 
-papel_largura=75
-papel_altura=50
+papel_largura=200
+papel_altura=350
 
-tesoura_largura=125
-tesouraa_altura=100
+tesoura_largura=200
+tesouraa_altura=350
 
 
 instrucao = 0
