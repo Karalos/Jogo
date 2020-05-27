@@ -34,4 +34,32 @@ def load_assets():
 
     return assets
 
+class Pedra(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets['imag_pedra']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = 
+        self.rect.y = 
+
+class Papel(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets['imag_papel']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = 
+        self.rect.y =
+
+class Tesoura(pygame.sprite.Sprite):
+    def __init__(self, assets):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = assets['imag_tesoura']
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
+        self.rect.x = 
+        self.rect.y = 
+
+
 
