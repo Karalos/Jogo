@@ -146,24 +146,31 @@ def tela_dentro_do_jogo(window):
             if event.type == pygame.QUIT:
                 funcionando = False
             if event.type == pygame.MOUSEBUTTONDOWN:
-                x,y=event.pos
-                print(x,y)
-                if assets['imag_pedra'].get_rect().collidepoint(x,y):
-                    funcionando = False
+                posicao_mouse=event.pos
+                print(posicao_mouse)
+                sprites_selecionados = [s for s in sprites if s.rect.collidepoint(posicao_mouse)]
+                if sprites_selecionados in pedras:
+                    print('pedra')
                     escolha_jogador='pedra'
-                elif assets['imag_pedra'].get_rect().collidepoint(x,y):
+                elif sprites_selecionados in papeis:
                     escolha_jogador='papel'
-                elif assets['imag_pedra'].get_rect().collidepoint(x,y):
+                    print('papel')
+                elif sprites_selecionados in tesouras:
                     escolha_jogador='tesoura'
+                    print('tesoura')
 
                 r=random.randint(1,3)
                 if r==1:
                     escolha_bot='pedra'
+                    print('pedra')
                 elif r==2:
                     escolha_bot='papel'
+                    print('papel')
                 else:
                     escolha_bot='tesoura'
-
+                    print('tesoura')
+            resposta=funcao_resultado(escolha_jogador,escolha_bot)
+            print(resposta)
         sprites.update()
         window.fill((0,0,0)) 
         window.blit(assets['background'], (0, 0))
