@@ -169,6 +169,8 @@ def tela_dentro_do_jogo(window):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 #dados do mouse
                 posicao_mouse=event.pos
+                #variavel que determina se o jogador escolheu uma das opcoes disponiveis
+                escolha=True
                 #comparar dodos do mouse com sprites
                 sprites_selecionados = [s for s in sprites if s.rect.collidepoint(posicao_mouse)]
                 #verificar escolha do jogador
@@ -180,21 +182,25 @@ def tela_dentro_do_jogo(window):
                     print('papel')
                 elif sprites_selecionados in tesouras:
                     escolha_jogador='tesoura'
-                    print('tesoura') 
-                #definir escolha do bot               
-                r=random.randint(1,3) #cada clique gera um novo r   
-                if r==1:
-                    escolha_bot='pedra'
-                    print('pedra')
-                elif r==2:
-                    escolha_bot='papel'
-                    print('papel')
-                else:
-                    escolha_bot='tesoura'
                     print('tesoura')
-                #verificar resposta
-                resposta=funcao_resultado(escolha_jogador,escolha_bot)
-                print(resposta)
+                else:
+                    escolha=False
+                #verifica se a escolha do jogador foi aceitavel
+                if escolha: 
+                    #define a escolha do bot              
+                    r=random.randint(1,3) #cada clique gera um novo r   
+                    if r==1:
+                        escolha_bot='pedra'
+                        print('pedra')
+                    elif r==2:
+                        escolha_bot='papel'
+                        print('papel')
+                    else:
+                        escolha_bot='tesoura'
+                        print('tesoura')
+                    #verificar o resultado
+                    resposta=funcao_resultado(escolha_jogador,escolha_bot)
+                    print(resposta)
 
         sprites.update()
         window.fill((0,0,0)) 
