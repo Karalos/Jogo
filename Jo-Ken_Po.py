@@ -2,7 +2,7 @@
 import pygame
 import random
 import os
-
+################veceu eh a variavel que pode ser usada para confirmar a vitoria do jogo#################################
 #origem das imagens
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
@@ -171,6 +171,7 @@ def tela_dentro_do_jogo(window):
                 funcionando = False
             #verificar clique
             if event.type == pygame.MOUSEBUTTONDOWN:
+                pygame.event.get_blocked(pygame.MOUSEBUTTONDOWN)
                 #dados do mouse
                 posicao_mouse=event.pos
                 #variavel que determina se o jogador escolheu uma das opcoes disponiveis
@@ -192,7 +193,7 @@ def tela_dentro_do_jogo(window):
                 #verifica se a escolha do jogador foi aceitavel
                 if escolha: 
                     #define a escolha do bot              
-                    r=random.randint(1,3) #cada clique gera um novo r   
+                    r=2 #cada clique gera um novo r   
                     if r==1:
                         escolha_bot='pedra'
                         print('pedra')
@@ -205,7 +206,6 @@ def tela_dentro_do_jogo(window):
                     #verificar o resultado
                     resposta=funcao_resultado(escolha_jogador,escolha_bot)
                     print(resposta)
-                    #resposta
                     #define resposta
                     texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
                     #area da resposta
@@ -215,7 +215,17 @@ def tela_dentro_do_jogo(window):
                     window.blit(texto, local_texto)
                     pygame.display.update()  
                     #tempo para ler a resposta
+                    pygame.event.clear()
                     pygame.time.wait(tempo_de_amostra)
+                    pygame.event.clear()
+                    if resposta=='Empatou':
+                        pass
+                    elif resposta== 'Voce venceu':
+                        venceu=True
+                        funcionando=False
+                    elif resposta== 'Voce perdeu':
+                        venceu=False
+                        funcionando=False        
 
         sprites.update()
         window.fill((0,0,0)) 
