@@ -5,6 +5,7 @@ import os
 
 #origem das imagens
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
+pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
 
 #parametros
 tela_largura=400
@@ -28,6 +29,9 @@ instrucao = 0
 jogo = 1
 fim = 2
 
+#tempo
+tempo_de_amostra=3000 #milisegundos
+
 #carregando imagens
 def load_assets():
     assets = {}
@@ -39,7 +43,7 @@ def load_assets():
     assets['imag_pedra'] = pygame.transform.scale(assets['imag_pedra'], (pedra_largura, pedra_altura))
     assets['imag_papel'] = pygame.transform.scale(assets['imag_papel'], (papel_largura, papel_altura))
     assets['imag_tesoura'] = pygame.transform.scale(assets['imag_tesoura'], (tesoura_largura, tesoura_altura))
-
+    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
     return assets
 #classes
 class Pedra(pygame.sprite.Sprite):
@@ -81,23 +85,23 @@ class Tesoura(pygame.sprite.Sprite):
 #funcao utilizada para definir quem é o vencedor
 def funcao_resultado(escolha_jogador,escolha_bot):
     if escolha_jogador=='pedra' and escolha_bot=='pedra':
-        return 'empate'
+        return 'Empatou'
     if escolha_jogador=='pedra' and escolha_bot=='papel':
-        return 'bot'
+        return 'Voce perdeu'
     if escolha_jogador=='pedra' and escolha_bot=='tesoura':
-        return 'jogador'
+        return 'Voce venceu'
     if escolha_jogador=='papel' and escolha_bot=='pedra':
-        return 'jogador'
+        return 'Voce venceu'
     if escolha_jogador=='papel' and escolha_bot=='papel':
-        return 'empate'
+        return 'Empatou'
     if escolha_jogador=='papel' and escolha_bot=='tesoura':
-        return 'bot'
+        return 'Voce perdeu'
     if escolha_jogador=='tesoura' and escolha_bot=='pedra':
-        return 'bot'
+        return 'Voce perdeu'
     if escolha_jogador=='tesoura' and escolha_bot=='papel':
-        return 'jogador'
+        return 'Voce venceu'
     if escolha_jogador=='tesoura' and escolha_bot=='tesoura':
-        return 'empate'
+        return 'Empatou'
 
 #telas do jogo
 def tela_de_instrucoes(tela):
@@ -201,6 +205,17 @@ def tela_dentro_do_jogo(window):
                     #verificar o resultado
                     resposta=funcao_resultado(escolha_jogador,escolha_bot)
                     print(resposta)
+                    #resposta
+                    #define resposta
+                    texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
+                    #area da resposta
+                    local_texto = texto.get_rect()
+                    local_texto.midtop = (background_largura / 2,  1)
+                    #apresenta a resposta/ atualiza
+                    window.blit(texto, local_texto)
+                    pygame.display.update()  
+                    #tempo para ler a resposta
+                    pygame.time.wait(tempo_de_amostra)
 
         sprites.update()
         window.fill((0,0,0)) 
