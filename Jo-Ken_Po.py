@@ -88,6 +88,28 @@ def tela_de_instrucoes(tela):
 
     return condicao
 
+def funcao_resultado(escolha_jogador,escolha_bot):
+    resultado='empate' 
+    while resultado=='empate':
+        if escolha_jogador=='pedra' and escolha_bot=='pedra':
+            resultado='empate'
+            return 'empate'
+        if escolha_jogador=='pedra' and escolha_bot=='papel':
+            resultado='bot'
+            return 'bot'
+        if escolha_jogador=='pedra' and escolha_bot=='tesoura':
+            resultado='jogador'
+            return 'jogador'
+        if escolha_jogador=='papel' and escolha_bot=='papel':
+            resultado='empate'
+            return 'empate'
+        if escolha_jogador=='papel' and escolha_bot=='tesoura':
+            resultado='bot'
+            return 'bot'
+        if escolha_jogador=='tesoura' and escolha_bot=='tesoura':
+            resultado='empate'
+            return 'empate'
+
 def tela_dentro_do_jogo(window):
     clock = pygame.time.Clock()
     assets = load_assets()
@@ -110,6 +132,10 @@ def tela_dentro_do_jogo(window):
     sprites.add(pedra)
     sprites.add(papel)
     sprites.add(tesoura)
+
+    pedras.add(pedra)
+    papeis.add(papel)
+    tesouras.add(tesoura)
 
     funcionando = True
     keys_down = {}
@@ -137,21 +163,6 @@ def tela_dentro_do_jogo(window):
                     escolha_bot='papel'
                 else:
                     escolha_bot='tesoura'
-
-                resultado='empate' 
-                while resultado=='empate'
-                    if escolha_jogador=='pedra' and escolha_bot=='pedra':
-                        resultado='empate'
-                    if escolha_jogador=='pedra' and escolha_bot=='papel':
-                        resultado='bot'
-                    if escolha_jogador=='pedra' and escolha_bot=='tesoura':
-                        resultado='jogador'
-                    if escolha_jogador=='papel' and escolha_bot=='papel':
-                        resultado='empate'
-                    if escolha_jogador=='papel' and escolha_bot=='tesoura':
-                        resultado=''
-                    if escolha_jogador=='tesoura' and escolha_bot=='tesoura':
-                        resultado='empate'
 
         sprites.update()
         window.fill((0,0,0)) 
