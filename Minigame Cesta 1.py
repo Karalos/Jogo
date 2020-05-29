@@ -8,7 +8,7 @@ pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 #variaveis
     #tela
 tela_altura=561
-tela_largura=575
+tela_largura=600
 FPS=60
 
     #frutas
@@ -70,7 +70,7 @@ class Cesta(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         #determina posicao de inicio
         self.rect.centerx = tela_largura / 2 #centro da tela
-        self.rect.bottom = tela_altura  #colado ao chao
+        self.rect.bottom = tela_altura  
         self.speedx = x_cesta #velocidade 
         self.groups = groups
         self.assets = assets
