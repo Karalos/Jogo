@@ -160,6 +160,10 @@ def tela_dentro_do_jogo(window):
     papeis.add(papel)
     tesouras.add(tesoura)
 
+    #placar
+    placar_player=0
+    placar_bot=0
+
     #codigo jogo
     funcionando = True
     while funcionando:
@@ -202,9 +206,12 @@ def tela_dentro_do_jogo(window):
                         imag_escolha_op=assets['imag_tesoura']
                     #verificar o resultado
                     resposta=funcao_resultado(escolha_jogador,escolha_bot)
-                    #define resposta
+                    #
+                    Placar_bot=placar_bot
+                    Placar_player=placar_player
+                    #define resposta 
                     texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
-                    #area da resposta
+                    #area da resposta 
                     local_texto = texto.get_rect()
                     local_texto.midtop = (background_largura / 2,  1)
                     #sprite da escolha do oponente
@@ -213,7 +220,7 @@ def tela_dentro_do_jogo(window):
                     local_imag_op.midtop=(background_largura/2, 80)
                     window.blit(imag_escolha_op,local_imag_op)
                     pygame.display.flip
-                    #apresenta a resposta/ atualiza
+                    #apresenta textos
                     window.blit(texto, local_texto)
                     pygame.display.update()  
                     #tempo para ler a resposta
@@ -223,16 +230,46 @@ def tela_dentro_do_jogo(window):
                     if resposta=='Empatou':
                         pass
                     elif resposta== 'Voce venceu':
+                        placar_player+=1
+                    elif resposta== 'Voce perdeu':
+                        placar_bot+=1      
+                    if placar_bot==3:
+                        venceu=False
+                        funcionando=False
+                    elif placar_player==3:
                         venceu=True
                         funcionando=False
-                    elif resposta== 'Voce perdeu':
-                        venceu=False
-                        funcionando=False        
 
-        sprites.update()
+
+        #background
         window.fill((0,0,0)) 
         window.blit(assets['background'], (0, 0))
+        #placar bot
+            #dono da pontuacao
+        nome_placar_b = assets['fonte_texto'].render('bot', True, (255,255,255))     
+        local_nome_placar_b=nome_placar_b.get_rect()
+        local_nome_placar_b.midtop=(background_largura-50,-20)
+        window.blit(nome_placar_b, local_nome_placar_b)            
+            #pontuacao
+        placar_b = assets['fonte_texto'].render("{:04d}".format(placar_bot), True, (255,255,255))     
+        local_placar_b=placar_b.get_rect()
+        local_placar_b.midtop=(background_largura-50,20)
+        window.blit(placar_b, local_placar_b)
+        #placar player
+            #dono da pontuacao
+        nome_placar_p = assets['fonte_texto'].render('jogador', True, (255,255,255))     
+        local_nome_placar_p=nome_placar_p.get_rect()
+        local_nome_placar_p.midtop=(60,-20)
+        window.blit(nome_placar_p, local_nome_placar_p)                
+            #pontuacao
+        placar_p= assets['fonte_texto'].render("{:04d}".format(placar_player), True, (255,255,255))   
+        local_placar_p=placar_p.get_rect()
+        local_placar_p.midtop=(50,20)
+        window.blit(placar_p, local_placar_p)   
+        #update
+
         sprites.draw(window)
+        sprites.update()
         pygame.display.update()  
 
 #base
