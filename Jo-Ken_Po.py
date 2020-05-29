@@ -180,37 +180,39 @@ def tela_dentro_do_jogo(window):
                 sprites_selecionados = [s for s in sprites if s.rect.collidepoint(posicao_mouse)]
                 #verificar escolha do jogador
                 if sprites_selecionados in pedras:
-                    print('pedra')
                     escolha_jogador='pedra'
                 elif sprites_selecionados in papeis:
                     escolha_jogador='papel'
-                    print('papel')
                 elif sprites_selecionados in tesouras:
                     escolha_jogador='tesoura'
-                    print('tesoura')
                 else:
                     escolha=False
                 #verifica se a escolha do jogador foi aceitavel
                 if escolha: 
                     #define a escolha do bot              
-                    r=2 #cada clique gera um novo r   
+                    r=random.randint(1,3) #cada clique gera um novo r   
                     if r==1:
                         escolha_bot='pedra'
-                        print('pedra')
+                        imag_escolha_op=assets['imag_pedra']
                     elif r==2:
                         escolha_bot='papel'
-                        print('papel')
+                        imag_escolha_op=assets['imag_papel']
                     else:
                         escolha_bot='tesoura'
-                        print('tesoura')
+                        imag_escolha_op=assets['imag_tesoura']
                     #verificar o resultado
                     resposta=funcao_resultado(escolha_jogador,escolha_bot)
-                    print(resposta)
                     #define resposta
                     texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
                     #area da resposta
                     local_texto = texto.get_rect()
                     local_texto.midtop = (background_largura / 2,  1)
+                    #sprite da escolha do oponente
+                    imag_escolha_op=pygame.transform.rotate(imag_escolha_op, 180)
+                    local_imag_op=imag_escolha_op.get_rect()
+                    local_imag_op.midtop=(background_largura/2, 80)
+                    window.blit(imag_escolha_op,local_imag_op)
+                    pygame.display.flip
                     #apresenta a resposta/ atualiza
                     window.blit(texto, local_texto)
                     pygame.display.update()  
