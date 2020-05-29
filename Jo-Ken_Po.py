@@ -206,9 +206,6 @@ def tela_dentro_do_jogo(window):
                         imag_escolha_op=assets['imag_tesoura']
                     #verificar o resultado
                     resposta=funcao_resultado(escolha_jogador,escolha_bot)
-                    #
-                    Placar_bot=placar_bot
-                    Placar_player=placar_player
                     #define resposta 
                     texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
                     #area da resposta 
