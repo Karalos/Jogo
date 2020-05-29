@@ -44,6 +44,7 @@ def load_assets():
     assets['imag_papel'] = pygame.transform.scale(assets['imag_papel'], (papel_largura, papel_altura))
     assets['imag_tesoura'] = pygame.transform.scale(assets['imag_tesoura'], (tesoura_largura, tesoura_altura))
     assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
+    assets['fonte_texto2']=pygame.font.Font(os.path.join(pasta_font, 'PressStart2P.ttf'),30)
     return assets
 #classes
 class Pedra(pygame.sprite.Sprite):
@@ -245,12 +246,12 @@ def tela_dentro_do_jogo(window):
             #dono da pontuacao
         nome_placar_b = assets['fonte_texto'].render('bot', True, (255,255,255))     
         local_nome_placar_b=nome_placar_b.get_rect()
-        local_nome_placar_b.midtop=(background_largura-50,-20)
+        local_nome_placar_b.midtop=(background_largura-70,-20)
         window.blit(nome_placar_b, local_nome_placar_b)            
             #pontuacao
-        placar_b = assets['fonte_texto'].render("{:04d}".format(placar_bot), True, (255,255,255))     
+        placar_b = assets['fonte_texto2'].render("{:04d}".format(placar_bot), True, (255,255,255))     
         local_placar_b=placar_b.get_rect()
-        local_placar_b.midtop=(background_largura-50,20)
+        local_placar_b.midtop=(background_largura-60,60)
         window.blit(placar_b, local_placar_b)
         #placar player
             #dono da pontuacao
@@ -259,9 +260,9 @@ def tela_dentro_do_jogo(window):
         local_nome_placar_p.midtop=(60,-20)
         window.blit(nome_placar_p, local_nome_placar_p)                
             #pontuacao
-        placar_p= assets['fonte_texto'].render("{:04d}".format(placar_player), True, (255,255,255))   
+        placar_p= assets['fonte_texto2'].render("{:04d}".format(placar_player), True, (255,255,255))   
         local_placar_p=placar_p.get_rect()
-        local_placar_p.midtop=(50,20)
+        local_placar_p.midtop=(60,60)
         window.blit(placar_p, local_placar_p)   
         #update
 
