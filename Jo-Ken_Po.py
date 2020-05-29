@@ -249,7 +249,7 @@ def tela_dentro_do_jogo(window):
         local_nome_placar_b.midtop=(background_largura-70,-20)
         window.blit(nome_placar_b, local_nome_placar_b)            
             #pontuacao
-        placar_b = assets['fonte_texto2'].render("{:04d}".format(placar_bot), True, (255,255,255))     
+        placar_b = assets['fonte_texto2'].render("{:04d}".format(placar_bot), True, (255,255,0))     
         local_placar_b=placar_b.get_rect()
         local_placar_b.midtop=(background_largura-60,60)
         window.blit(placar_b, local_placar_b)
@@ -260,7 +260,7 @@ def tela_dentro_do_jogo(window):
         local_nome_placar_p.midtop=(60,-20)
         window.blit(nome_placar_p, local_nome_placar_p)                
             #pontuacao
-        placar_p= assets['fonte_texto2'].render("{:04d}".format(placar_player), True, (255,255,255))   
+        placar_p= assets['fonte_texto2'].render("{:04d}".format(placar_player), True, (255,255,0))   
         local_placar_p=placar_p.get_rect()
         local_placar_p.midtop=(60,60)
         window.blit(placar_p, local_placar_p)   
