@@ -59,24 +59,55 @@ def load_assets():
     assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
     return assets
 
+#conta erros
+erros=0
 
+#inicia jogo
 pygame.init()
+#cria tela
 window = pygame.display.set_mode((tela_largura, tela_altura))
-pygame.display.set_caption('Hello World!')
+pygame.display.set_caption('Forca')
+#loop
 game = True
 while game:
+    #verifica eventos
     for event in pygame.event.get():
+        #encerra jogo
         if event.type == pygame.QUIT:
             game = False
-    window.fill((255,255,0))  
+        #evento teste
+        if event.type== pygame.KEYDOWN:
+            erros+=1
+
+    #tela de funco
+    window.fill((255,255,0)) 
+
+    #desenha forca   
     pygame.draw.rect(window,preto,forca_h_coordenadas)
     pygame.draw.rect(window,preto,forca_v_coordenadas)
-    pygame.draw.rect(window,preto,forca_corda_coordenadas)    
-    pygame.draw.circle(window,preto,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
-    pygame.draw.rect(window,preto,corpo_coordenadas)
-    pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
-    pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
-    pygame.draw.polygon(window,preto,braco_direito_corcoordenadas)
-    pygame.draw.polygon(window,preto,braco_esquerdo_coordenadas)
+
+    #desenha stickman
+    if erros>0:
+        pygame.draw.rect(window,preto,forca_corda_coordenadas)
+        pygame.draw.circle(window,preto,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
+
+    if erros >1:
+        pygame.draw.rect(window,preto,corpo_coordenadas)
+
+    if erros >2:
+        pygame.draw.polygon(window,preto,braco_esquerdo_coordenadas)
+
+    if erros >3:
+        pygame.draw.polygon(window,preto,braco_direito_corcoordenadas)
+
+    if erros >4:
+        pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
+
+    if erros >5:  
+        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
+           
+
+    #atualiza desenhos
     pygame.display.update()
+#encerra jogos
 pygame.quit()  
