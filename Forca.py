@@ -78,10 +78,61 @@ while game:
         #evento teste
         if event.type== pygame.KEYDOWN:
             erros+=1
+            if event.key=pygame.K_a:
+                chute='a'
+            if event.key=pygame.K_b:
+                chute='b'
+            if event.key=pygame.K_c:
+                chute='c'
+            if event.key=pygame.K_d:
+                chute='d'
+            if event.key=pygame.K_e:
+                chute='e'
+            if event.key=pygame.K_f:
+                chute='f'
+            if event.key=pygame.K_g:
+                chute='g'
+            if event.key=pygame.K_h:
+                chute='h'
+            if event.key=pygame.K_i:
+                chute='i'
+            if event.key=pygame.K_j:
+                chute='j'
+            if event.key=pygame.K_k:
+                chute='k'
+            if event.key=pygame.K_l:
+                chute='l'
+            if event.key=pygame.K_m:
+                chute='m'
+            if event.key=pygame.K_m:
+                chute='n'
+            if event.key=pygame.K_o:
+                chute='o'
+            if event.key=pygame.K_p:
+                chute='p'
+            if event.key=pygame.K_q:
+                chute='q'
+            if event.key=pygame.K_r:
+                chute='r'
+            if event.key=pygame.K_s:
+                chute='s'
+            if event.key=pygame.K_t:
+                chute='t'
+            if event.key=pygame.K_u:
+                chute='u'
+            if event.key=pygame.K_v:
+                chute='v'
+            if event.key=pygame.K_w:
+                chute='w'
+            if event.key=pygame.K_x:
+                chute='x'
+            if event.key=pygame.K_y:
+                chute='y'
+            if event.key=pygame.K_z:
+                chute='z'        
 
     #tela de funco
     window.fill((255,255,0)) 
-
     #desenha forca   
     pygame.draw.rect(window,preto,forca_h_coordenadas)
     pygame.draw.rect(window,preto,forca_v_coordenadas)
@@ -104,8 +155,7 @@ while game:
         pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
 
     if erros >5:  
-        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
-           
+        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)   
 
     #atualiza desenhos
     pygame.display.update()
