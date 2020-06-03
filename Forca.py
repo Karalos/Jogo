@@ -75,7 +75,8 @@ lista_erros=[]
 lista_acertos=[]
 
 #palavra escolhida
-palavra_escolhida='codex'
+lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
+palavra_escolhida=lista_palavra_escolhida[random.randint(1,50)]
 
 #loop
 game = True
@@ -114,7 +115,7 @@ while game:
                 chute='l'
             if event.key==pygame.K_m:
                 chute='m'
-            if event.key==pygame.K_m:
+            if event.key==pygame.K_n:
                 chute='n'
             if event.key==pygame.K_o:
                 chute='o'
@@ -150,8 +151,8 @@ while game:
                     if chute in palavra_escolhida:
                         lista_acertos.append(chute)
                     if chute not in palavra_escolhida:
-                        lista_erros.append(chute)    
-                    erros+=1
+                        lista_erros.append(chute)
+                        erros+=1    
             print(lista_chutes)
             print(lista_acertos)
             print(lista_erros)
@@ -187,7 +188,7 @@ while game:
     if len(lista_acertos)== len(palavra_escolhida):
         venceu=True
         #game = False
-        
+
     #atualiza desenhos
     pygame.display.update()
 #encerra jogos
