@@ -141,17 +141,18 @@ while game:
             if event.key==pygame.K_z:
                 chute='z'
             #grava letras ja usadas
+            repetida=True
             if chute!='pass':
-                lista_chutes.append(chute)
-                if chute in lista_chutes:
-                    pass
-                if chute in palavra_escolhida:
-                    lista_acertos.append(chute)
-                if chute not in palavra_escolhida:
-                    lista_erros.append(chute)    
-                erros+=1
-            if chute=='pass':
-                pass
+                if chute not in lista_chutes :
+                    repetida=False
+                    lista_chutes.append(chute)
+                if repetida == False:
+                    if chute in palavra_escolhida:
+                        lista_acertos.append(chute)
+                    if chute not in palavra_escolhida:
+                        lista_erros.append(chute)    
+                    erros+=1
+
             print(lista_chutes)
             print(lista_acertos)
             print(lista_erros)
