@@ -185,8 +185,13 @@ while game:
         #game== False 
 
     # verifica vitoria
-    if len(lista_acertos)== len(palavra_escolhida):
+    i=0
+    for letra in palavra_escolhida:
+        if letra in lista_acertos:
+            i+=1
+    if i==5:
         venceu=True
+        print('venceu')
         #game = False
 
     #atualiza desenhos
