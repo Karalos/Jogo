@@ -152,10 +152,10 @@ while game:
                     if chute not in palavra_escolhida:
                         lista_erros.append(chute)    
                     erros+=1
-
             print(lista_chutes)
             print(lista_acertos)
             print(lista_erros)
+
     #tela de funco
     window.fill((255,255,0)) 
     #desenha forca   
@@ -180,8 +180,14 @@ while game:
         pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
 
     if erros >5:  
-        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)   
+        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
+        #game== False 
 
+    # verifica vitoria
+    if len(lista_acertos)== len(palavra_escolhida):
+        venceu=True
+        #game = False
+        
     #atualiza desenhos
     pygame.display.update()
 #encerra jogos
