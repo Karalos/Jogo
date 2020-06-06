@@ -9,14 +9,14 @@ pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
 ###################################################################################
 #parametros
-tela_largura=1100
-tela_altura=530
+tela_largura=900
+tela_altura=350
 FPS=60
 
-background_largura=1100
+background_largura=900
 background_altura=530
 #################################################################################
-#forca
+'FORCA'
 #forca vertical
 forca_v_coordenadas=(30,10,20,300)
 #forca horizontal
@@ -24,7 +24,7 @@ forca_h_coordenadas=(10,20,200,20)
 #forca corda
 forca_corda_coordenadas=(145,20,10,50)
 
-#stickman
+'STICKMAN'
 #cabeca
 cabeca_raio=35
 cabeca_espessura=10
@@ -40,14 +40,20 @@ perna_esquerda_coordenadas=((145,225),(145,205),(95,315),(105,315))
 #perna_direita
 perna_direita_corcoordenadas=((155,225),(155,205),(205,315),(195,315))
 
-#caixa de texto erros
-caixa_texto_coordenadas_h_1=(60,380,220,10)
-caixa_texto_coordenadas_h_2=(60,450,220,10)
-caixa_texto_coordenadas_v_1=(60,380,10,70)
-caixa_texto_coordenadas_v_2=(270,380,10,70)
+'CAIXA DE TEXTO ERROS'
+texto_erros_coordenadas=(530,20)
+caixa_texto_coordenadas_h_1=(450,70,260,5)
+caixa_texto_coordenadas_h_2=(450,140,260,5)
+caixa_texto_coordenadas_v_1=(450,70,5,70)
+caixa_texto_coordenadas_v_2=(710,70,5,75)
 
-#caixa letras usadas
-caixa_usada_coordenadas=0
+'chao dos acertos'
+chao_texto_1_coordenadas=(350,210,60,10)
+chao_texto_2_coordenadas=(450,210,60,10)
+chao_texto_3_coordenadas=(550,210,60,10)
+chao_texto_4_coordenadas=(650,210,60,10)
+chao_texto_5_coordenadas=(750,210,60,10)
+
 ###################################################################################
 #"fases" do jogo
 instrucao = 0
@@ -210,28 +216,31 @@ def tela_dentro_do_jogo(window):
         #tela de funco
         window.fill((255,255,0))
         window.blit(assets['background'], (0, 0)) 
-        #desenha forca   
-        pygame.draw.rect(window,cor,forca_h_coordenadas)
-        pygame.draw.rect(window,cor,forca_v_coordenadas)
 
-        #desenha stickman e verifica derrota
+        #desenha stickman/forca e verifica derrota
         if erros>0:
+            pygame.draw.rect(window,cor,forca_h_coordenadas)
+
+        if erros>1:
+            pygame.draw.rect(window,cor,forca_v_coordenadas)
+
+        if erros>2:
             pygame.draw.rect(window,cor,forca_corda_coordenadas)
             pygame.draw.circle(window,cor,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
 
-        if erros >1:
+        if erros >3:
             pygame.draw.rect(window,cor,corpo_coordenadas)
 
-        if erros >2:
+        if erros >4:
             pygame.draw.polygon(window,cor,braco_esquerdo_coordenadas)
 
-        if erros >3:
+        if erros >5:
             pygame.draw.polygon(window,cor,braco_direito_corcoordenadas)
 
-        if erros >4:
+        if erros >6:
             pygame.draw.polygon(window,cor,perna_esquerda_coordenadas)
 
-        if erros >5:  
+        if erros >7:  
             pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
             venceu=False
             print('perdeu')
@@ -247,15 +256,20 @@ def tela_dentro_do_jogo(window):
             print('venceu')
             #game = False
 
-        #desenha quadrado onde estarao os erros
+        #desenha quadrado onde estarao os erros e os erros
+            #palavra :'Erros'
+        letras_erro = assets['fonte_texto'].render("Erros", True, (cor))     
+        local_letras_erro=letras_erro.get_rect()
+        local_letras_erro.midtop=(texto_erros_coordenadas)
+        window.blit(letras_erro, local_letras_erro)
+            #Rretangulo erros
         pygame.draw.rect(window,cor,caixa_texto_coordenadas_h_1)
         pygame.draw.rect(window,cor,caixa_texto_coordenadas_h_2)
         pygame.draw.rect(window,cor,caixa_texto_coordenadas_v_1)
         pygame.draw.rect(window,cor,caixa_texto_coordenadas_v_2)
-        #desenha textos
-        #erros
-        letras_erradas_x=60
-        letras_erradas_y=390
+            #Desenha erros
+        letras_erradas_x=445
+        letras_erradas_y=80
         for letra in lista_erros:
             #muda posicao letras
             letras_erradas_x+=30
@@ -265,7 +279,14 @@ def tela_dentro_do_jogo(window):
             local_letras_erradas=letras_erradas.get_rect()
             local_letras_erradas.midtop=(letras_erradas_x,letras_erradas_y)
             window.blit(letras_erradas, local_letras_erradas)
-            pygame.display.update()       
+
+        #desenha quadrados onde estarao os acertos
+        pygame.draw.rect(window,cor,chao_texto_1_coordenadas)
+        pygame.draw.rect(window,cor,chao_texto_2_coordenadas)
+        pygame.draw.rect(window,cor,chao_texto_3_coordenadas)
+        pygame.draw.rect(window,cor,chao_texto_4_coordenadas)
+        pygame.draw.rect(window,cor,chao_texto_5_coordenadas)
+
         #atualiza desenhos
         pygame.display.update()
     #encerra jogos
