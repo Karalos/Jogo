@@ -2,20 +2,20 @@ import pygame
 import random
 import os
 
-preto=(0,0,0)
+cor=(255,255,255)
 
 #origem das imagens
 pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
-
+###################################################################################
 #parametros
-tela_largura=1200
-tela_altura=750
+tela_largura=1100
+tela_altura=530
 FPS=60
 
-background_largura=600
-background_altura=450
-
+background_largura=1100
+background_altura=530
+#################################################################################
 #forca
 #forca vertical
 forca_v_coordenadas=(30,10,20,300)
@@ -40,12 +40,15 @@ perna_esquerda_coordenadas=((145,225),(145,205),(95,315),(105,315))
 #perna_direita
 perna_direita_corcoordenadas=((155,225),(155,205),(205,315),(195,315))
 
-#caixa de texto
-caixa_texto_coordenadas=0
+#caixa de texto erros
+caixa_texto_coordenadas_h_1=(60,380,220,10)
+caixa_texto_coordenadas_h_2=(60,450,220,10)
+caixa_texto_coordenadas_v_1=(60,380,10,70)
+caixa_texto_coordenadas_v_2=(270,380,10,70)
 
 #caixa letras usadas
 caixa_usada_coordenadas=0
-
+###################################################################################
 #"fases" do jogo
 instrucao = 0
 jogo = 1
@@ -62,7 +65,7 @@ pygame.display.set_caption('Forca')
 lista_chutes=[]
 lista_erros=[]
 lista_acertos=[]
-
+######################################################################################
 #palavra escolhida
 lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
 palavra_escolhida=lista_palavra_escolhida[random.randint(1,50)]
@@ -71,9 +74,11 @@ palavra_escolhida=lista_palavra_escolhida[random.randint(1,50)]
 def load_assets():
     assets = {}
     assets['background'] = pygame.image.load(os.path.join(pasta_img, 'fundo_jokenpo.jpg')).convert()
-    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
+    assets['background'] = pygame.transform.scale(assets['background'], (background_largura, background_altura))
+    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Overlock-Black.ttf'), 40)
     return assets
 
+############################################################################################
 def verifica_tecla(chute):
     #verifica se o caractere digitado foi uma letra
     if chute!='pass':
@@ -84,20 +89,24 @@ def verifica_tecla(chute):
             #verifica se ele esta ou nao na palavra escolhida
             if chute in palavra_escolhida:
                 lista_acertos.append(chute)
+                #se foi erro ou nao
                 return 0
             if chute not in palavra_escolhida:
                 lista_erros.append(chute)
+                #se foi erro ou nao                
                 return 1 
         else:
+            #se foi erro ou nao   
             return 0
     else:
+        #se foi erro ou nao
         return 0    
 #########################################################################
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
     #imagem
-    background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
-    background_rect = background.get_rect()
+    tela_instr = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
+    tela_instr_rect = tela_instr.get_rect()
     #codigo jogo
     jogando_i = True
     while jogando_i:
@@ -113,8 +122,8 @@ def tela_de_instrucoes(tela):
                 condicao = jogo
                 jogando_i = False
 
-        tela.fill((0,0,0))
-        tela.blit(background, background_rect)
+        tela.fill(cor)
+        tela.blit(tela_instr, tela_instr_rect)
         pygame.display.flip()
     return condicao
 
@@ -132,6 +141,7 @@ def tela_dentro_do_jogo(window):
         for event in pygame.event.get():
             #encerra jogo
             if event.type == pygame.QUIT:
+                condicao=fim
                 game = False
             #evento teste
             chute='pass'
@@ -196,30 +206,33 @@ def tela_dentro_do_jogo(window):
                 print(lista_acertos)
                 print('erros')            
                 print(lista_erros)
+
         #tela de funco
-        window.fill((255,255,0)) 
+        window.fill((255,255,0))
+        window.blit(assets['background'], (0, 0)) 
         #desenha forca   
-        pygame.draw.rect(window,preto,forca_h_coordenadas)
-        pygame.draw.rect(window,preto,forca_v_coordenadas)
-        #desenha stickman
+        pygame.draw.rect(window,cor,forca_h_coordenadas)
+        pygame.draw.rect(window,cor,forca_v_coordenadas)
+
+        #desenha stickman e verifica derrota
         if erros>0:
-            pygame.draw.rect(window,preto,forca_corda_coordenadas)
-            pygame.draw.circle(window,preto,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
+            pygame.draw.rect(window,cor,forca_corda_coordenadas)
+            pygame.draw.circle(window,cor,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
 
         if erros >1:
-            pygame.draw.rect(window,preto,corpo_coordenadas)
+            pygame.draw.rect(window,cor,corpo_coordenadas)
 
         if erros >2:
-            pygame.draw.polygon(window,preto,braco_esquerdo_coordenadas)
+            pygame.draw.polygon(window,cor,braco_esquerdo_coordenadas)
 
         if erros >3:
-            pygame.draw.polygon(window,preto,braco_direito_corcoordenadas)
+            pygame.draw.polygon(window,cor,braco_direito_corcoordenadas)
 
         if erros >4:
-            pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
+            pygame.draw.polygon(window,cor,perna_esquerda_coordenadas)
 
         if erros >5:  
-            pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
+            pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
             venceu=False
             print('perdeu')
             #game== False 
@@ -234,6 +247,25 @@ def tela_dentro_do_jogo(window):
             print('venceu')
             #game = False
 
+        #desenha quadrado onde estarao os erros
+        pygame.draw.rect(window,cor,caixa_texto_coordenadas_h_1)
+        pygame.draw.rect(window,cor,caixa_texto_coordenadas_h_2)
+        pygame.draw.rect(window,cor,caixa_texto_coordenadas_v_1)
+        pygame.draw.rect(window,cor,caixa_texto_coordenadas_v_2)
+        #desenha textos
+        #erros
+        letras_erradas_x=60
+        letras_erradas_y=390
+        for letra in lista_erros:
+            #muda posicao letras
+            letras_erradas_x+=30
+            letras_erradas_y+=0
+            #desenha letras
+            letras_erradas = assets['fonte_texto'].render(letra, True, (cor))     
+            local_letras_erradas=letras_erradas.get_rect()
+            local_letras_erradas.midtop=(letras_erradas_x,letras_erradas_y)
+            window.blit(letras_erradas, local_letras_erradas)
+            pygame.display.update()       
         #atualiza desenhos
         pygame.display.update()
     #encerra jogos
