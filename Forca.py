@@ -212,8 +212,8 @@ def tela_dentro_do_jogo(window):
                 print(lista_acertos)
                 print('erros')            
                 print(lista_erros)
-
-        #tela de funco
+                print(dicio_posicaosicoes)
+        #tela de fundo
         window.fill((255,255,0))
         window.blit(assets['background'], (0, 0)) 
 
@@ -270,22 +270,60 @@ def tela_dentro_do_jogo(window):
             #Desenha erros
         letras_erradas_x=445
         letras_erradas_y=80
-        for letra in lista_erros:
-            #muda posicao letras
-            letras_erradas_x+=30
-            letras_erradas_y+=0
-            #desenha letras
-            letras_erradas = assets['fonte_texto'].render(letra, True, (cor))     
-            local_letras_erradas=letras_erradas.get_rect()
-            local_letras_erradas.midtop=(letras_erradas_x,letras_erradas_y)
-            window.blit(letras_erradas, local_letras_erradas)
+        if len(lista_erros) <=8:
+            for letra in lista_erros:
+                #muda posicao letras
+                letras_erradas_x+=30
+                #desenha letras
+                letras_erradas = assets['fonte_texto'].render(letra, True, (cor))     
+                local_letras_erradas=letras_erradas.get_rect()
+                local_letras_erradas.midtop=(letras_erradas_x,letras_erradas_y)
+                window.blit(letras_erradas, local_letras_erradas)
 
         #desenha quadrados onde estarao os acertos
+            #desenha chao
         pygame.draw.rect(window,cor,chao_texto_1_coordenadas)
         pygame.draw.rect(window,cor,chao_texto_2_coordenadas)
         pygame.draw.rect(window,cor,chao_texto_3_coordenadas)
         pygame.draw.rect(window,cor,chao_texto_4_coordenadas)
         pygame.draw.rect(window,cor,chao_texto_5_coordenadas)
+            #desenha letras
+        letras_certas_x=280
+        letras_certas_y=160
+        dicio_posicaosicoes={}
+        for letras in lista_acertos:
+            posicoes=[pos for pos, simbolo in enumerate(palavra_escolhida) if simbolo == letras]
+            dicio_posicaosicoes.update({letras:posicoes})
+            for chaves,valores in dicio_posicaosicoes.items():
+                for elemento in valores:
+                    if elemento==0:
+                        letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
+                        local_letra_colocar=letra_colocar.get_rect()
+                        local_letra_colocar.midtop=(380,160)
+                        window.blit(letra_colocar, local_letra_colocar)
+
+                    if elemento==1:
+                        letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
+                        local_letra_colocar=letra_colocar.get_rect()
+                        local_letra_colocar.midtop=(480,160)
+                        window.blit(letra_colocar, local_letra_colocar)
+
+                    if elemento==2:
+                        letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
+                        local_letra_colocar=letra_colocar.get_rect()
+                        local_letra_colocar.midtop=(580,160)
+                        window.blit(letra_colocar, local_letra_colocar)
+
+                    if elemento==3:
+                        letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
+                        local_letra_colocar=letra_colocar.get_rect()
+                        local_letra_colocar.midtop=(680,160)
+                        window.blit(letra_colocar, local_letra_colocar)
+                    if elemento==4:
+                        letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
+                        local_letra_colocar=letra_colocar.get_rect()
+                        local_letra_colocar.midtop=(780,160)
+                        window.blit(letra_colocar, local_letra_colocar)
 
         #atualiza desenhos
         pygame.display.update()
