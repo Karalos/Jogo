@@ -40,7 +40,6 @@ perna_esquerda_coordenadas=((145,225),(145,205),(95,315),(105,315))
 #perna_direita
 perna_direita_corcoordenadas=((155,225),(155,205),(205,315),(195,315))
 
-
 #caixa de texto
 caixa_texto_coordenadas=0
 
@@ -51,16 +50,6 @@ caixa_usada_coordenadas=0
 instrucao = 0
 jogo = 1
 fim = 2
-
-#carregando imagens
-def load_assets():
-    assets = {}
-    assets['background'] = pygame.image.load(os.path.join(pasta_img, 'fundo_jokenpo.jpg')).convert()
-    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
-    return assets
-
-#conta erros
-erros=0
 
 #inicia jogo
 pygame.init()
@@ -77,124 +66,187 @@ lista_acertos=[]
 #palavra escolhida
 lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
 palavra_escolhida=lista_palavra_escolhida[random.randint(1,50)]
+######################################################################################
+#carregando imagens
+def load_assets():
+    assets = {}
+    assets['background'] = pygame.image.load(os.path.join(pasta_img, 'fundo_jokenpo.jpg')).convert()
+    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
+    return assets
 
-#loop
-game = True
-while game:
-    #verifica eventos
-    for event in pygame.event.get():
-        #encerra jogo
-        if event.type == pygame.QUIT:
-            game = False
-        #evento teste
-        chute='pass'
-        if event.type== pygame.KEYDOWN:
-            if event.key==pygame.K_a:
-                chute='a'
-            if event.key==pygame.K_b:
-                chute='b'
-            if event.key==pygame.K_c:
-                chute='c'
-            if event.key==pygame.K_d:
-                chute='d'
-            if event.key==pygame.K_e:
-                chute='e'
-            if event.key==pygame.K_f:
-                chute='f'
-            if event.key==pygame.K_g:
-                chute='g'
-            if event.key==pygame.K_h:
-                chute='h'
-            if event.key==pygame.K_i:
-                chute='i'
-            if event.key==pygame.K_j:
-                chute='j'
-            if event.key==pygame.K_k:
-                chute='k'
-            if event.key==pygame.K_l:
-                chute='l'
-            if event.key==pygame.K_m:
-                chute='m'
-            if event.key==pygame.K_n:
-                chute='n'
-            if event.key==pygame.K_o:
-                chute='o'
-            if event.key==pygame.K_p:
-                chute='p'
-            if event.key==pygame.K_q:
-                chute='q'
-            if event.key==pygame.K_r:
-                chute='r'
-            if event.key==pygame.K_s:
-                chute='s'
-            if event.key==pygame.K_t:
-                chute='t'
-            if event.key==pygame.K_u:
-                chute='u'
-            if event.key==pygame.K_v:
-                chute='v'
-            if event.key==pygame.K_w:
-                chute='w'
-            if event.key==pygame.K_x:
-                chute='x'
-            if event.key==pygame.K_y:
-                chute='y'
-            if event.key==pygame.K_z:
-                chute='z'
-            #grava letras ja usadas
-            repetida=True
-            if chute!='pass':
-                if chute not in lista_chutes :
-                    repetida=False
-                    lista_chutes.append(chute)
-                if repetida == False:
-                    if chute in palavra_escolhida:
-                        lista_acertos.append(chute)
-                    if chute not in palavra_escolhida:
-                        lista_erros.append(chute)
-                        erros+=1    
-            print(lista_chutes)
-            print(lista_acertos)
-            print(lista_erros)
+def verifica_tecla(chute):
+    #verifica se o caractere digitado foi uma letra
+    if chute!='pass':
+        #verifica se o caractere ja foi utilizado
+        if chute not in lista_chutes :
+            #adiciona o caractere à lista de usados
+            lista_chutes.append(chute)
+            #verifica se ele esta ou nao na palavra escolhida
+            if chute in palavra_escolhida:
+                lista_acertos.append(chute)
+                return 0
+            if chute not in palavra_escolhida:
+                lista_erros.append(chute)
+                return 1 
+        else:
+            return 0
+    else:
+        return 0    
+#########################################################################
+def tela_de_instrucoes(tela):
+    clock = pygame.time.Clock()
+    #imagem
+    background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
+    background_rect = background.get_rect()
+    #codigo jogo
+    jogando_i = True
+    while jogando_i:
+        clock.tick(FPS)
+        #eventos
+        for event in pygame.event.get():
+            #fechar o jogo
+            if event.type == pygame.QUIT:
+                condicao = fim
+                jogando_i = False
+            #ir para proxima fase
+            if event.type == pygame.KEYDOWN:
+                condicao = jogo
+                jogando_i = False
 
-    #tela de funco
-    window.fill((255,255,0)) 
-    #desenha forca   
-    pygame.draw.rect(window,preto,forca_h_coordenadas)
-    pygame.draw.rect(window,preto,forca_v_coordenadas)
+        tela.fill((0,0,0))
+        tela.blit(background, background_rect)
+        pygame.display.flip()
+    return condicao
 
-    #desenha stickman
-    if erros>0:
-        pygame.draw.rect(window,preto,forca_corda_coordenadas)
-        pygame.draw.circle(window,preto,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
+########################################################################################
+def tela_dentro_do_jogo(window):
+    erros=0
+    clock = pygame.time.Clock()
+    #carregar imagens
+    assets = load_assets()
+    #loop   
+    game = True
+    while game:
+        clock.tick(FPS)
+        #verifica eventos
+        for event in pygame.event.get():
+            #encerra jogo
+            if event.type == pygame.QUIT:
+                game = False
+            #evento teste
+            chute='pass'
+            if event.type== pygame.KEYDOWN:
+                if event.key==pygame.K_a:
+                    chute='a'
+                if event.key==pygame.K_b:
+                    chute='b'
+                if event.key==pygame.K_c:
+                    chute='c'
+                if event.key==pygame.K_d:
+                    chute='d'
+                if event.key==pygame.K_e:
+                    chute='e'
+                if event.key==pygame.K_f:
+                    chute='f'
+                if event.key==pygame.K_g:
+                    chute='g'
+                if event.key==pygame.K_h:
+                    chute='h'
+                if event.key==pygame.K_i:
+                    chute='i'
+                if event.key==pygame.K_j:
+                    chute='j'
+                if event.key==pygame.K_k:
+                    chute='k'
+                if event.key==pygame.K_l:
+                    chute='l'
+                if event.key==pygame.K_m:
+                    chute='m'
+                if event.key==pygame.K_n:
+                    chute='n'
+                if event.key==pygame.K_o:
+                    chute='o'
+                if event.key==pygame.K_p:
+                    chute='p'
+                if event.key==pygame.K_q:
+                    chute='q'
+                if event.key==pygame.K_r:
+                    chute='r'
+                if event.key==pygame.K_s:
+                    chute='s'
+                if event.key==pygame.K_t:
+                    chute='t'
+                if event.key==pygame.K_u:
+                    chute='u'
+                if event.key==pygame.K_v:
+                    chute='v'
+                if event.key==pygame.K_w:
+                    chute='w'
+                if event.key==pygame.K_x:
+                    chute='x'
+                if event.key==pygame.K_y:
+                    chute='y'
+                if event.key==pygame.K_z:
+                    chute='z'
+                #verifica tecla    
+                erros+=verifica_tecla(chute)
+                print('chutes')            
+                print(lista_chutes)
+                print('acertos')
+                print(lista_acertos)
+                print('erros')            
+                print(lista_erros)
+        #tela de funco
+        window.fill((255,255,0)) 
+        #desenha forca   
+        pygame.draw.rect(window,preto,forca_h_coordenadas)
+        pygame.draw.rect(window,preto,forca_v_coordenadas)
+        #desenha stickman
+        if erros>0:
+            pygame.draw.rect(window,preto,forca_corda_coordenadas)
+            pygame.draw.circle(window,preto,cabeca_coordenadas,cabeca_raio,cabeca_espessura)
 
-    if erros >1:
-        pygame.draw.rect(window,preto,corpo_coordenadas)
+        if erros >1:
+            pygame.draw.rect(window,preto,corpo_coordenadas)
 
-    if erros >2:
-        pygame.draw.polygon(window,preto,braco_esquerdo_coordenadas)
+        if erros >2:
+            pygame.draw.polygon(window,preto,braco_esquerdo_coordenadas)
 
-    if erros >3:
-        pygame.draw.polygon(window,preto,braco_direito_corcoordenadas)
+        if erros >3:
+            pygame.draw.polygon(window,preto,braco_direito_corcoordenadas)
 
-    if erros >4:
-        pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
+        if erros >4:
+            pygame.draw.polygon(window,preto,perna_esquerda_coordenadas)
 
-    if erros >5:  
-        pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
-        #game== False 
+        if erros >5:  
+            pygame.draw.polygon(window,preto,perna_direita_corcoordenadas)
+            venceu=False
+            print('perdeu')
+            #game== False 
 
-    # verifica vitoria
-    i=0
-    for letra in palavra_escolhida:
-        if letra in lista_acertos:
-            i+=1
-    if i==5:
-        venceu=True
-        print('venceu')
-        #game = False
+        # verifica vitoria
+        i=0
+        for letra in palavra_escolhida:
+            if letra in lista_acertos:
+                i+=1
+        if i==5:
+            venceu=True
+            print('venceu')
+            #game = False
 
-    #atualiza desenhos
-    pygame.display.update()
-#encerra jogos
+        #atualiza desenhos
+        pygame.display.update()
+    #encerra jogos
+    pygame.quit()  
+  ############################################################################  
+#roda o jogo
+condicao = instrucao
+while condicao != fim:
+    if condicao == instrucao:
+        condicao = tela_de_instrucoes(window)
+    elif condicao == jogo:
+        condicao = tela_dentro_do_jogo(window)
+    else:
+        condicao = fim
+#encerra o jogo
 pygame.quit()  
