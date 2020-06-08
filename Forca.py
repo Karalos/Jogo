@@ -54,6 +54,8 @@ chao_texto_3_coordenadas=(550,210,60,10)
 chao_texto_4_coordenadas=(650,210,60,10)
 chao_texto_5_coordenadas=(750,210,60,10)
 
+#palavra certa
+palavra_certa_coordenadas=(550,250)
 ###################################################################################
 #"fases" do jogo
 instrucao = 0
@@ -243,7 +245,13 @@ def tela_dentro_do_jogo(window):
         if erros >7:  
             pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
             venceu=False
+            #desenha a palabra certa
+            palavra_certa = assets['fonte_texto'].render(palavra_escolhida, True, (cor))     
+            local_palavra_certa=palavra_certa.get_rect()
+            local_palavra_certa.midtop=(palavra_certa_coordenadas)
+            window.blit(palavra_certa, local_palavra_certa)
             print('perdeu')
+
             #game== False 
 
         # verifica vitoria
