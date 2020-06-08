@@ -175,12 +175,12 @@ def tela_dentro_do_jogo(window):
     sprites.add(jogador)
 
     # Botas
-    for i in range(numero_botas):
+    for numero in range(numero_botas):
         bota = Bota(assets)
         sprites.add(bota)
         botas.add(bota)
     # Frutas
-    for i in range(numero_frutas):
+    for numero in range(numero_frutas):
         fruta = Fruta(assets)
         sprites.add(fruta)
         frutas.add(fruta)
