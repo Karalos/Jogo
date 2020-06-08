@@ -50,7 +50,7 @@ def load_assets():
     assets = {}
     #carrega imagens
     assets['background'] = pygame.image.load(os.path.join(pasta_img, 'fundo_cesta.jpg')).convert()
-    assets['imag_cesta'] = pygame.image.load(os.path.join(pasta_img, 'cesta.jpg')).convert_alpha()
+    assets['imag_cesta'] = pygame.image.load(os.path.join(pasta_img, 'cesta.png')).convert_alpha()
     assets['imag_fruta'] = pygame.image.load(os.path.join(pasta_img, 'maca_verde.png')).convert_alpha()
     assets['imag_bota'] = pygame.image.load(os.path.join(pasta_img, 'bota.png')).convert_alpha()
     #muda dimensoes imagens
