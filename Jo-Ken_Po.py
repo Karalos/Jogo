@@ -28,6 +28,8 @@ tesoura_altura=109
 instrucao = 0
 jogo = 1
 fim = 2
+#vitorias
+melhor_de=5
 
 #tempo
 tempo_de_amostra=3000 #milisegundos
@@ -44,7 +46,7 @@ def load_assets():
     assets['imag_papel'] = pygame.transform.scale(assets['imag_papel'], (papel_largura, papel_altura))
     assets['imag_tesoura'] = pygame.transform.scale(assets['imag_tesoura'], (tesoura_largura, tesoura_altura))
     assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
-    assets['fonte_texto2']=pygame.font.Font(os.path.join(pasta_font, 'PressStart2P.ttf'),30)
+    assets['fonte_texto2']=pygame.font.Font(os.path.join(pasta_font, 'PressStart2P.ttf'),40)
     return assets
 #classes
 class Pedra(pygame.sprite.Sprite):
@@ -199,10 +201,10 @@ def tela_dentro_do_jogo(window):
                     if r==1:
                         escolha_bot='pedra'
                         imag_escolha_op=assets['imag_pedra']
-                    elif r==2:
+                    if r==2:
                         escolha_bot='papel'
                         imag_escolha_op=assets['imag_papel']
-                    else:
+                    if r==3:
                         escolha_bot='tesoura'
                         imag_escolha_op=assets['imag_tesoura']
                     #verificar o resultado
@@ -231,10 +233,10 @@ def tela_dentro_do_jogo(window):
                         placar_player+=1
                     elif resposta== 'Voce perdeu':
                         placar_bot+=1      
-                    if placar_bot==3:
+                    if placar_bot==(melhor_de):
                         venceu=False
                         funcionando=False
-                    elif placar_player==3:
+                    elif placar_player==(melhor_de):
                         venceu=True
                         funcionando=False
 
@@ -244,12 +246,12 @@ def tela_dentro_do_jogo(window):
         window.blit(assets['background'], (0, 0))
         #placar bot
             #dono da pontuacao
-        nome_placar_b = assets['fonte_texto'].render('bot', True, (255,255,255))     
+        nome_placar_b = assets['fonte_texto'].render('oponente', True, (255,255,255))     
         local_nome_placar_b=nome_placar_b.get_rect()
         local_nome_placar_b.midtop=(background_largura-70,-20)
         window.blit(nome_placar_b, local_nome_placar_b)            
             #pontuacao
-        placar_b = assets['fonte_texto2'].render("{:04d}".format(placar_bot), True, (255,255,0))     
+        placar_b = assets['fonte_texto2'].render("{:01d}".format(placar_bot), True, (255,255,0))     
         local_placar_b=placar_b.get_rect()
         local_placar_b.midtop=(background_largura-60,60)
         window.blit(placar_b, local_placar_b)
@@ -260,7 +262,7 @@ def tela_dentro_do_jogo(window):
         local_nome_placar_p.midtop=(60,-20)
         window.blit(nome_placar_p, local_nome_placar_p)                
             #pontuacao
-        placar_p= assets['fonte_texto2'].render("{:04d}".format(placar_player), True, (255,255,0))   
+        placar_p= assets['fonte_texto2'].render("{:01d}".format(placar_player), True, (255,255,0))   
         local_placar_p=placar_p.get_rect()
         local_placar_p.midtop=(60,60)
         window.blit(placar_p, local_placar_p)   
