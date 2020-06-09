@@ -132,3 +132,67 @@ meteoro1=Meteoro(meteor_img)
 meteoro2=Meteoro(meteor_img)
 game = True
 contador=0
+while game==True:
+    clock.tick(FPS)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            game=False
+        if event.type == pygame.KEYDOWN:
+            if event.key ==pygame.K_SPACE:
+                dado=randint(1,4)
+                DADO=dado
+                contador+=dado
+                if contador==1:
+                    poscir[0]=2*101
+                    poscir[1]=100   
+                if contador ==2:
+                    poscir[0]=3*101
+                    poscir[1]=100
+                if contador==3:
+                    poscir[0]=4*101
+                    poscir[1]=100
+                if contador==4:
+                    poscir[0]=5*101
+                    poscir[1]=100
+                if contador==5:
+                    poscir[0]=4*101
+                    poscir[1]=100
+                    contador-=2 
+                if contador==6:
+                    poscir[0]=7*101
+                    poscir[1]=100
+                if contador==7:
+                    poscir[0]=808
+                    poscir[1]=100
+                if contador==8:
+                    poscir[1]=100
+                    poscir[0]=606
+                    contador+=3
+                if contador==9:
+                    poscir[0]=808
+                    poscir[1]=302
+                if contador==10:
+                    poscir[0]=707
+                    poscir[1]=302
+                if contador==11:
+                    poscir[0]=606
+                    poscir[1]=302
+                if contador==12:
+                    poscir[0]=505
+                    poscir[1]=302
+                if contador==13:
+                    poscir[0]=404
+                    poscir[1]=302
+                if contador==14:
+                    poscir[0]=404
+                    poscir[1]=403
+                if contador==15:
+                    poscir[0]=100
+                    poscir[1]=100
+                    contador-=15
+                if contador>16:
+                    contador=16
+                if contador==16:
+                    poscir[0]=505
+                    poscir[1]=504
+                    running=True
