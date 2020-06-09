@@ -107,3 +107,28 @@ xfim=454+18
 yfim=454+39
 textdado1=fontdado.render('DADO:',True,(255,0,0))
 DADO=0
+clock=pygame.time.Clock()
+FPS = 60
+######################################################
+class Meteoro(pygame.sprite.Sprite):
+    def __init__(self,img):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image=img
+        self.rect = self.image.get_rect()
+        self.rect.x=0
+        self.rect.y=randint(20,580)
+        self.speedx=randint(30,60)
+        self.speedy=0
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        if self.rect.right < 0 or self.rect.left > largura: 
+            self.rect.x =0
+            self.rect.y = randint(20,580)
+            self.speedx = randint(30,60)
+            self.speedy = 0
+meteoro1=Meteoro(meteor_img)
+meteoro2=Meteoro(meteor_img)
+game = True
+contador=0
