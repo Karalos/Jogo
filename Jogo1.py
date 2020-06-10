@@ -1,32 +1,12 @@
-import pygame
-import random
-import math
-
-sorteio1=random.randint(1,4)
-sorteio2=random.randint(1,4)
-sorteio3=random.randint(1,4)
-sorteio4=random.randint(1,4)
-
-def andar(ticks):
-    object.x += float(x_speed) * ticks / 1000  # converting to float is needed
-# this is your main game loop
-time = pygame.time.Clock()
-ticks = 0
-jogo=True
-while jogo:
-    ...
-    update_object(ticks)
-
-    ticks = time.tick(30)  
-
 from random import randint
 import pygame
+
 pygame.init()
 altura=600
 largura=1000
 window=pygame.display.set_mode((largura,altura))
-pygame.display.set_caption('jogo')
-background = pygame.image.load("referencia/assets/img/starfield.png").convert()
+pygame.display.set_caption('JOGO')
+background = pygame.image.load("ptelainicialpygame.jpg").convert()
 #########################################################################
 cor=(0,0,255)
 cor1=(0,200,0)
@@ -130,12 +110,11 @@ textfim=font.render('Fim',True,(0,0,0))
 xfim=454+18
 yfim=454+39
 textdado1=fontdado.render('DADO:',True,(255,0,0))
+DADO=0
 #######################################################
 clock=pygame.time.Clock()
-FPS = 40
+FPS = 60
 ######################################################
-
-
 class Meteoro(pygame.sprite.Sprite):
     def __init__(self,img):
         pygame.sprite.Sprite.__init__(self)
@@ -165,38 +144,31 @@ while game==True:
             game=False
         if event.type == pygame.KEYDOWN:
             if event.key ==pygame.K_SPACE:
-                dado=randint(1,3)
+                dado=randint(1,4)
+                DADO=dado
                 contador+=dado
-                textdado=fontdado.render('DADO:',True,(255,0,0))
-                window.blit(textdado, (30,500))
                 if contador==1:
                     poscir[0]=2*101
-                    poscir[1]=100
+                    poscir[1]=100   
                 if contador ==2:
                     poscir[0]=3*101
                     poscir[1]=100
-                    #textdado=fontdado.render('2',True,(255,0,0)) 
                 if contador==3:
                     poscir[0]=4*101
                     poscir[1]=100
-                    #textdado=fontdado.render('3',True,(255,0,0))
                 if contador==4:
                     poscir[0]=5*101
                     poscir[1]=100
-                    #textdado=fontdado.render('4',True,(255,0,0))
                 if contador==5:
                     poscir[0]=4*101
                     poscir[1]=100
-                    contador-=2
-                    #textdado=fontdado.render('5',True,(255,0,0))
+                    contador-=2 
                 if contador==6:
                     poscir[0]=7*101
                     poscir[1]=100
-                    #textdado=fontdado.render('5',True,(255,0,0))
                 if contador==7:
                     poscir[0]=808
                     poscir[1]=100
-                    #textdado=fontdado.render('5',True,(255,0,0))
                 if contador==8:
                     poscir[1]=100
                     poscir[0]=606
@@ -214,8 +186,8 @@ while game==True:
                     poscir[0]=505
                     poscir[1]=302
                 if contador==13:
-                   poscir[0]=404
-                   poscir[1]=302
+                    poscir[0]=404
+                    poscir[1]=302
                 if contador==14:
                     poscir[0]=404
                     poscir[1]=403
@@ -228,7 +200,6 @@ while game==True:
                 if contador==16:
                     poscir[0]=505
                     poscir[1]=504
-
     meteoro1.update()
     meteoro2.update()
     window.blit(background, (0, 0))
@@ -291,12 +262,8 @@ while game==True:
     window.blit(text15s, (x15s,y15s))
     window.blit(textfim, (xfim,yfim))
     window.blit(textdado1, (700,500))
-
+    window.blit(fontdado.render(str(DADO),True,(255,0,0)), (920,500))
     #############################################################
     pygame.draw.circle(window,core,poscir,25)
     pygame.display.update() 
-
 pygame.quit()
-
-
-
