@@ -1,0 +1,65 @@
+from random import randint
+import pygame
+from os import path
+
+def CASA6(screen):
+    background1 = pygame.image.load("Casa6.jpg").convert()
+    IMAGEM1=pygame.image.load("retirantespygame.jpg").convert()
+    IMAGEM2=pygame.image.load("TNpygame.png").convert()
+    pygame.display.set_caption('CASA6')
+    fontdado= pygame.font.SysFont(None,90)
+    fonte=pygame.font.SysFont(None,60)
+    fonteres= pygame.font.SysFont(None,230)
+    fonteres2=pygame.font.SysFont(None,150)
+    seg=10
+    contador=1000
+    tempo=pygame.time.get_ticks()
+    clock=pygame.time.Clock()
+    FPS1=20
+    acao1=0
+    acao2=0
+    acao3=0
+    acao4=0
+    running=True
+    pergunta1=randint(1,3)
+    imagem1=False
+    imagem2=False
+    if pergunta1==1:
+        numero='Quem é o pintor dessa obra?'
+        numero1='Michelangelo'
+        acao1='eror'
+        numero2='Romero Brito'
+        acao2='eror'
+        numero3='Portinari'
+        acao3='certa'
+        numero4='Van Gogh'
+        acao4='eror'
+        imagem1=True
+        imagem2=False
+        posicao=(220,105)
+    elif pergunta1==2:
+        numero='Quem inspirou esse personagem?'
+        numero1='David'
+        acao1='eror'
+        numero2='Davinci'
+        acao2='certa'
+        numero3='Donatello'
+        acao3='eror'
+        numero4='Picasso'
+        acao4='eror'
+        imagem1=False
+        imagem2=True
+        posicao=(150,105)
+    elif pergunta1==3:
+        numero='Que autor perdeu um olho na guerra?'
+        numero1='Camões'
+        acao1='certa'
+        numero2='Kafka'
+        acao2='eror'
+        numero3='Suassuna'
+        acao3='eror'
+        numero4='Pierre Weil'
+        acao4='eror'
+        imagem1=False
+        imagem2=False
+        posicao=(120,105)
