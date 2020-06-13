@@ -1,0 +1,55 @@
+from random import randint
+import pygame
+from os import path
+
+def CASA1(screen):
+    background = pygame.image.load("game1.png").convert()
+    pygame.display.set_caption('CASA1')
+    fontdado= pygame.font.SysFont(None,90)
+    fonte=pygame.font.SysFont(None,60)
+    fonteres= pygame.font.SysFont(None,230)
+    fonteres2=pygame.font.SysFont(None,150)
+    seg=10
+    contador=1000
+    tempo=pygame.time.get_ticks()
+    clock=pygame.time.Clock()
+    FPS1 = 20
+    acao1=0
+    acao2=0
+    acao3=0
+    acao4=0
+    running=True
+    pergunta1=randint(1,3)
+    if pergunta1==1:
+        numero='17+28=?'
+        numero1='46'
+        acao1='eror'
+        numero2='45'
+        acao2='certa'
+        numero3='39'
+        acao3='eror'
+        numero4='37'
+        acao4='eror'
+        posicao=(365,100)
+    elif pergunta1==2:
+        numero='4*5-110*26=?'
+        numero1='-2331'
+        acao1='eror'
+        numero2='-1850'
+        acao2='eror'
+        numero3='-2840'
+        acao3='certa'
+        numero4='-1970'
+        acao4='eror'
+        posicao=(305,100)
+    elif pergunta1==3:
+        numero='7!+3!=?'
+        numero1='5046'
+        acao1='certa'
+        numero2='4896'
+        acao2='eror'
+        numero3='1056'
+        acao3='eror'
+        numero4='2104'
+        acao4='eror'
+        posicao=(365,100)
