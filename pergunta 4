@@ -1,0 +1,54 @@
+from random import randint
+import pygame
+from os import path
+def CASA4(screen):
+    background1 = pygame.image.load("Casa4.jpg").convert()
+    pygame.display.set_caption('CASA4')
+    fontdado= pygame.font.SysFont(None,90)
+    fonte=pygame.font.SysFont(None,60)
+    fonteres= pygame.font.SysFont(None,230)
+    fonteres2=pygame.font.SysFont(None,150)
+    seg=10
+    contador=1000
+    tempo=pygame.time.get_ticks()
+    clock=pygame.time.Clock()
+    FPS1 = 20
+    acao1=0
+    acao2=0
+    acao3=0
+    acao4=0
+    running=True
+    pergunta1=randint(1,3)
+    if pergunta1==1:
+        numero='Maior vencedor do OSCAR?'
+        numero1='DiCaprio'
+        acao1='eror'
+        numero2='Tony Ramos'
+        acao2='eror'
+        numero3='Walt Dysney'
+        acao3='certa'
+        numero4='Alan Menken'
+        acao4='eror'
+        posicao=(240,105)
+    elif pergunta1==2:
+        numero='Maior bilheteria da história?'
+        numero1='Titanic'
+        acao1='eror'
+        numero2='Ving.:Ultimato'
+        acao2='certa'
+        numero3='Avatar'
+        acao3='eror'
+        numero4='Vingadores'
+        acao4='eror'
+        posicao=(230,105)
+    elif pergunta1==3:
+        numero='Filme brasileiro de maior bilheteria?'
+        numero1='Tropa de elite 2'
+        acao1='eror'
+        numero2='Tropa de elite 1'
+        acao2='eror'
+        numero3='Cidade de Deus'
+        acao3='eror'
+        numero4='Nada a perder'
+        acao4='certa'
+        posicao=(140,105)
