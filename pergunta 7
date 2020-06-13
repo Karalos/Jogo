@@ -1,0 +1,53 @@
+from random import randint
+import pygame
+from os import path
+def CASA7(screen):
+    background1 = pygame.image.load("casa7.jpg").convert()
+    pygame.display.set_caption('CASA7')
+    fontdado= pygame.font.SysFont(None,90)
+    fonte=pygame.font.SysFont(None,60)
+    fonteres= pygame.font.SysFont(None,230)
+    seg=10
+    contador=1000
+    tempo=pygame.time.get_ticks()
+    clock=pygame.time.Clock()
+    FPS1 = 20
+    acao1=0
+    acao2=0
+    acao3=0
+    acao4=0
+    running=True
+    pergunta1=randint(1,3)
+    if pergunta1==1:
+        numero='Qual o jogo mais vendido da historia?'
+        numero1='GTA'
+        acao1='eror'
+        numero2='Mario'
+        acao2='eror'
+        numero3='Pokemon'
+        acao3='eror'
+        numero4='Minecraft'
+        acao4='certa'
+        posicao=(125,105)
+    elif pergunta1==2:
+        numero='Qual o jogo de baralho mais jogado?'
+        numero1='Poker'
+        acao1='certa'
+        numero2='Truco'
+        acao2='eror'
+        numero3='UNO'
+        acao3='eror'
+        numero4='Paciência'
+        acao4='eror'
+        posicao=(120,105)
+    elif pergunta1==3:
+        numero='Nintendo vendia o que inicialmente?'
+        numero1='Cartas'
+        acao1='certa'
+        numero2='Peixe'
+        acao2='eror'
+        numero3='Seguro de vida'
+        acao3='eror'
+        numero4='Adubo'
+        acao4='eror'
+        posicao=(130,105)
