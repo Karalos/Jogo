@@ -9,8 +9,6 @@ def CASA2(screen):
     fonte=pygame.font.SysFont(None,60)
     fonteres= pygame.font.SysFont(None,230)
     fonteres2=pygame.font.SysFont(None,150)
-    bola_img = pygame.image.load('bolapygame.jpg').convert_alpha()
-    bola_img_small = pygame.transform.scale(bola_img, (50, 38))
     seg=10
     contador=1000
     tempo=pygame.time.get_ticks()

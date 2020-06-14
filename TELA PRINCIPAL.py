@@ -11,13 +11,19 @@ from CASA7 import CASA7
 from CASA8 import CASA8
 pasta_img=path.join(path.dirname(__file__), 'imagens')
 
+#"fases" do jogo
+instrucao = 0
+jogo = 1
+fim = 2
+sair=3
+
 pygame.init()
 pygame.mixer.init()
 altura=600
 largura=1000
 window=pygame.display.set_mode((largura,altura))
-pygame.display.set_caption('JOGO')
 background = pygame.image.load(path.join(pasta_img,"telainicialpygame.jpg")).convert()
+pygame.display.set_caption('JOGO')
 #########################################################################
 cor=(0,0,255)
 cor1=(0,200,0)
@@ -157,7 +163,6 @@ textfim=font.render('Fim',True,(0,0,0))
 xfim=555+18
 yfim=453+39
 textdado1=fontdado.render('DADO:',True,(255,0,0))
-DADO=0
 #######################################################
 clock=pygame.time.Clock()
 FPS = 60
@@ -180,261 +185,329 @@ class Meteoro(pygame.sprite.Sprite):
             self.rect.y = randint(20,580)
             self.speedx = randint(30,60)
             self.speedy = 0
-meteoro1=Meteoro(meteor_img)
-meteoro2=Meteoro(meteor_img)
-game = True
-contador=0
-flow='continue'
-while game==True:
-    clock.tick(FPS)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            game=False
-        if event.type == pygame.KEYDOWN:  
-            if event.key ==pygame.K_SPACE and flow=='continue':
-                dado=randint(1,4)
-                DADO=dado
-                contador+=dado
-                if contador==1:
-                    poscir[0]=2*101
-                    poscir[1]=100 
-                    CASA1(window)  
-                if contador==2:
-                    poscir[0]=3*101
-                    poscir[1]=100
-                    CASA2(window) 
-                if contador==3:
-                    poscir[0]=4*101
-                    poscir[1]=100
-                if contador==4:
-                    poscir[0]=5*101
-                    poscir[1]=100
-                    CASA3(window)
-                if contador==5:
-                    poscir[0]=4*101
-                    poscir[1]=100
-                    contador-=2 
-                if contador==6:
-                    poscir[0]=7*101
-                    poscir[1]=100
-                if contador==7:
-                    poscir[0]=808
-                    poscir[1]=100
-                    CASA4(window)
-                if contador==8:
-                    poscir[1]=100
-                    poscir[0]=606
-                    contador+=3
-                if contador==9:
-                    poscir[0]=808
-                    poscir[1]=302
-                if contador==10:
-                    poscir[0]=707
-                    poscir[1]=302
-                    CASA5(window)
-                if contador==11:
-                    poscir[0]=606
-                    poscir[1]=302
-                if contador==12:
-                    poscir[0]=505
-                    poscir[1]=302
-                    CASA6(window)
-                if contador==13:
-                    poscir[0]=404
-                    poscir[1]=302
-                    CASA7(window)
-                if contador==14:
-                    poscir[0]=303
-                    poscir[1]=302
-                    CASA8(window)
-                if contador==15:
-                    poscir[0]=202 
-                    poscir[1]=504 
-                    CASA2(window)
-                if contador==16:
-                    poscir[0]=202
-                    poscir[1]=403
-                    CASA6(window)
-                if contador==17:
-                    poscir[0]=202
-                    poscir[1]=504
-                if contador==18:
-                    poscir[0]=303
-                    poscir[1]=504
-                    CASA3(window)
-                if contador==19:
-                    poscir[0]=404
-                    poscir[1]=504
-                if contador==20:
-                    poscir[0]=100 
-                    poscir[1]=100 
-                    contador-=20
-                if contador>21:
-                    contador=21
-                if contador==21:
-                    poscir[0]=591
-                    poscir[1]=504 
-            if event.key == pygame.K_SPACE and flow == 'repita':
-                if contador==1:
-                    poscir[0]=2*101
-                    poscir[1]=100 
-                    CASA1(window)  
-                if contador==2:
-                    poscir[0]=3*101
-                    poscir[1]=100
-                    CASA2(window) 
-                if contador==3:
-                    poscir[0]=4*101
-                    poscir[1]=100
-                if contador==4:
-                    poscir[0]=5*101
-                    poscir[1]=100
-                    CASA3(window)
-                if contador==5:
-                    poscir[0]=4*101
-                    poscir[1]=100
-                    contador-=2 
-                if contador==6:
-                    poscir[0]=7*101
-                    poscir[1]=100
-                if contador==7:
-                    poscir[0]=808
-                    poscir[1]=100
-                    CASA4(window)
-                if contador==8:
-                    poscir[1]=100
-                    poscir[0]=606
-                    contador+=3
-                if contador==9:
-                    poscir[0]=808
-                    poscir[1]=302
-                if contador==10:
-                    poscir[0]=707
-                    poscir[1]=302
-                    CASA5(window)
-                if contador==11:
-                    poscir[0]=606
-                    poscir[1]=302
-                if contador==12:
-                    poscir[0]=505
-                    poscir[1]=302
-                    CASA6(window)
-                if contador==13:
-                    poscir[0]=404
-                    poscir[1]=302
-                    CASA7(window)
-                if contador==14:
-                    poscir[0]=303
-                    poscir[1]=302
-                    CASA8(window)
-                if contador==15:
-                    poscir[0]=202 
-                    poscir[1]=504 
-                    CASA2(window)
-                if contador==16:
-                    poscir[0]=202
-                    poscir[1]=403
-                    CASA6(window)
-                if contador==17:
-                    poscir[0]=202
-                    poscir[1]=504
-                if contador==18:
-                    poscir[0]=303
-                    poscir[1]=504
-                    CASA3(window)
-                if contador==19:
-                    poscir[0]=404
-                    poscir[1]=504
-                if contador==20:
-                    poscir[0]=100 
-                    poscir[1]=100 
-                    contador-=20
-                if contador>21:
-                    contador=21
-                if contador==21:
-                    poscir[0]=591
-                    poscir[1]=504 
-    meteoro1.update()
-    meteoro2.update()
-    window.blit(background, (0, 0))
-    window.blit(meteoro1.image, meteoro1.rect)
-    window.blit(meteoro2.image, meteoro2.rect)
-    ####################################################
-    pygame.draw.polygon(window, cor1, vertfim)
-    pygame.draw.polygon(window, cor, vert20)
-    pygame.draw.polygon(window, cormg, vert19)
-    pygame.draw.polygon(window, cor, vert18)
-    pygame.draw.polygon(window, cormg, vert17)
-    pygame.draw.polygon(window, cor, vert16)
-    pygame.draw.polygon(window, cor, vert15)
-    pygame.draw.polygon(window, cor, vert14)
-    pygame.draw.polygon(window, cor, vert13)
-    pygame.draw.polygon(window, cor, vert12)
-    pygame.draw.polygon(window, cormg, vert11)
-    pygame.draw.polygon(window, cor, vert10)
-    pygame.draw.polygon(window, cormg, vert9)       
-    pygame.draw.polygon(window, cor, vert8)
-    pygame.draw.polygon(window, cor, vert7)
-    pygame.draw.polygon(window, cormg, vert6)
-    pygame.draw.polygon(window, cor, vert5)
-    pygame.draw.polygon(window, cor, vert4)
-    pygame.draw.polygon(window, cormg, vert3)
-    pygame.draw.polygon(window, cor, vert2)
-    pygame.draw.polygon(window, cor, vert1)
-    ######################################################
-    pygame.draw.polygon(window, cor1, vertini)
-    pygame.draw.polygon(window, cors, vertsi1)
-    pygame.draw.polygon(window, cors, verts12)
-    pygame.draw.polygon(window, cors, verts23)
-    pygame.draw.polygon(window, cors, verts34)
-    pygame.draw.polygon(window, cors, verts45)
-    pygame.draw.polygon(window, cors, verts56)
-    pygame.draw.polygon(window, cors, verts67)
-    pygame.draw.polygon(window, cors, verts78)
-    pygame.draw.polygon(window, cors, verts89)
-    pygame.draw.polygon(window, cors, verts910)
-    pygame.draw.polygon(window, cors, verts1011)
-    pygame.draw.polygon(window, cors, verts1112)
-    pygame.draw.polygon(window, cors, verts1213)
-    pygame.draw.polygon(window, cors, verts1314)
-    pygame.draw.polygon(window, cors, verts1415)
-    pygame.draw.polygon(window, cors, verts1516)
-    pygame.draw.polygon(window, cors, verts1617)
-    pygame.draw.polygon(window, cors, verts1718)
-    pygame.draw.polygon(window, cors, verts1819)
-    pygame.draw.polygon(window, cors, verts1920)
-    pygame.draw.polygon(window, cors, verts20fim)
-    
-    #############################################################
-    window.blit(textini, (xini,yini))
-    window.blit(text1, (x1,y1))
-    window.blit(text2, (x2,y1))
-    window.blit(text3, (x3,y1))
-    window.blit(text4, (x4,y1))
-    window.blit(text5, (x5,y5))
-    window.blit(text5s, (x5s,y5s))
-    window.blit(text6, (x6,y1))
-    window.blit(text7, (x7,y1))
-    window.blit(text8, (x8,y8))
-    window.blit(text8s, (x8s,y8s))
-    window.blit(text9, (x9,y9))
-    window.blit(text10, (x10,y9))
-    window.blit(text11, (x11,y9))
-    window.blit(text12, (x12,y9))
-    window.blit(text13, (x13,y9))
-    window.blit(text14, (x14,y14))
-    window.blit(text15, (x15,y15))
-    window.blit(text15s, (x15s,y15s))
-    window.blit(text16, (x16,y16))
-    window.blit(text17, (x17,y17))
-    window.blit(text18, (x18,y18))
-    window.blit(text19, (x19,y19))
-    window.blit(text20, (x20,y20))
-    window.blit(text20s, (x20s,y20s))
-    window.blit(textfim, (xfim,yfim))
-    window.blit(textdado1, (700,500))
-    window.blit(fontdado.render(str(DADO),True,(255,0,0)), (920,500))
-    #############################################################
-    pygame.draw.circle(window,core,poscir,25)
-    pygame.display.update() 
-pygame.quit()
+
+def tela_de_instrucoes(tela):
+    clock = pygame.time.Clock()
+    #imagem
+    background = pygame.image.load(path.join(pasta_img, 'imagem1.jpg')).convert()
+    background_rect = background.get_rect()
+    #codigo jogo
+    jogando_i = True
+    while jogando_i:
+        clock.tick(FPS)
+        #eventos
+        for event in pygame.event.get():
+            #fechar o jogo
+            if event.type == pygame.QUIT:
+                condicao = fim
+                jogando_i = False
+            #ir para proxima fase
+            if event.type == pygame.KEYDOWN:
+                condicao = jogo
+                jogando_i = False
+
+        tela.fill((0,0,0))
+        tela.blit(background, background_rect)
+        pygame.display.flip()
+    return condicao
+
+def tela_fim(tela):
+    clock = pygame.time.Clock()
+    #imagem
+    background = pygame.image.load(path.join(pasta_img, 'imagem1.jpg')).convert()
+    background_rect = background.get_rect()
+    #codigo jogo
+    jogando_i = True
+    while jogando_i:
+        clock.tick(FPS)
+        #eventos
+        for event in pygame.event.get():
+            #fechar o jogo
+            if event.type == pygame.QUIT:
+                condicao = fim
+                jogando_i = False
+            #ir para proxima fase
+            if event.type == pygame.KEYDOWN:
+                condicao = jogo
+                jogando_i = False
+
+        tela.fill((0,0,0))
+        tela.blit(background, background_rect)
+        pygame.display.flip()
+    return condicao
+
+def tela_jogo(tela):
+    DADO=0
+    meteoro1=Meteoro(meteor_img)
+    meteoro2=Meteoro(meteor_img)
+    game = True
+    contador=0
+    flow='continue'
+    while game==True:
+        clock.tick(FPS)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                game=False
+            if event.type == pygame.KEYDOWN:  
+                if event.key ==pygame.K_SPACE and flow=='continue':
+                    dado=randint(1,4)
+                    DADO=dado
+                    contador+=dado
+                    if contador==1:
+                        poscir[0]=2*101
+                        poscir[1]=100 
+                        CASA1(window)  
+                    if contador==2:
+                        poscir[0]=3*101
+                        poscir[1]=100
+                        CASA2(window) 
+                    if contador==3:
+                        poscir[0]=4*101
+                        poscir[1]=100
+                    if contador==4:
+                        poscir[0]=5*101
+                        poscir[1]=100
+                        CASA3(window)
+                    if contador==5:
+                        poscir[0]=4*101
+                        poscir[1]=100
+                        contador-=2 
+                    if contador==6:
+                        poscir[0]=7*101
+                        poscir[1]=100
+                    if contador==7:
+                        poscir[0]=808
+                        poscir[1]=100
+                        CASA4(window)
+                    if contador==8:
+                        poscir[1]=100
+                        poscir[0]=606
+                        contador+=3
+                    if contador==9:
+                        poscir[0]=808
+                        poscir[1]=302
+                    if contador==10:
+                        poscir[0]=707
+                        poscir[1]=302
+                        CASA5(window)
+                    if contador==11:
+                        poscir[0]=606
+                        poscir[1]=302
+                    if contador==12:
+                        poscir[0]=505
+                        poscir[1]=302
+                        CASA6(window)
+                    if contador==13:
+                        poscir[0]=404
+                        poscir[1]=302
+                        CASA7(window)
+                    if contador==14:
+                        poscir[0]=303
+                        poscir[1]=302
+                        CASA8(window)
+                    if contador==15:
+                        poscir[0]=202 
+                        poscir[1]=504 
+                        CASA2(window)
+                    if contador==16:
+                        poscir[0]=202
+                        poscir[1]=403
+                        CASA6(window)
+                    if contador==17:
+                        poscir[0]=202
+                        poscir[1]=504
+                    if contador==18:
+                        poscir[0]=303
+                        poscir[1]=504
+                        CASA3(window)
+                    if contador==19:
+                        poscir[0]=404
+                        poscir[1]=504
+                    if contador==20:
+                        poscir[0]=100 
+                        poscir[1]=100 
+                        contador-=20
+                    if contador>21:
+                        contador=21
+                    if contador==21:
+                        poscir[0]=591
+                        poscir[1]=504 
+                if event.key == pygame.K_SPACE and flow == 'repita':
+                    if contador==1:
+                        poscir[0]=2*101
+                        poscir[1]=100 
+                        CASA1(window)  
+                    if contador==2:
+                        poscir[0]=3*101
+                        poscir[1]=100
+                        CASA2(window) 
+                    if contador==3:
+                        poscir[0]=4*101
+                        poscir[1]=100
+                    if contador==4:
+                        poscir[0]=5*101
+                        poscir[1]=100
+                        CASA3(window)
+                    if contador==5:
+                        poscir[0]=4*101
+                        poscir[1]=100
+                        contador-=2 
+                    if contador==6:
+                        poscir[0]=7*101
+                        poscir[1]=100
+                    if contador==7:
+                        poscir[0]=808
+                        poscir[1]=100
+                        CASA4(window)
+                    if contador==8:
+                        poscir[1]=100
+                        poscir[0]=606
+                        contador+=3
+                    if contador==9:
+                        poscir[0]=808
+                        poscir[1]=302
+                    if contador==10:
+                        poscir[0]=707
+                        poscir[1]=302
+                        CASA5(window)
+                    if contador==11:
+                        poscir[0]=606
+                        poscir[1]=302
+                    if contador==12:
+                        poscir[0]=505
+                        poscir[1]=302
+                        CASA6(window)
+                    if contador==13:
+                        poscir[0]=404
+                        poscir[1]=302
+                        CASA7(window)
+                    if contador==14:
+                        poscir[0]=303
+                        poscir[1]=302
+                        CASA8(window)
+                    if contador==15:
+                        poscir[0]=202 
+                        poscir[1]=504 
+                        CASA2(window)
+                    if contador==16:
+                        poscir[0]=202
+                        poscir[1]=403
+                        CASA6(window)
+                    if contador==17:
+                        poscir[0]=202
+                        poscir[1]=504
+                    if contador==18:
+                        poscir[0]=303
+                        poscir[1]=504
+                        CASA3(window)
+                    if contador==19:
+                        poscir[0]=404
+                        poscir[1]=504
+                    if contador==20:
+                        poscir[0]=100 
+                        poscir[1]=100 
+                        contador-=20
+                    if contador>21:
+                        contador=21
+                    if contador==21:
+                        poscir[0]=591
+                        poscir[1]=504 
+        meteoro1.update()
+        meteoro2.update()
+        window.blit(background, (0, 0))
+        window.blit(meteoro1.image, meteoro1.rect)
+        window.blit(meteoro2.image, meteoro2.rect)
+        ####################################################
+        pygame.draw.polygon(window, cor1, vertfim)
+        pygame.draw.polygon(window, cor, vert20)
+        pygame.draw.polygon(window, cormg, vert19)
+        pygame.draw.polygon(window, cor, vert18)
+        pygame.draw.polygon(window, cormg, vert17)
+        pygame.draw.polygon(window, cor, vert16)
+        pygame.draw.polygon(window, cor, vert15)
+        pygame.draw.polygon(window, cor, vert14)
+        pygame.draw.polygon(window, cor, vert13)
+        pygame.draw.polygon(window, cor, vert12)
+        pygame.draw.polygon(window, cormg, vert11)
+        pygame.draw.polygon(window, cor, vert10)
+        pygame.draw.polygon(window, cormg, vert9)       
+        pygame.draw.polygon(window, cor, vert8)
+        pygame.draw.polygon(window, cor, vert7)
+        pygame.draw.polygon(window, cormg, vert6)
+        pygame.draw.polygon(window, cor, vert5)
+        pygame.draw.polygon(window, cor, vert4)
+        pygame.draw.polygon(window, cormg, vert3)
+        pygame.draw.polygon(window, cor, vert2)
+        pygame.draw.polygon(window, cor, vert1)
+        ######################################################
+        pygame.draw.polygon(window, cor1, vertini)
+        pygame.draw.polygon(window, cors, vertsi1)
+        pygame.draw.polygon(window, cors, verts12)
+        pygame.draw.polygon(window, cors, verts23)
+        pygame.draw.polygon(window, cors, verts34)
+        pygame.draw.polygon(window, cors, verts45)
+        pygame.draw.polygon(window, cors, verts56)
+        pygame.draw.polygon(window, cors, verts67)
+        pygame.draw.polygon(window, cors, verts78)
+        pygame.draw.polygon(window, cors, verts89)
+        pygame.draw.polygon(window, cors, verts910)
+        pygame.draw.polygon(window, cors, verts1011)
+        pygame.draw.polygon(window, cors, verts1112)
+        pygame.draw.polygon(window, cors, verts1213)
+        pygame.draw.polygon(window, cors, verts1314)
+        pygame.draw.polygon(window, cors, verts1415)
+        pygame.draw.polygon(window, cors, verts1516)
+        pygame.draw.polygon(window, cors, verts1617)
+        pygame.draw.polygon(window, cors, verts1718)
+        pygame.draw.polygon(window, cors, verts1819)
+        pygame.draw.polygon(window, cors, verts1920)
+        pygame.draw.polygon(window, cors, verts20fim)
+        
+        #############################################################
+        window.blit(textini, (xini,yini))
+        window.blit(text1, (x1,y1))
+        window.blit(text2, (x2,y1))
+        window.blit(text3, (x3,y1))
+        window.blit(text4, (x4,y1))
+        window.blit(text5, (x5,y5))
+        window.blit(text5s, (x5s,y5s))
+        window.blit(text6, (x6,y1))
+        window.blit(text7, (x7,y1))
+        window.blit(text8, (x8,y8))
+        window.blit(text8s, (x8s,y8s))
+        window.blit(text9, (x9,y9))
+        window.blit(text10, (x10,y9))
+        window.blit(text11, (x11,y9))
+        window.blit(text12, (x12,y9))
+        window.blit(text13, (x13,y9))
+        window.blit(text14, (x14,y14))
+        window.blit(text15, (x15,y15))
+        window.blit(text15s, (x15s,y15s))
+        window.blit(text16, (x16,y16))
+        window.blit(text17, (x17,y17))
+        window.blit(text18, (x18,y18))
+        window.blit(text19, (x19,y19))
+        window.blit(text20, (x20,y20))
+        window.blit(text20s, (x20s,y20s))
+        window.blit(textfim, (xfim,yfim))
+        window.blit(textdado1, (700,500))
+        window.blit(fontdado.render(str(DADO),True,(255,0,0)), (920,500))
+        #############################################################
+        pygame.draw.circle(window,core,poscir,25)
+        pygame.display.update() 
+
+
+
+#roda o jogo
+condicao = instrucao
+while condicao != fim:
+    if condicao == instrucao:
+        condicao = tela_de_instrucoes(window)
+    elif condicao == jogo:
+        condicao = tela_jogo(window)
+    elif condicao==fim:
+        condicao = tela_fim(window)
+    else:
+        condicao = sair
+#encerra o jogo
+pygame.quit()  
