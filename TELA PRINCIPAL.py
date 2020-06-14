@@ -1,3 +1,4 @@
+#imports
 from random import randint
 import pygame
 from os import path
@@ -16,26 +17,40 @@ instrucao = 0
 jogo = 1
 fim = 2
 sair=3
-
-pygame.init()
-pygame.mixer.init()
+#variaveis
+    #tela
 altura=600
 largura=1000
-window=pygame.display.set_mode((largura,altura))
-background = pygame.image.load(path.join(pasta_img,"telainicialpygame.jpg")).convert()
-pygame.display.set_caption('JOGO')
-#########################################################################
+    #cores
 cor=(0,0,255)
 cor1=(0,200,0)
 cors=(0,0,0)
 core=(127,127,127)
 cormg=(230,170,0)
-##########################################################################
+    #posicao inicial
+poscir=[100,100]
+
+#inicia jogo
+pygame.init()
+pygame.mixer.init()
+window=pygame.display.set_mode((largura,altura))
+background = pygame.image.load(path.join(pasta_img,"telainicialpygame.jpg")).convert()
+pygame.display.set_caption('JOGO')
+
+#fontes
+font= pygame.font.SysFont(None,36)
+fontt= pygame.font.SysFont(None,23)
+fontdado= pygame.font.SysFont(None,90)
+
+
+
+#######
 METEOR_WIDTH = 50
 METEOR_HEIGHT = 38
 meteor_img = pygame.image.load(path.join(pasta_img,'meteorBrown_med1.png')).convert_alpha()
 meteor_img_small = pygame.transform.scale(meteor_img, (METEOR_WIDTH, METEOR_HEIGHT))
 ############################################################################
+#posicao das casas
 vertini=[(75,50),(75,150),(150,150),(150,50)]
 vert1=[(151,50),(151,150),(251,150),(251,50)]
 vert2=[(252,50),(252,150),(352,150),(352,50)]
@@ -58,7 +73,8 @@ vert18=[(252,453),(352,453),(352,554),(252,554)]
 vert19=[(353,453),(453,453),(453,554),(353,554)]
 vert20=[(454,453),(554,453),(554,554),(454,554)]
 vertfim=[(555,453),(555,554),(630,554),(630,453)]
-##############################################################################
+
+#posicao das linhas pretas entre as casas
 vertsi1=[(150,50),(150,150),(151,150),(151,50)]
 verts12=[(251,50),(251,150),(252,150),(252,50)]
 verts23=[(352,50),(352,150),(353,150),(353,50)]
@@ -81,92 +97,127 @@ verts1819=[(352,453),(354,252+201),(354,353+201),(352,353+201)]
 verts1920=[(453,453),(454,453),(454,555),(453,555)]
 verts20fim=[(554,453),(556,453),(556,555),(554,555)]
 
-#########################################################################
-poscir=[100,100]
-###############################################################
-font= pygame.font.SysFont(None,36)
-fontt= pygame.font.SysFont(None,23)
-fontdado= pygame.font.SysFont(None,90)
+#textos e posicoes das casas
+    #casa inicial
 textini=font.render('Início',True,(0,0,0))
 xini=80 
 yini=90 
-textini=font.render('Início',True,(0,0,0))
-xini=80 
-yini=90
+
+    #casa 1
 text1=font.render('1',True,(0,0,0))
 x1=151+42
 y1=90
+
+    #casa 2
 text2=font.render('2',True,(0,0,0))
 x2=252+42
+
+    #casa 3
 text3=font.render('3',True,(0,0,0))
 x3=353+42
+
+    #casa 4
 text4=font.render('4',True,(0,0,0))
 x4=454+42
+
+    #casa 5 
 text5=fontt.render('VOLTE',True,(255,0,0))
 x5=580
 y5=90
 text5s=fontt.render('2 CASAS',True,(255,0,0))
 x5s=575
 y5s=105
+
+    #casa 6
 text6=font.render('6',True,(0,0,0))
 x6=656+42
+
+    #casa 7
 text7=font.render('7',True,(0,0,0))
 x7=757+42
+
+    #casa 8 
 text8=fontt.render('AVANCE',True,(255,0,0))
 x8=775
 y8=190
 text8s=fontt.render('3 CASAS',True,(255,0,0))
 x8s=774
 y8s=205
+
+    #casa 9
 text9=font.render('9',True,(0,0,0))
 x9=757+42
 y9=251+40
+
+    #casa 10
 text10=font.render('10',True,(0,0,0))
 x10=656+37
+
+    #casa 11
 text11=font.render('11',True,(0,0,0))
 x11=555+37
+
+    #casa 12
 text12=font.render('12',True,(0,0,0))
 x12=454+37
+
+    #casa 13
 text13=font.render('13',True,(0,0,0))
 x13=353+37
+
+    #casa 14
 text14=font.render('14',True,(0,0,0))
 x14=252+37
 y14=252+37
+
+    #casa 15
 text15=fontt.render('AVANCE',True,(255,0,0))
 x15=161+8
 y15=242+46
 text15s=fontt.render('2 CASAS',True,(255,0,0))
 x15s=161+8
 y15s=301+8
+
+    #casa 16
 text16=font.render('16',True,(0,0,0))
 x16=151+37
 y16=352+37
+
+    #casa 17
 text17=font.render('17',True,(0,0,0))
 x17=151+37
 y17=453+37
+
+    #casa 18
 text18=font.render('18',True,(0,0,0))
 x18=252+37
 y18=453+37
+
+    #casa 19
 text19=font.render('19',True,(0,0,0))
 x19=353+37
 y19=453+37
+
+    #casa 20
 text20=fontt.render('VOLTE PARA',True,(255,0,0))
 x20=420+37
 y20=453+37
 text20s=fontt.render('O INICIO',True,(255,0,0))
 x20s=440+37
 y20s=473+37
-textI=fontt.render('INÍCIO', True,(255,0,0))
-x15i=353+30
-y15i=453+60
+
+    #casa final
 textfim=font.render('Fim',True,(0,0,0))
 xfim=555+18
 yfim=453+39
+
+#numero resultado do dado
 textdado1=fontdado.render('DADO:',True,(255,0,0))
-#######################################################
+
+#clock
 clock=pygame.time.Clock()
 FPS = 60
-######################################################
+
 class Meteoro(pygame.sprite.Sprite):
     def __init__(self,img):
         pygame.sprite.Sprite.__init__(self)
@@ -185,7 +236,7 @@ class Meteoro(pygame.sprite.Sprite):
             self.rect.y = randint(20,580)
             self.speedx = randint(30,60)
             self.speedy = 0
-
+#funcoes
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
     #imagem
