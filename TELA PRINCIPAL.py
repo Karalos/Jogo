@@ -21,14 +21,16 @@ fim = 2
     #tela
 altura=600
 largura=1000
-    #azules
+    #cinzas
 azul=(0,0,255)
 verde=(0,200,0)
 preto=(0,0,0)
-azule=(127,127,127)
+cinza=(127,127,127)
 vermelho=(230,170,0)
-    #posicao inicial
+    #posicao 
 posi_joga=[100,100]
+posi_bot1=[100,100]
+posi_bot2=[100,100]
 
 #inicia jogo
 pygame.init()
@@ -417,26 +419,26 @@ def tela_jogo(tela):
 
         #desenha casas
         pygame.draw.polygon(window, verde, vertfim)
-        pygame.draw.polygon(window, azul, vert20)
+        pygame.draw.polygon(window, cinza, vert20)
         pygame.draw.polygon(window, vermelho, vert19)
-        pygame.draw.polygon(window, azul, vert18)
+        pygame.draw.polygon(window, cinza, vert18)
         pygame.draw.polygon(window, vermelho, vert17)
-        pygame.draw.polygon(window, azul, vert16)
-        pygame.draw.polygon(window, azul, vert15)
-        pygame.draw.polygon(window, azul, vert14)
-        pygame.draw.polygon(window, azul, vert13)
-        pygame.draw.polygon(window, azul, vert12)
+        pygame.draw.polygon(window, cinza, vert16)
+        pygame.draw.polygon(window, cinza, vert15)
+        pygame.draw.polygon(window, cinza, vert14)
+        pygame.draw.polygon(window, cinza, vert13)
+        pygame.draw.polygon(window, cinza, vert12)
         pygame.draw.polygon(window, vermelho, vert11)
-        pygame.draw.polygon(window, azul, vert10)
+        pygame.draw.polygon(window, cinza, vert10)
         pygame.draw.polygon(window, vermelho, vert9)       
-        pygame.draw.polygon(window, azul, vert8)
-        pygame.draw.polygon(window, azul, vert7)
+        pygame.draw.polygon(window, cinza, vert8)
+        pygame.draw.polygon(window, cinza, vert7)
         pygame.draw.polygon(window, vermelho, vert6)
-        pygame.draw.polygon(window, azul, vert5)
-        pygame.draw.polygon(window, azul, vert4)
+        pygame.draw.polygon(window, cinza, vert5)
+        pygame.draw.polygon(window, cinza, vert4)
         pygame.draw.polygon(window, vermelho, vert3)
-        pygame.draw.polygon(window, azul, vert2)
-        pygame.draw.polygon(window, azul, vert1)
+        pygame.draw.polygon(window, cinza, vert2)
+        pygame.draw.polygon(window, cinza, vert1)
         pygame.draw.polygon(window, verde, vertini)
 
         #desenha linhas
@@ -493,10 +495,13 @@ def tela_jogo(tela):
         window.blit(fontdado.render(str(DADO),True,(255,0,0)), (920,500))
 
         #jogadores
-        #desenha peao
-        pygame.draw.circle(window,azule,posi_joga,25)
-        #bot1
-        #bot2
+            #peao
+        pygame.draw.circle(window,azul,posi_joga,25)
+            #bot1
+        pygame.draw.circle(window,vermelho,posi_bot1,25)
+            #bot2
+        pygame.draw.circle(window,verde,posi_bot2,25)
+
         #update
         pygame.display.update() 
 
