@@ -3,7 +3,8 @@ import pygame
 from os import path
 
 def CASA6(screen):
-    background1 = pygame.image.load("Casa6.jpg").convert()
+    pasta_img=path.join(path.dirname(__file__), 'imagens')
+    background1 = pygame.image.load(path.join(pasta_img,"Casa6.jpg")).convert()
     IMAGEM1=pygame.image.load("retirantespygame.jpg").convert()
     IMAGEM2=pygame.image.load("TNpygame.png").convert()
     pygame.display.set_caption('CASA6')

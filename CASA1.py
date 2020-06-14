@@ -3,7 +3,8 @@ import pygame
 from os import path
 
 def CASA1(screen):
-    background = pygame.image.load("game1.png").convert()
+    pasta_img=path.join(path.dirname(__file__), 'imagens')
+    background = pygame.image.load(path.join(pasta_img,"game1.png")).convert()
     pygame.display.set_caption('CASA1')
     fontdado= pygame.font.SysFont(None,90)
     fonte=pygame.font.SysFont(None,60)

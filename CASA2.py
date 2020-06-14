@@ -2,7 +2,8 @@ from random import randint
 import pygame
 from os import path
 def CASA2(screen):
-    background = pygame.image.load("Casa2.jpg").convert()
+    pasta_img=path.join(path.dirname(__file__), 'imagens')
+    background = pygame.image.load(path.join(pasta_img,"Casa2.jpg")).convert()
     pygame.display.set_caption('CASA2')
     fontdado= pygame.font.SysFont(None,90)
     fonte=pygame.font.SysFont(None,60)

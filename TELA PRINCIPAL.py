@@ -1,5 +1,6 @@
 from random import randint
 import pygame
+from os import path
 from CASA1 import CASA1
 from CASA2 import CASA2
 from CASA3 import CASA3
@@ -8,6 +9,7 @@ from CASA5 import CASA5
 from CASA6 import CASA6
 from CASA7 import CASA7
 from CASA8 import CASA8
+pasta_img=path.join(path.dirname(__file__), 'imagens')
 
 pygame.init()
 pygame.mixer.init()
@@ -15,7 +17,7 @@ altura=600
 largura=1000
 window=pygame.display.set_mode((largura,altura))
 pygame.display.set_caption('JOGO')
-background = pygame.image.load("telainicialpygame.jpg").convert()
+background = pygame.image.load(path.join(pasta_img,"telainicialpygame.jpg")).convert()
 #########################################################################
 cor=(0,0,255)
 cor1=(0,200,0)
@@ -25,7 +27,7 @@ cormg=(230,170,0)
 ##########################################################################
 METEOR_WIDTH = 50
 METEOR_HEIGHT = 38
-meteor_img = pygame.image.load('meteorBrown_med1.png').convert_alpha()
+meteor_img = pygame.image.load(path.join(pasta_img,'meteorBrown_med1.png')).convert_alpha()
 meteor_img_small = pygame.transform.scale(meteor_img, (METEOR_WIDTH, METEOR_HEIGHT))
 ############################################################################
 vertini=[(75,50),(75,150),(150,150),(150,50)]
