@@ -17,6 +17,7 @@ instrucao = 0
 jogo = 1
 fim = 2
 sair=3
+
 #variaveis
     #tela
 altura=600
@@ -42,14 +43,6 @@ font= pygame.font.SysFont(None,36)
 fontt= pygame.font.SysFont(None,23)
 fontdado= pygame.font.SysFont(None,90)
 
-
-
-#######
-METEOR_WIDTH = 50
-METEOR_HEIGHT = 38
-meteor_img = pygame.image.load(path.join(pasta_img,'meteorBrown_med1.png')).convert_alpha()
-meteor_img_small = pygame.transform.scale(meteor_img, (METEOR_WIDTH, METEOR_HEIGHT))
-############################################################################
 #posicao das casas
 vertini=[(75,50),(75,150),(150,150),(150,50)]
 vert1=[(151,50),(151,150),(251,150),(251,50)]
@@ -218,24 +211,6 @@ textdado1=fontdado.render('DADO:',True,(255,0,0))
 clock=pygame.time.Clock()
 FPS = 60
 
-class Meteoro(pygame.sprite.Sprite):
-    def __init__(self,img):
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image=img
-        self.rect = self.image.get_rect()
-        self.rect.x=0
-        self.rect.y=randint(20,580)
-        self.speedx=randint(30,60)
-        self.speedy=0
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        if self.rect.right < 0 or self.rect.left > largura: 
-            self.rect.x =0
-            self.rect.y = randint(20,580)
-            self.speedx = randint(30,60)
-            self.speedy = 0
 #funcoes
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
@@ -289,8 +264,6 @@ def tela_fim(tela):
 
 def tela_jogo(tela):
     DADO=0
-    meteoro1=Meteoro(meteor_img)
-    meteoro2=Meteoro(meteor_img)
     game = True
     contador=0
     flow='continue'
@@ -463,11 +436,8 @@ def tela_jogo(tela):
                     if contador==21:
                         poscir[0]=591
                         poscir[1]=504 
-        meteoro1.update()
-        meteoro2.update()
+
         window.blit(background, (0, 0))
-        window.blit(meteoro1.image, meteoro1.rect)
-        window.blit(meteoro2.image, meteoro2.rect)
         ####################################################
         pygame.draw.polygon(window, cor1, vertfim)
         pygame.draw.polygon(window, cor, vert20)
