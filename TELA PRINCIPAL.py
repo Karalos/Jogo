@@ -10,6 +10,7 @@ from CASA5 import CASA5
 from CASA6 import CASA6
 from CASA7 import CASA7
 from CASA8 import CASA8
+from JoKenPo import JOKENPO
 pasta_img=path.join(path.dirname(__file__), 'imagens')
 
 #"fases" do jogo
