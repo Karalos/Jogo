@@ -223,10 +223,21 @@ def tela_de_instrucoes(tela):
     #imagem
     background = pygame.image.load(path.join(pasta_img, 'imagem1.jpg')).convert()
     background_rect = background.get_rect()
+    fontini=pygame.font.SysFont(None,250)
+    fontintr=pygame.font.SysFont(None,48)
+    fontini2=pygame.font.SysFont(None,70)
+    regra=fontintr.render('REGRAS:',True,(200,0,0))
+    regra1=fontintr.render('Cada casa tem um desafio diferente;',True,(0,0,0))
+    regra2=fontintr.render('Se perder voltará para a casa da rodada anterior;',True,(0,0,0))
+    regra3=fontintr.render('Aperte ESPAÇO para rodar o dado;',True,(0,0,0))
+    regra4=fontintr.render('Você terá 10 segundos para responder casa questão;',True,(0,0,0))
+    regra5=fontintr.render('Aperte qualquer botão para começar a jogar!',True,(0,0,0))
+
     #codigo jogo
     jogando_i = True
     while jogando_i:
         clock.tick(FPS)
+        
         #eventos
         for event in pygame.event.get():
             #fechar o jogo
@@ -240,6 +251,14 @@ def tela_de_instrucoes(tela):
 
         tela.fill((0,0,0))
         tela.blit(background, background_rect)
+        tela.blit(text,(200,50))
+        tela.blit(text,(300,50))
+        tela.blit(regra,(75,350))
+        tela.blit(regra1,(100,400))
+        tela.blit(regra2,(100,430))
+        tela.blit(regra3,(100,460))
+        tela.blit(regra4,(100,490))
+        tela.blit(regra5,(100,520))
         pygame.display.flip()
     return condicao
 
