@@ -8,21 +8,21 @@ pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
 
 #parametros
-tela_largura=400
+tela_largura=1100
 tela_altura=600
 FPS=60
 
-background_largura=600
-background_altura=450
+background_largura=1100
+background_altura=600
 
-pedra_largura=62
-pedra_altura=109
+pedra_largura=100
+pedra_altura=175
 
-papel_largura=62
-papel_altura=109
+papel_largura=100
+papel_altura=175
 
-tesoura_largura=62
-tesoura_altura=109
+tesoura_largura=100
+tesoura_altura=175
 
 #"fases" do jogo
 instrucao = 0
@@ -45,8 +45,8 @@ def load_assets():
     assets['imag_pedra'] = pygame.transform.scale(assets['imag_pedra'], (pedra_largura, pedra_altura))
     assets['imag_papel'] = pygame.transform.scale(assets['imag_papel'], (papel_largura, papel_altura))
     assets['imag_tesoura'] = pygame.transform.scale(assets['imag_tesoura'], (tesoura_largura, tesoura_altura))
-    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 40)
-    assets['fonte_texto2']=pygame.font.Font(os.path.join(pasta_font, 'PressStart2P.ttf'),40)
+    assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Destacy.ttf'), 80)
+    assets['fonte_texto2']=pygame.font.Font(os.path.join(pasta_font, 'PressStart2P.ttf'),65)
     return assets
 #classes
 class Pedra(pygame.sprite.Sprite):
@@ -58,8 +58,8 @@ class Pedra(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         #posicao do objeto
-        self.rect.x = 100
-        self.rect.y = 250
+        self.rect.x = 170
+        self.rect.y = 370
 
 class Papel(pygame.sprite.Sprite):
     #codigo base
@@ -70,8 +70,8 @@ class Papel(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         #posicao do objeto
-        self.rect.x =275
-        self.rect.y =250
+        self.rect.x =470
+        self.rect.y =370
 
 class Tesoura(pygame.sprite.Sprite):
     #codigo base
@@ -82,8 +82,8 @@ class Tesoura(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         #posicao do objeto        
-        self.rect.x = 450
-        self.rect.y = 250
+        self.rect.x = 770
+        self.rect.y = 370
 
 #funcao utilizada para definir quem é o vencedor
 def funcao_resultado(escolha_jogador,escolha_bot):
@@ -176,6 +176,7 @@ def tela_dentro_do_jogo(window):
             #fechar jogo
             if event.type == pygame.QUIT:
                 funcionando = False
+                return [False,fim]
             #verificar clique
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pygame.event.get_blocked(pygame.MOUSEBUTTONDOWN)
@@ -213,11 +214,11 @@ def tela_dentro_do_jogo(window):
                     texto = assets['fonte_texto'].render(resposta, True, (255,255,255))
                     #area da resposta 
                     local_texto = texto.get_rect()
-                    local_texto.midtop = (background_largura / 2,  1)
+                    local_texto.midtop = (background_largura / 2 -40,  20)
                     #sprite da escolha do oponente
                     imag_escolha_op=pygame.transform.rotate(imag_escolha_op, 180)
                     local_imag_op=imag_escolha_op.get_rect()
-                    local_imag_op.midtop=(background_largura/2, 80)
+                    local_imag_op.midtop=(background_largura/2 -40, 140)
                     window.blit(imag_escolha_op,local_imag_op)
                     pygame.display.flip
                     #apresenta textos
@@ -234,10 +235,10 @@ def tela_dentro_do_jogo(window):
                     elif resposta== 'Voce perdeu':
                         placar_bot+=1      
                     if placar_bot==(melhor_de):
-                        venceu=False
+                        return [False,fim]
                         funcionando=False
                     elif placar_player==(melhor_de):
-                        venceu=True
+                        return [True,fim]
                         funcionando=False
 
 
@@ -248,23 +249,23 @@ def tela_dentro_do_jogo(window):
             #dono da pontuacao
         nome_placar_b = assets['fonte_texto'].render('oponente', True, (255,255,255))     
         local_nome_placar_b=nome_placar_b.get_rect()
-        local_nome_placar_b.midtop=(background_largura-70,-20)
+        local_nome_placar_b.midtop=(background_largura-240,-50)
         window.blit(nome_placar_b, local_nome_placar_b)            
             #pontuacao
-        placar_b = assets['fonte_texto2'].render("{:01d}".format(placar_bot), True, (255,255,0))     
+        placar_b = assets['fonte_texto2'].render("{:02d}".format(placar_bot), True, (255,255,0))     
         local_placar_b=placar_b.get_rect()
-        local_placar_b.midtop=(background_largura-60,60)
+        local_placar_b.midtop=(background_largura-240,110)
         window.blit(placar_b, local_placar_b)
         #placar player
             #dono da pontuacao
         nome_placar_p = assets['fonte_texto'].render('jogador', True, (255,255,255))     
         local_nome_placar_p=nome_placar_p.get_rect()
-        local_nome_placar_p.midtop=(60,-20)
+        local_nome_placar_p.midtop=(130,-50)
         window.blit(nome_placar_p, local_nome_placar_p)                
             #pontuacao
-        placar_p= assets['fonte_texto2'].render("{:01d}".format(placar_player), True, (255,255,0))   
+        placar_p= assets['fonte_texto2'].render("{:02d}".format(placar_player), True, (255,255,0))   
         local_placar_p=placar_p.get_rect()
-        local_placar_p.midtop=(60,60)
+        local_placar_p.midtop=(120,110)
         window.blit(placar_p, local_placar_p)   
         #update
 
@@ -272,20 +273,21 @@ def tela_dentro_do_jogo(window):
         sprites.update()
         pygame.display.update()  
 
-#base
-pygame.init()
-pygame.mixer.init()
-window = pygame.display.set_mode((tela_altura, tela_largura))
-pygame.display.set_caption('Jokenpo')
 
-#roda o jogo
-condicao = instrucao
-while condicao != fim:
-    if condicao == instrucao:
-        condicao = tela_de_instrucoes(window)
-    elif condicao == jogo:
-        condicao = tela_dentro_do_jogo(window)
-    else:
-        condicao = fim
-#encerra o jogo
-pygame.quit()  
+
+def JOKENPO(window):
+    #pygame.init()
+    #pygame.mixer.init()
+    pygame.display.set_caption('Jokenpo')
+    #roda o jogo
+    condicao = instrucao
+    while condicao != fim:
+        if condicao == instrucao:
+            condicao = tela_de_instrucoes(window)
+        elif condicao == jogo:
+            res = tela_dentro_do_jogo(window)
+            resultado=res[0]
+            condicao=res[1]
+            return resultado
+        else:
+            condicao = fim
