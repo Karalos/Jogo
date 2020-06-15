@@ -229,7 +229,6 @@ def tela_dentro_do_jogo(window):
         #desenha stickman/forca e verifica derrota
         if erros>0:
             pygame.draw.rect(window,cor,forca_h_coordenadas)
-
         if erros>1:
             pygame.draw.rect(window,cor,forca_v_coordenadas)
 
@@ -258,6 +257,7 @@ def tela_dentro_do_jogo(window):
             window.blit(palavra_certa, local_palavra_certa)
             game=False
             return 'repita',fim
+
         # verifica vitoria
         i=0
         for letra in palavra_escolhida:

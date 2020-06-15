@@ -690,11 +690,11 @@ def tela_jogo(tela):
 
         #jogadores
             #peao
-        pygame.draw.circle(window,azul,posi_joga,25)
+        pygame.draw.circle(window,azul,posi_joga,27)
             #bot1
         pygame.draw.circle(window,branco,posi_bot_1,25)
             #bot2
-        pygame.draw.circle(window,preto,posi_bot_2,25)
+        pygame.draw.circle(window,preto,posi_bot_2,23)
 
         #update
         pygame.display.update() 
