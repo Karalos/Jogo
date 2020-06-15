@@ -1,6 +1,8 @@
 import pygame
 import random
 import os
+import time
+import threading
 
 cor=(255,255,255)
 
@@ -9,53 +11,53 @@ pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 pasta_font=os.path.join(os.path.dirname(__file__), 'fontes')
 ###################################################################################
 #parametros
-tela_largura=900
-tela_altura=350
+tela_largura=1100
+tela_altura=600
 FPS=60
 
-background_largura=900
-background_altura=530
+background_largura=1100
+background_altura=600
 #################################################################################
 'FORCA'
 #forca vertical
-forca_v_coordenadas=(30,10,20,300)
+forca_v_coordenadas=(30,160,20,300)
 #forca horizontal
-forca_h_coordenadas=(10,20,200,20)
+forca_h_coordenadas=(10,180,200,20)
 #forca corda
-forca_corda_coordenadas=(145,20,10,50)
+forca_corda_coordenadas=(145,180,10,50)
 
 'STICKMAN'
 #cabeca
 cabeca_raio=35
 cabeca_espessura=10
-cabeca_coordenadas=(150,100)
+cabeca_coordenadas=(150,250)
 #corpo
-corpo_coordenadas=(145,125,10,100)
+corpo_coordenadas=(145,275,10,100)
 #braco_esquerdo
-braco_esquerdo_coordenadas=((145,130),(145,140),(95,170),(95,160))
+braco_esquerdo_coordenadas=((145,280),(145,290),(95,320),(95,310))
 #braco_direito
-braco_direito_corcoordenadas=((155,130),(155,140),(215,170),(215,160))
+braco_direito_corcoordenadas=((155,280),(155,290),(215,320),(215,310))
 #perna_esquerda
-perna_esquerda_coordenadas=((145,225),(145,205),(95,315),(105,315))
+perna_esquerda_coordenadas=((145,375),(145,355),(95,465),(105,465))
 #perna_direita
-perna_direita_corcoordenadas=((155,225),(155,205),(205,315),(195,315))
+perna_direita_corcoordenadas=((155,375),(155,355),(205,465),(195,465))
 
 'CAIXA DE TEXTO ERROS'
-texto_erros_coordenadas=(530,20)
-caixa_texto_coordenadas_h_1=(450,70,260,5)
-caixa_texto_coordenadas_h_2=(450,140,260,5)
-caixa_texto_coordenadas_v_1=(450,70,5,70)
-caixa_texto_coordenadas_v_2=(710,70,5,75)
+texto_erros_coordenadas=(530,170)
+caixa_texto_coordenadas_h_1=(450,220,260,5)
+caixa_texto_coordenadas_h_2=(450,290,260,5)
+caixa_texto_coordenadas_v_1=(450,220,5,70)
+caixa_texto_coordenadas_v_2=(710,220,5,75)
 
 'chao dos acertos'
-chao_texto_1_coordenadas=(350,210,60,10)
-chao_texto_2_coordenadas=(450,210,60,10)
-chao_texto_3_coordenadas=(550,210,60,10)
-chao_texto_4_coordenadas=(650,210,60,10)
-chao_texto_5_coordenadas=(750,210,60,10)
+chao_texto_1_coordenadas=(350,360,60,10)
+chao_texto_2_coordenadas=(450,360,60,10)
+chao_texto_3_coordenadas=(550,360,60,10)
+chao_texto_4_coordenadas=(650,360,60,10)
+chao_texto_5_coordenadas=(750,360,60,10)
 
 #palavra certa
-palavra_certa_coordenadas=(550,250)
+palavra_certa_coordenadas=(550,400)
 ###################################################################################
 #"fases" do jogo
 instrucao = 0
@@ -86,6 +88,11 @@ def load_assets():
     assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Overlock-Black.ttf'), 40)
     return assets
 
+def erros7():
+    event.set()
+    pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
+    time.sleep(2)
+    event.clear()
 ############################################################################################
 def verifica_tecla(chute):
     #verifica se o caractere digitado foi uma letra
@@ -149,7 +156,7 @@ def tela_dentro_do_jogo(window):
         for event in pygame.event.get():
             #encerra jogo
             if event.type == pygame.QUIT:
-                condicao=fim
+                return False,fim
                 game = False
             #evento teste
             chute='pass'
@@ -208,13 +215,6 @@ def tela_dentro_do_jogo(window):
                     chute='z'
                 #verifica tecla    
                 erros+=verifica_tecla(chute)
-                print('chutes')            
-                print(lista_chutes)
-                print('acertos')
-                print(lista_acertos)
-                print('erros')            
-                print(lista_erros)
-                print(dicio_posicaosicoes)
         #tela de fundo
         window.fill((255,255,0))
         window.blit(assets['background'], (0, 0)) 
@@ -244,25 +244,24 @@ def tela_dentro_do_jogo(window):
 
         if erros >7:  
             pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
-            venceu=False
-            #desenha a palabra certa
+            #desenha a palavra certa
             palavra_certa = assets['fonte_texto'].render(palavra_escolhida, True, (cor))     
             local_palavra_certa=palavra_certa.get_rect()
             local_palavra_certa.midtop=(palavra_certa_coordenadas)
             window.blit(palavra_certa, local_palavra_certa)
-            print('perdeu')
-
-            #game== False 
-
+            event=threading.Event()
+            e1=threading.Thread(target=erros7)
+            event.wait()
+            game=False
+            return False,fim
         # verifica vitoria
         i=0
         for letra in palavra_escolhida:
             if letra in lista_acertos:
                 i+=1
         if i==5:
-            venceu=True
-            print('venceu')
-            #game = False
+            return True,fim
+            game = False
 
         #desenha quadrado onde estarao os erros e os erros
             #palavra :'Erros'
@@ -277,7 +276,7 @@ def tela_dentro_do_jogo(window):
         pygame.draw.rect(window,cor,caixa_texto_coordenadas_v_2)
             #Desenha erros
         letras_erradas_x=445
-        letras_erradas_y=80
+        letras_erradas_y=230
         if len(lista_erros) <=8:
             for letra in lista_erros:
                 #muda posicao letras
@@ -296,8 +295,6 @@ def tela_dentro_do_jogo(window):
         pygame.draw.rect(window,cor,chao_texto_4_coordenadas)
         pygame.draw.rect(window,cor,chao_texto_5_coordenadas)
             #desenha letras
-        letras_certas_x=280
-        letras_certas_y=160
         dicio_posicaosicoes={}
         for letras in lista_acertos:
             posicoes=[pos for pos, simbolo in enumerate(palavra_escolhida) if simbolo == letras]
@@ -307,45 +304,46 @@ def tela_dentro_do_jogo(window):
                     if elemento==0:
                         letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
                         local_letra_colocar=letra_colocar.get_rect()
-                        local_letra_colocar.midtop=(380,160)
+                        local_letra_colocar.midtop=(380,310)
                         window.blit(letra_colocar, local_letra_colocar)
 
                     if elemento==1:
                         letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
                         local_letra_colocar=letra_colocar.get_rect()
-                        local_letra_colocar.midtop=(480,160)
+                        local_letra_colocar.midtop=(480,310)
                         window.blit(letra_colocar, local_letra_colocar)
 
                     if elemento==2:
                         letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
                         local_letra_colocar=letra_colocar.get_rect()
-                        local_letra_colocar.midtop=(580,160)
+                        local_letra_colocar.midtop=(580,310)
                         window.blit(letra_colocar, local_letra_colocar)
 
                     if elemento==3:
                         letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
                         local_letra_colocar=letra_colocar.get_rect()
-                        local_letra_colocar.midtop=(680,160)
+                        local_letra_colocar.midtop=(680,310)
                         window.blit(letra_colocar, local_letra_colocar)
                     if elemento==4:
                         letra_colocar = assets['fonte_texto'].render(chaves, True, (cor))     
                         local_letra_colocar=letra_colocar.get_rect()
-                        local_letra_colocar.midtop=(780,160)
+                        local_letra_colocar.midtop=(780,310)
                         window.blit(letra_colocar, local_letra_colocar)
-
         #atualiza desenhos
         pygame.display.update()
     #encerra jogos
     pygame.quit()  
   ############################################################################  
-#roda o jogo
-condicao = instrucao
-while condicao != fim:
-    if condicao == instrucao:
-        condicao = tela_de_instrucoes(window)
-    elif condicao == jogo:
-        condicao = tela_dentro_do_jogo(window)
-    else:
-        condicao = fim
-#encerra o jogo
-pygame.quit()  
+def FORCA(WINDOW): 
+    #roda o jogo
+    pygame.init()
+    condicao = instrucao
+    while condicao != fim:
+        if condicao == instrucao:
+            condicao = tela_de_instrucoes(window)
+        elif condicao == jogo:
+            resposta,condicao = tela_dentro_do_jogo(window)
+            return resposta
+        else:
+            condicao = fim
+    #encerra o jogo
