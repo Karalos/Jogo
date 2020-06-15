@@ -122,6 +122,10 @@ def tela_de_instrucoes(tela):
     #imagem
     tela_instr = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
     tela_instr_rect = tela_instr.get_rect()
+    fontforca=pygame.font.SysFont(None,70)
+    regra1=fontforca.render('Advinhe a palavra;',True,(0,0,0))
+    regra2=fontforca.render('Você terá 8 chances;',True,(0,0,0))
+    regra3=fontforca.render('Aperte qualquer botão para começar o jogo', True,(0,0,0))
     #codigo jogo
     jogando_i = True
     while jogando_i:
@@ -136,7 +140,10 @@ def tela_de_instrucoes(tela):
             if event.type == pygame.KEYDOWN:
                 condicao = jogo
                 jogando_i = False
-
+                
+        tela.blit(regra1,(100,400))
+        tela.blit(regra2,(100,440))
+        tela.blit(regra3,(100,480))
         tela.fill(cor)
         tela.blit(tela_instr, tela_instr_rect)
         pygame.display.flip()

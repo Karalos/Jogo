@@ -136,6 +136,9 @@ class Bota(pygame.sprite.Sprite):
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
     # Carrega o fundo
+    fontcesta=pygame.font.SysFont(None,170)
+    regra1=fontcesta.render('Pegue as frutas, não as botas!',True,(0,0,0))
+    regra2=fontcesta.render('Aperte qualquer botão para começar!',True,(0,0,0))
     background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
     background_rect = background.get_rect()
     jogando_i = True
@@ -154,7 +157,9 @@ def tela_de_instrucoes(tela):
         tela.fill(preto)
         tela.blit(background, background_rect)
         pygame.display.flip()
-
+        
+    tela.blit(regra1,(300,400))
+    tela.blit(regra2,(300,430))
     return condicao
 
 def tela_dentro_do_jogo(window):
