@@ -11,13 +11,8 @@ from CASA6 import CASA6
 from CASA7 import CASA7
 from CASA8 import CASA8
 from JoKenPo import JOKENPO
-<<<<<<< HEAD
-from MinigameCesta import CESTA
 from Forca import FORCA
-=======
-from FORCA import FORCA
 from MinigameCesta import CESTA
->>>>>>> b6af714eb2616fe43d27d0b98a9a56a81427a221
 pasta_img=path.join(path.dirname(__file__), 'imagens')
 
 #"fases" do jogo
@@ -328,7 +323,7 @@ def tela_jogo(tela):
                 game=False
             if event.type == pygame.KEYDOWN:  
                 if event.key ==pygame.K_SPACE:
-                    dado=6#randint(1,4)
+                    dado=19#randint(1,4)
                     DADO=dado
                     contador+=dado
                     if contador==1:

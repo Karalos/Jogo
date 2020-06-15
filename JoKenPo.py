@@ -288,7 +288,6 @@ def JOKENPO(window):
             res = tela_dentro_do_jogo(window)
             resultado=res[0]
             condicao=res[1]
-            print(resultado)
             return resultado
         else:
             condicao = fim

@@ -252,7 +252,6 @@ def CESTA(window):
             condicao = tela_de_instrucoes(window)
         elif condicao == jogo:
             resultado,condicao = tela_dentro_do_jogo(window)
-            print(resultado)
             return resultado
         else:
             condicao = fim

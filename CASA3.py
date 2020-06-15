@@ -83,6 +83,7 @@ def CASA3(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                flow='repita'
         if seg==0:
             running=False
         now=pygame.time.get_ticks()

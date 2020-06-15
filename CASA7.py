@@ -81,6 +81,7 @@ def CASA7(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                flow='repita'
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
@@ -143,4 +144,4 @@ def CASA7(screen):
         screen.blit(PERGUNTA1, posicao)
         screen.blit(fonte.render('TEMPO: '+str(seg),True,(255,0,0)),(10,20))
         pygame.display.update() 
-    return Jflow
+    return flow
