@@ -11,8 +11,13 @@ from CASA6 import CASA6
 from CASA7 import CASA7
 from CASA8 import CASA8
 from JoKenPo import JOKENPO
+<<<<<<< HEAD
 from MinigameCesta import CESTA
 from Forca import FORCA
+=======
+from FORCA import FORCA
+from MinigameCesta import CESTA
+>>>>>>> b6af714eb2616fe43d27d0b98a9a56a81427a221
 pasta_img=path.join(path.dirname(__file__), 'imagens')
 
 #"fases" do jogo
@@ -351,6 +356,7 @@ def tela_jogo(tela):
                         posi_joga[1]=100
                         jogJ1=JOKENPO(window)
                         if jogJ1=='repita':
+
                             contador-=dado
                     if contador==7:
                         jog4=CASA4(window)
@@ -363,6 +369,7 @@ def tela_jogo(tela):
                         posi_joga[1]=302
                         jogC1=CESTA(window)
                         if jogC1=='repita':
+
                             contador-=dado
                     if contador==10:
                         jog5=CASA5(window)
