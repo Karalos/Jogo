@@ -29,7 +29,7 @@ instrucao = 0
 jogo = 1
 fim = 2
 #vitorias
-melhor_de=5
+melhor_de=3
 
 #tempo
 tempo_de_amostra=3000 #milisegundos
@@ -176,7 +176,7 @@ def tela_dentro_do_jogo(window):
             #fechar jogo
             if event.type == pygame.QUIT:
                 funcionando = False
-                return [False,fim]
+                return ['repita',fim]
             #verificar clique
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pygame.event.get_blocked(pygame.MOUSEBUTTONDOWN)
@@ -235,10 +235,10 @@ def tela_dentro_do_jogo(window):
                     elif resposta== 'Voce perdeu':
                         placar_bot+=1      
                     if placar_bot==(melhor_de):
-                        return [False,fim]
+                        return ['repita',fim]
                         funcionando=False
                     elif placar_player==(melhor_de):
-                        return [True,fim]
+                        return ['continue',fim]
                         funcionando=False
 
 
@@ -288,6 +288,7 @@ def JOKENPO(window):
             res = tela_dentro_do_jogo(window)
             resultado=res[0]
             condicao=res[1]
+            print(resultado)
             return resultado
         else:
             condicao = fim

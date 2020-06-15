@@ -10,6 +10,9 @@ from CASA5 import CASA5
 from CASA6 import CASA6
 from CASA7 import CASA7
 from CASA8 import CASA8
+from JoKenPo import JOKENPO
+from MinigameCesta import CESTA
+from Forca import FORCA
 pasta_img=path.join(path.dirname(__file__), 'imagens')
 
 #"fases" do jogo
@@ -247,80 +250,80 @@ def tela_jogo(tela):
     while game==True:
         clock.tick(FPS)
         if contador==0:
-            poscir[0]=101
-            poscir[1]=100
+            posi_joga[0]=101
+            posi_joga[1]=100
         if contador==1:
-            poscir[0]=2*101
-            poscir[1]=100  
+            posi_joga[0]=2*101
+            posi_joga[1]=100  
         if contador==2:
-            poscir[0]=3*101
-            poscir[1]=100
+            posi_joga[0]=3*101
+            posi_joga[1]=100
         if contador==3: 
-            poscir[0]=4*101
-            poscir[1]=100
+            posi_joga[0]=4*101
+            posi_joga[1]=100
         if contador==4:
-            poscir[0]=5*101
-            poscir[1]=100
+            posi_joga[0]=5*101
+            posi_joga[1]=100
         if contador==5:
-            poscir[0]=4*101
-            poscir[1]=100 
+            posi_joga[0]=4*101
+            posi_joga[1]=100 
         if contador==6:
-            poscir[0]=7*101
-            poscir[1]=100
+            posi_joga[0]=7*101
+            posi_joga[1]=100
         if contador==7:
-            poscir[0]=808
-            poscir[1]=100
+            posi_joga[0]=808
+            posi_joga[1]=100
         if contador==8:
-            poscir[1]=100
-            poscir[0]=606
+            posi_joga[1]=100
+            posi_joga[0]=606
         if contador==9:
-            poscir[0]=808
-            poscir[1]=302
+            posi_joga[0]=808
+            posi_joga[1]=302
         if contador==10:
-            poscir[0]=707
-            poscir[1]=302
+            posi_joga[0]=707
+            posi_joga[1]=302
         if contador==11:
-            poscir[0]=606
-            poscir[1]=302
+            posi_joga[0]=606
+            posi_joga[1]=302
         if contador==12:
-            poscir[0]=505
-            poscir[1]=302
+            posi_joga[0]=505
+            posi_joga[1]=302
         if contador==13:
-            poscir[0]=404
-            poscir[1]=302
+            posi_joga[0]=404
+            posi_joga[1]=302
         if contador==14:
-            poscir[0]=303
-            poscir[1]=302
+            posi_joga[0]=303
+            posi_joga[1]=302
         if contador==15:
-            poscir[0]=202 
-            poscir[1]=504 
+            posi_joga[0]=202 
+            posi_joga[1]=504 
         if contador==16:
-            poscir[0]=202
-            poscir[1]=403
+            posi_joga[0]=202
+            posi_joga[1]=403
         if contador==17:
-            poscir[0]=202
-            poscir[1]=504
+            posi_joga[0]=202
+            posi_joga[1]=504
         if contador==18:
-            poscir[0]=303
-            poscir[1]=504
+            posi_joga[0]=303
+            posi_joga[1]=504
         if contador==19:
-            poscir[0]=404
-            poscir[1]=504
+            posi_joga[0]=404
+            posi_joga[1]=504
         if contador==20:
-            poscir[0]=100 
-            poscir[1]=100 
+            posi_joga[0]=100 
+            posi_joga[1]=100 
             contador-=20
         if contador>21:
             contador=21
         if contador==21:
-            poscir[0]=591
-            poscir[1]=504 
+            posi_joga[0]=591
+            posi_joga[1]=504 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 game=False
             if event.type == pygame.KEYDOWN:  
                 if event.key ==pygame.K_SPACE:
-                    dado=randint(1,4)
+                    dado=6#randint(1,4)
                     DADO=dado
                     contador+=dado
                     if contador==1:
@@ -332,8 +335,11 @@ def tela_jogo(tela):
                         if jog2=='repita':
                             contador-=dado
                     if contador==3: 
-                        poscir[0]=4*101
-                        poscir[1]=100
+                        posi_joga[0]=4*101
+                        posi_joga[1]=100
+                        jogF1=FORCA(window)
+                        if jogF1=='repita':
+                            contador-=dado
                     if contador==4:
                         jog3=CASA3(window)
                         if jog3=='repita':
@@ -341,8 +347,11 @@ def tela_jogo(tela):
                     if contador==5:
                         contador-=2 
                     if contador==6:
-                        poscir[0]=7*101
-                        poscir[1]=100
+                        posi_joga[0]=7*101
+                        posi_joga[1]=100
+                        jogJ1=JOKENPO(window)
+                        if jogJ1=='repita':
+                            contador-=dado
                     if contador==7:
                         jog4=CASA4(window)
                         if jog4=='repita':
@@ -350,15 +359,21 @@ def tela_jogo(tela):
                     if contador==8:
                         contador+=3
                     if contador==9:
-                        poscir[0]=808
-                        poscir[1]=302
+                        posi_joga[0]=808
+                        posi_joga[1]=302
+                        jogC1=CESTA(window)
+                        if jogC1=='repita':
+                            contador-=dado
                     if contador==10:
                         jog5=CASA5(window)
                         if jog5=='repita':
                             contador-=dado
                     if contador==11:
-                        poscir[0]=606
-                        poscir[1]=302
+                        posi_joga[0]=606
+                        posi_joga[1]=302
+                        jogF2=FORCA(window)
+                        if jogF2=='repita':
+                            contador-=dado
                     if contador==12:
                         jog6=CASA6(window)
                         if jog6=='repita':
@@ -380,22 +395,28 @@ def tela_jogo(tela):
                         if jog10=='repita':
                             contador-=dado
                     if contador==17:
-                        poscir[0]=202
-                        poscir[1]=504
+                        posi_joga[0]=202
+                        posi_joga[1]=504
+                        jogJ2=JOKENPO(window)
+                        if jogJ2=='repita':
+                            contador-=dado
                     if contador==18:
                         jog11=CASA3(window)
                         if jog11=='repita':
                             contador-=dado
                     if contador==19:
-                        poscir[0]=404
-                        poscir[1]=504
+                        posi_joga[0]=404
+                        posi_joga[1]=504
+                        jogC2=CESTA(window)
+                        if jogC2=='repita':
+                            contador-=dado
                     if contador==20:
                         contador-=20
                     if contador>21:
                         contador=21
                     if contador==21:
-                        poscir[0]=591
-                        poscir[1]=504 
+                        posi_joga[0]=591
+                        posi_joga[1]=504 
         window.blit(background, (0, 0))
 
         #desenha casas

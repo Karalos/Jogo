@@ -7,13 +7,13 @@ pasta_img=os.path.join(os.path.dirname(__file__), 'imagens')
 
 #variaveis
     #tela
-tela_altura=561
-tela_largura=600
+tela_altura=600
+tela_largura=1100
 FPS=60
 
     #frutas
-fruta_largura=75
-fruta_altura=50
+fruta_largura=120
+fruta_altura=80
 numero_frutas=4
 
     #cesta
@@ -21,8 +21,8 @@ cesta_largura=125
 cesta_altura=100
 
     #bota
-bota_largura=75
-bota_altura=50
+bota_largura=120
+bota_altura=80
 numero_botas=4
 
 #velocidade
@@ -54,6 +54,7 @@ def load_assets():
     assets['imag_fruta'] = pygame.image.load(os.path.join(pasta_img, 'maca_verde.png')).convert_alpha()
     assets['imag_bota'] = pygame.image.load(os.path.join(pasta_img, 'bota.png')).convert_alpha()
     #muda dimensoes imagens
+    #assets['background'] = pygame.transform.scale(assets['background'], (background_largura, background_altura))
     assets['imag_cesta'] = pygame.transform.scale(assets['imag_cesta'], (cesta_largura, cesta_altura))
     assets['imag_fruta'] = pygame.transform.scale(assets['imag_fruta'], (fruta_largura, fruta_altura))
     assets['imag_bota'] = pygame.transform.scale(assets['imag_bota'], (bota_largura, bota_altura))
@@ -79,10 +80,10 @@ class Cesta(pygame.sprite.Sprite):
         # Posicao cesta
         self.rect.x += self.speedx
         #limite tela
-        if self.rect.right > tela_largura:
-            self.rect.right = tela_largura
-        if self.rect.left < 0:
-            self.rect.left = 0
+        if self.rect.right < tela_largura/2-230:
+            self.rect.right = tela_largura/2-230
+        if self.rect.left >tela_largura/2+90:
+            self.rect.left = tela_largura/2+90
 
 class Fruta(pygame.sprite.Sprite):
     def __init__(self, assets):
@@ -91,7 +92,7 @@ class Fruta(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         #posicao de inicio
-        self.rect.x = random.randint(0, tela_largura-fruta_largura)
+        self.rect.x = random.randint(tela_largura/2-2500, tela_largura/2+110)
         self.rect.y = random.randint(-200, -fruta_altura)
         #velocidade
         self.speedx = random.randint(x_fruta_min, x_fruta_max)
@@ -102,8 +103,8 @@ class Fruta(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         # limite tela
-        if self.rect.top > tela_altura or self.rect.right < 0 or self.rect.left >tela_largura:
-            self.rect.x = random.randint(0, tela_largura-fruta_largura)
+        if self.rect.top > tela_altura or self.rect.right < tela_largura/2-250 or self.rect.left >tela_largura/2+110:
+            self.rect.x = random.randint(tela_largura/2-250, tela_largura/2+110)
             self.rect.y = random.randint(-200, -fruta_altura)
             self.speedx = random.randint(x_fruta_min, x_fruta_max)
             self.speedy = random.randint(y_fruta_min, y_fruta_max)
@@ -115,7 +116,7 @@ class Bota(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         #posicao de inicio
-        self.rect.x = random.randint(0, tela_largura-bota_largura)
+        self.rect.x = random.randint(tela_largura/2-250, tela_largura/2+110)
         self.rect.y = random.randint(-200, -bota_altura)
         #velocidade
         self.speedx = random.randint(x_bota_min, x_bota_max)
@@ -126,8 +127,8 @@ class Bota(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
         # limite tela
-        if self.rect.top > tela_altura or self.rect.right < 0 or self.rect.left >tela_largura:
-            self.rect.x = random.randint(0, tela_largura-bota_largura)
+        if self.rect.top > tela_altura or self.rect.right < tela_largura/2-250 or self.rect.left >tela_largura/2+110:
+            self.rect.x = random.randint(tela_largura/2-250, tela_largura/2+110)
             self.rect.y = random.randint(-200, -bota_altura)
             self.speedx = random.randint(x_bota_min, x_bota_max)
             self.speedy = random.randint(y_bota_min, y_bota_max)
@@ -197,7 +198,7 @@ def tela_dentro_do_jogo(window):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 funcionando = False
-                return False,fim
+                return 'repita',fim
             if funcionando:
                 # Verifica teclas
                 if event.type == pygame.KEYDOWN:
@@ -223,7 +224,7 @@ def tela_dentro_do_jogo(window):
             jogador.kill()
             keys_down = {}
             funcionando=False
-            return False,fim
+            return 'repita',fim
         #verifica encontro entre cesta e frota
         encontros2 = pygame.sprite.spritecollide(jogador, frutas, True, pygame.sprite.collide_mask)
         if encontros2:
@@ -231,10 +232,10 @@ def tela_dentro_do_jogo(window):
         if contador2> 3:
             keys_down = {}
             funcionando=False
-            return True,fim
+            return 'continue',fim
 
         window.fill(preto) 
-        window.blit(assets['background'], (0, 0))
+        window.blit(assets['background'], (tela_largura/2-350, 0))
         sprites.draw(window)
         pygame.display.update()  
 
