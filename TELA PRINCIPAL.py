@@ -585,15 +585,6 @@ def tela_jogo(tela):
                             if contador_bot_1==21:
                                 posi_bot_1[0]=591
                                 posi_bot_1[1]=504 
-                        else:
-                            pass
-                        i = 'bot2'
-            if i == 'bot2':
-                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    game=False
-                if event.type == pygame.KEYDOWN:  
-                    if event.key ==pygame.K_x:
-                        print(contador_bot_2)
                         dado_bot_2=randint(1,4)
                         chance_bot_2=randint(1,11)    
                         DADO=dado_bot_2
@@ -616,6 +607,7 @@ def tela_jogo(tela):
                         else:
                             pass
                         i = 'jogador'
+                       
 
         window.blit(background, (0, 0))
 

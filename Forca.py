@@ -163,7 +163,7 @@ def tela_dentro_do_jogo(window):
         for event in pygame.event.get():
             #encerra jogo
             if event.type == pygame.QUIT:
-                return False,fim
+                return 'repita',fim
                 game = False
             #evento teste
             chute='pass'
@@ -256,18 +256,15 @@ def tela_dentro_do_jogo(window):
             local_palavra_certa=palavra_certa.get_rect()
             local_palavra_certa.midtop=(palavra_certa_coordenadas)
             window.blit(palavra_certa, local_palavra_certa)
-            event=threading.Event()
-            e1=threading.Thread(target=erros7)
-            event.wait()
             game=False
-            return False,fim
+            return 'repita',fim
         # verifica vitoria
         i=0
         for letra in palavra_escolhida:
             if letra in lista_acertos:
                 i+=1
         if i==5:
-            return True,fim
+            return 'continue',fim
             game = False
 
         #desenha quadrado onde estarao os erros e os erros
