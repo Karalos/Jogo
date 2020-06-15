@@ -334,6 +334,9 @@ def tela_jogo(tela):
                     if contador==3: 
                         poscir[0]=4*101
                         poscir[1]=100
+                        mg1=JOKENPO(window)
+                        if mg1==False:
+                            contador-=1
                     if contador==4:
                         jog3=CASA3(window)
                         if jog3=='repita':
