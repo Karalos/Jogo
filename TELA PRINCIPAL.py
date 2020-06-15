@@ -30,10 +30,11 @@ verde=(0,200,0)
 preto=(0,0,0)
 cinza=(127,127,127)
 vermelho=(230,170,0)
+branco=(255,255,255)
     #posicao 
 posi_joga=[100,100]
-posi_bot1=[100,100]
-posi_bot2=[100,100]
+posi_bot_1=[100,100]
+posi_bot_2=[100,100]
 
 #inicia jogo
 pygame.init()
@@ -246,9 +247,82 @@ def tela_jogo(tela):
     DADO=0
     game = True
     contador=0
-    flow='continue'
+    contador_bot_1=0
+    contador_bot_2=0
+    i='jogador'
     while game==True:
         clock.tick(FPS)
+        #bot1
+        if contador_bot_1==0:
+            posi_bot_1[0]=101
+            posi_bot_1[1]=100
+        if contador_bot_1==1:
+            posi_bot_1[0]=2*101
+            posi_bot_1[1]=100  
+        if contador_bot_1==2:
+            posi_bot_1[0]=3*101
+            posi_bot_1[1]=100
+        if contador_bot_1==3: 
+            posi_bot_1[0]=4*101
+            posi_bot_1[1]=100
+        if contador_bot_1==4:
+            posi_bot_1[0]=5*101
+            posi_bot_1[1]=100
+        if contador_bot_1==5:
+            posi_bot_1[0]=4*101
+            posi_bot_1[1]=100 
+        if contador_bot_1==6:
+            posi_bot_1[0]=7*101
+            posi_bot_1[1]=100
+        if contador_bot_1==7:
+            posi_bot_1[0]=808
+            posi_bot_1[1]=100
+        if contador_bot_1==8:
+            posi_bot_1[1]=100
+            posi_bot_1[0]=606
+        if contador_bot_1==9:
+            posi_bot_1[0]=808
+            posi_bot_1[1]=302
+        if contador_bot_1==10:
+            posi_bot_1[0]=707
+            posi_bot_1[1]=302
+        if contador_bot_1==11:
+            posi_bot_1[0]=606
+            posi_bot_1[1]=302
+        if contador_bot_1==12:
+            posi_bot_1[0]=505
+            posi_bot_1[1]=302
+        if contador_bot_1==13:
+            posi_bot_1[0]=404
+            posi_bot_1[1]=302
+        if contador_bot_1==14:
+            posi_bot_1[0]=303
+            posi_bot_1[1]=302
+        if contador_bot_1==15:
+            posi_bot_1[0]=202 
+            posi_bot_1[1]=504 
+        if contador_bot_1==16:
+            posi_bot_1[0]=202
+            posi_bot_1[1]=403
+        if contador_bot_1==17:
+            posi_bot_1[0]=202
+            posi_bot_1[1]=504
+        if contador_bot_1==18:
+            posi_bot_1[0]=303
+            posi_bot_1[1]=504
+        if contador_bot_1==19:
+            posi_bot_1[0]=404
+            posi_bot_1[1]=504
+        if contador_bot_1==20:
+            posi_bot_1[0]=100 
+            posi_bot_1[1]=100 
+            contador-=20
+        if contador_bot_1>21:
+            contador=21
+        if contador_bot_1==21:
+            posi_bot_1[0]=591
+            posi_bot_1[1]=504
+        #jogador
         if contador==0:
             posi_joga[0]=101
             posi_joga[1]=100
@@ -317,108 +391,128 @@ def tela_jogo(tela):
             contador=21
         if contador==21:
             posi_joga[0]=591
-            posi_joga[1]=504 
+            posi_joga[1]=504
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                game=False
-            if event.type == pygame.KEYDOWN:  
-                if event.key ==pygame.K_SPACE:
-                    dado=19#randint(1,4)
-                    DADO=dado
-                    contador+=dado
-                    if contador==1:
-                        jog1=CASA1(window)
-                        if jog1=='repita':
-                            contador-=dado  
-                    if contador==2:
-                        jog2=CASA2(window)
-                        if jog2=='repita':
-                            contador-=dado
-                    if contador==3: 
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
-                        jogF1=FORCA(window)
-                        if jogF1=='repita':
-                            contador-=dado
-                    if contador==4:
-                        jog3=CASA3(window)
-                        if jog3=='repita':
-                            contador-=dado
-                    if contador==5:
-                        contador-=2 
-                    if contador==6:
-                        posi_joga[0]=7*101
-                        posi_joga[1]=100
-                        jogJ1=JOKENPO(window)
-                        if jogJ1=='repita':
+            if i == 'jogador':
+                if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                    game=False
+                if event.type == pygame.KEYDOWN:  
+                    if event.key ==pygame.K_SPACE:
+                        dado=randint(1,4)
+                        DADO=dado
+                        contador+=dado
+                        if contador==1:
+                            jog1=CASA1(window)
+                            if jog1=='repita':
+                                contador-=dado  
+                        if contador==2:
+                            jog2=CASA2(window)
+                            if jog2=='repita':
+                                contador-=dado
+                        if contador==3: 
+                            posi_joga[0]=4*101
+                            posi_joga[1]=100
+                            jogF1=FORCA(window)
+                            if jogF1=='repita':
+                                contador-=dado
+                        if contador==4:
+                            jog3=CASA3(window)
+                            if jog3=='repita':
+                                contador-=dado
+                        if contador==5:
+                            contador-=2 
+                        if contador==6:
+                            posi_joga[0]=7*101
+                            posi_joga[1]=100
+                            jogJ1=JOKENPO(window)
+                            if jogJ1=='repita':
 
-                            contador-=dado
-                    if contador==7:
-                        jog4=CASA4(window)
-                        if jog4=='repita':
-                            contador-=dado
-                    if contador==8:
-                        contador+=3
-                    if contador==9:
-                        posi_joga[0]=808
-                        posi_joga[1]=302
-                        jogC1=CESTA(window)
-                        if jogC1=='repita':
+                                contador-=dado
+                        if contador==7:
+                            jog4=CASA4(window)
+                            if jog4=='repita':
+                                contador-=dado
+                        if contador==8:
+                            contador+=3
+                        if contador==9:
+                            posi_joga[0]=808
+                            posi_joga[1]=302
+                            jogC1=CESTA(window)
+                            if jogC1=='repita':
 
-                            contador-=dado
-                    if contador==10:
-                        jog5=CASA5(window)
-                        if jog5=='repita':
-                            contador-=dado
-                    if contador==11:
-                        posi_joga[0]=606
-                        posi_joga[1]=302
-                        jogF2=FORCA(window)
-                        if jogF2=='repita':
-                            contador-=dado
-                    if contador==12:
-                        jog6=CASA6(window)
-                        if jog6=='repita':
-                            contador-=dado
-                    if contador==13:
-                        jog7=CASA7(window)
-                        if jog7=='repita':
-                            contador-=dado
-                    if contador==14:
-                        jog8=CASA8(window)
-                        if jog8=='repita':
-                            contador-=dado
-                    if contador==15:
-                        jog9=CASA2(window)
-                        if jog9=='repita':
-                            contador-=dado
-                    if contador==16:
-                        jog10=CASA6(window)
-                        if jog10=='repita':
-                            contador-=dado
-                    if contador==17:
-                        posi_joga[0]=202
-                        posi_joga[1]=504
-                        jogJ2=JOKENPO(window)
-                        if jogJ2=='repita':
-                            contador-=dado
-                    if contador==18:
-                        jog11=CASA3(window)
-                        if jog11=='repita':
-                            contador-=dado
-                    if contador==19:
-                        posi_joga[0]=404
-                        posi_joga[1]=504
-                        jogC2=CESTA(window)
-                        if jogC2=='repita':
-                            contador-=dado
-                    if contador==20:
-                        contador-=20
-                    if contador>21:
-                        contador=21
-                    if contador==21:
-                        posi_joga[0]=591
-                        posi_joga[1]=504 
+                                contador-=dado
+                        if contador==10:
+                            jog5=CASA5(window)
+                            if jog5=='repita':
+                                contador-=dado
+                        if contador==11:
+                            posi_joga[0]=606
+                            posi_joga[1]=302
+                            jogF2=FORCA(window)
+                            if jogF2=='repita':
+                                contador-=dado
+                        if contador==12:
+                            jog6=CASA6(window)
+                            if jog6=='repita':
+                                contador-=dado
+                        if contador==13:
+                            jog7=CASA7(window)
+                            if jog7=='repita':
+                                contador-=dado
+                        if contador==14:
+                            jog8=CASA8(window)
+                            if jog8=='repita':
+                                contador-=dado
+                        if contador==15:
+                            jog9=CASA2(window)
+                            if jog9=='repita':
+                                contador-=dado
+                        if contador==16:
+                            jog10=CASA6(window)
+                            if jog10=='repita':
+                                contador-=dado
+                        if contador==17:
+                            posi_joga[0]=202
+                            posi_joga[1]=504
+                            jogJ2=JOKENPO(window)
+                            if jogJ2=='repita':
+                                contador-=dado
+                        if contador==18:
+                            jog11=CASA3(window)
+                            if jog11=='repita':
+                                contador-=dado
+                        if contador==19:
+                            posi_joga[0]=404
+                            posi_joga[1]=504
+                            jogC2=CESTA(window)
+                            if jogC2=='repita':
+                                contador-=dado
+                        if contador==20:
+                            contador-=20
+                        i='bot1'
+            if i == 'bot1':
+                if event.type == pygame.KEYDOWN:  
+                    if event.key ==pygame.K_x:
+                        print(contador_bot_1)
+                        dado_bot_1=randint(1,4)    
+                        DADO=dado_bot_1
+                        contador_bot_1+=dado_bot_1    
+                        print(contador_bot_1)
+                        if contador==5:
+                            contador-=2 
+                        if contador==8:
+                            contador+=3
+                        if contador==20:
+                            contador-=20
+                        if contador>21:
+                            contador=21
+                        if contador==21:
+                            posi_joga[0]=591
+                            posi_joga[1]=504 
+                        i = 'bot2'
+            if i=='bot2':
+                pygame.time.wait(2000)
+                i= 'jogador'                  
         window.blit(background, (0, 0))
 
         #desenha casas
@@ -502,9 +596,9 @@ def tela_jogo(tela):
             #peao
         pygame.draw.circle(window,azul,posi_joga,25)
             #bot1
-        pygame.draw.circle(window,vermelho,posi_bot1,25)
+        pygame.draw.circle(window,branco,posi_bot_1,25)
             #bot2
-        pygame.draw.circle(window,verde,posi_bot2,25)
+        pygame.draw.circle(window,preto,posi_bot_2,25)
 
         #update
         pygame.display.update() 
