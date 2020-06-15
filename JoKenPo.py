@@ -131,8 +131,8 @@ def tela_de_instrucoes(tela):
                 condicao = jogo
                 jogando_i = False
        
-        window.blit(regra,(270,350))
-        window.blit(regra1,(250,400))
+        tela.blit(regra,(270,350))
+        tela.blit(regra1,(250,400))
         tela.fill((0,0,0))
         tela.blit(background, background_rect)
         pygame.display.flip()
