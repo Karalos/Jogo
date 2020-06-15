@@ -344,8 +344,9 @@ def tela_jogo(tela):
                     if contador==5:
                         contador-=2 
                     if contador==6:
-                        poscir[0]=7*101
-                        poscir[1]=100
+                        mg2=JOKENPO(window)
+                        if mg2==False:
+                            contador-=dado
                     if contador==7:
                         jog4=CASA4(window)
                         if jog4=='repita':
@@ -353,15 +354,17 @@ def tela_jogo(tela):
                     if contador==8:
                         contador+=3
                     if contador==9:
-                        poscir[0]=808
-                        poscir[1]=302
+                        mg3=JOKENPO(window)
+                        if mg3==False:
+                            contador-=dado
                     if contador==10:
                         jog5=CASA5(window)
                         if jog5=='repita':
                             contador-=dado
                     if contador==11:
-                        poscir[0]=606
-                        poscir[1]=302
+                        mg4=JOKENPO(window)
+                        if mg4==False:
+                            contador-=1
                     if contador==12:
                         jog6=CASA6(window)
                         if jog6=='repita':
@@ -385,14 +388,15 @@ def tela_jogo(tela):
                     if contador==17:
                         mg5=JOKENPO(window)
                         if mg5==False:
-                            contador-=dado
+                            contador-=1
                     if contador==18:
                         jog11=CASA3(window)
                         if jog11=='repita':
                             contador-=dado
                     if contador==19:
-                        poscir[0]=404
-                        poscir[1]=504
+                        mg6=JOKENPO(window)
+                        if mg6==False:
+                            contador-=1
                     if contador==20:
                         contador-=20
                     if contador>21:
