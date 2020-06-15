@@ -84,14 +84,11 @@ def CASA1(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
-                JOG1=False
                 flow='repita'
         if seg==0:
             running=False
-            JOG1=False
         now=pygame.time.get_ticks()
         if now-tempo>=contador:
-            JOG1=True
             seg-=1
             contador+=1000
         screen.blit(background, (0, 0))      
@@ -150,4 +147,4 @@ def CASA1(screen):
         screen.blit(PERGUNTA1, posicao)
         screen.blit(fonte.render('TEMPO: '+str(seg),True,(255,0,0)),(10,20))
         pygame.display.update() 
-    return JOG1 and flow
+    return flow

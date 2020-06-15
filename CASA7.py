@@ -81,13 +81,10 @@ def CASA7(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
-                JOG7=False
         if seg==0:
             running=False
-            JOG7=False
         now=pygame.time.get_ticks()
         if now-tempo>=contador:
-            JOG7=True
             seg-=1
             contador+=1000
         screen.blit(background1, (0, 0))    
@@ -130,17 +127,20 @@ def CASA7(screen):
         screen.blit(resposta4,(155,457))
         if state=='certo':
             screen.blit(acertou,(120,250))
+            flow='continue'
             pygame.time.wait(3000)
             seg=0
         if state=='errado':
             screen.blit(errou,(220,250))
+            flow='repita'
             pygame.time.wait(3000)
             seg=0
         if state=='TL':
             screen.blit(Tl1,(210,220))
+            flow='repita'
             screen.blit(Tl2,(90,380))
             pygame.time.wait(3000)
         screen.blit(PERGUNTA1, posicao)
         screen.blit(fonte.render('TEMPO: '+str(seg),True,(255,0,0)),(10,20))
         pygame.display.update() 
-    return JOG7
+    return Jflow

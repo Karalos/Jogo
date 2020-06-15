@@ -246,175 +246,156 @@ def tela_jogo(tela):
     flow='continue'
     while game==True:
         clock.tick(FPS)
+        if contador==0:
+            poscir[0]=101
+            poscir[1]=100
+        if contador==1:
+            poscir[0]=2*101
+            poscir[1]=100  
+        if contador==2:
+            poscir[0]=3*101
+            poscir[1]=100
+        if contador==3: 
+            poscir[0]=4*101
+            poscir[1]=100
+        if contador==4:
+            poscir[0]=5*101
+            poscir[1]=100
+        if contador==5:
+            poscir[0]=4*101
+            poscir[1]=100 
+        if contador==6:
+            poscir[0]=7*101
+            poscir[1]=100
+        if contador==7:
+            poscir[0]=808
+            poscir[1]=100
+        if contador==8:
+            poscir[1]=100
+            poscir[0]=606
+        if contador==9:
+            poscir[0]=808
+            poscir[1]=302
+        if contador==10:
+            poscir[0]=707
+            poscir[1]=302
+        if contador==11:
+            poscir[0]=606
+            poscir[1]=302
+        if contador==12:
+            poscir[0]=505
+            poscir[1]=302
+        if contador==13:
+            poscir[0]=404
+            poscir[1]=302
+        if contador==14:
+            poscir[0]=303
+            poscir[1]=302
+        if contador==15:
+            poscir[0]=202 
+            poscir[1]=504 
+        if contador==16:
+            poscir[0]=202
+            poscir[1]=403
+        if contador==17:
+            poscir[0]=202
+            poscir[1]=504
+        if contador==18:
+            poscir[0]=303
+            poscir[1]=504
+        if contador==19:
+            poscir[0]=404
+            poscir[1]=504
+        if contador==20:
+            poscir[0]=100 
+            poscir[1]=100 
+            contador-=20
+        if contador>21:
+            contador=21
+        if contador==21:
+            poscir[0]=591
+            poscir[1]=504 
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 game=False
             if event.type == pygame.KEYDOWN:  
-                if event.key ==pygame.K_SPACE and flow=='continue':
+                if event.key ==pygame.K_SPACE:
                     dado=randint(1,4)
                     DADO=dado
                     contador+=dado
                     if contador==1:
-                        posi_joga[0]=2*101
-                        posi_joga[1]=100 
-                        CASA1(window)  
+                        jog1=CASA1(window)
+                        if jog1=='repita':
+                            contador-=dado  
                     if contador==2:
-                        posi_joga[0]=3*101
-                        posi_joga[1]=100
-                        CASA2(window) 
-                    if contador==3:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
+                        jog2=CASA2(window)
+                        if jog2=='repita':
+                            contador-=dado
+                    if contador==3: 
+                        poscir[0]=4*101
+                        poscir[1]=100
                     if contador==4:
-                        posi_joga[0]=5*101
-                        posi_joga[1]=100
-                        CASA3(window)
+                        jog3=CASA3(window)
+                        if jog3=='repita':
+                            contador-=dado
                     if contador==5:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
                         contador-=2 
                     if contador==6:
-                        posi_joga[0]=7*101
-                        posi_joga[1]=100
+                        poscir[0]=7*101
+                        poscir[1]=100
                     if contador==7:
-                        posi_joga[0]=808
-                        posi_joga[1]=100
-                        CASA4(window)
+                        jog4=CASA4(window)
+                        if jog4=='repita':
+                            contador-=dado
                     if contador==8:
-                        posi_joga[1]=100
-                        posi_joga[0]=606
                         contador+=3
                     if contador==9:
-                        posi_joga[0]=808
-                        posi_joga[1]=302
+                        poscir[0]=808
+                        poscir[1]=302
                     if contador==10:
-                        posi_joga[0]=707
-                        posi_joga[1]=302
-                        CASA5(window)
+                        jog5=CASA5(window)
+                        if jog5=='repita':
+                            contador-=dado
                     if contador==11:
-                        posi_joga[0]=606
-                        posi_joga[1]=302
+                        poscir[0]=606
+                        poscir[1]=302
                     if contador==12:
-                        posi_joga[0]=505
-                        posi_joga[1]=302
-                        CASA6(window)
+                        jog6=CASA6(window)
+                        if jog6=='repita':
+                            contador-=dado
                     if contador==13:
-                        posi_joga[0]=404
-                        posi_joga[1]=302
-                        CASA7(window)
+                        jog7=CASA7(window)
+                        if jog7=='repita':
+                            contador-=dado
                     if contador==14:
-                        posi_joga[0]=303
-                        posi_joga[1]=302
-                        CASA8(window)
+                        jog8=CASA8(window)
+                        if jog8=='repita':
+                            contador-=dado
                     if contador==15:
-                        posi_joga[0]=202 
-                        posi_joga[1]=504 
-                        CASA2(window)
+                        jog9=CASA2(window)
+                        if jog9=='repita':
+                            contador-=dado
                     if contador==16:
-                        posi_joga[0]=202
-                        posi_joga[1]=403
-                        CASA6(window)
+                        jog10=CASA6(window)
+                        if jog10=='repita':
+                            contador-=dado
                     if contador==17:
-                        posi_joga[0]=202
-                        posi_joga[1]=504
+                        poscir[0]=202
+                        poscir[1]=504
                     if contador==18:
-                        posi_joga[0]=303
-                        posi_joga[1]=504
-                        CASA3(window)
+                        jog11=CASA3(window)
+                        if jog11=='repita':
+                            contador-=dado
                     if contador==19:
-                        posi_joga[0]=404
-                        posi_joga[1]=504
+                        poscir[0]=404
+                        poscir[1]=504
                     if contador==20:
-                        posi_joga[0]=100 
-                        posi_joga[1]=100 
                         contador-=20
                     if contador>21:
                         contador=21
                     if contador==21:
-                        posi_joga[0]=591
-                        posi_joga[1]=504 
-
-                if event.key == pygame.K_SPACE and flow == 'repita':
-                    if contador==1:
-                        posi_joga[0]=2*101
-                        posi_joga[1]=100 
-                        CASA1(window)  
-                    if contador==2:
-                        posi_joga[0]=3*101
-                        posi_joga[1]=100
-                        CASA2(window) 
-                    if contador==3:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
-                    if contador==4:
-                        posi_joga[0]=5*101
-                        posi_joga[1]=100
-                        CASA3(window)
-                    if contador==5:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
-                        contador-=2 
-                    if contador==6:
-                        posi_joga[0]=7*101
-                        posi_joga[1]=100
-                    if contador==7:
-                        posi_joga[0]=808
-                        posi_joga[1]=100
-                        CASA4(window)
-                    if contador==8:
-                        posi_joga[1]=100
-                        posi_joga[0]=606
-                        contador+=3
-                    if contador==9:
-                        posi_joga[0]=808
-                        posi_joga[1]=302
-                    if contador==10:
-                        posi_joga[0]=707
-                        posi_joga[1]=302
-                        CASA5(window)
-                    if contador==11:
-                        posi_joga[0]=606
-                        posi_joga[1]=302
-                    if contador==12:
-                        posi_joga[0]=505
-                        posi_joga[1]=302
-                        CASA6(window)
-                    if contador==13:
-                        posi_joga[0]=404
-                        posi_joga[1]=302
-                        CASA7(window)
-                    if contador==14:
-                        posi_joga[0]=303
-                        posi_joga[1]=302
-                        CASA8(window)
-                    if contador==15:
-                        posi_joga[0]=202 
-                        posi_joga[1]=504 
-                        CASA2(window)
-                    if contador==16:
-                        posi_joga[0]=202
-                        posi_joga[1]=403
-                        CASA6(window)
-                    if contador==17:
-                        posi_joga[0]=202
-                        posi_joga[1]=504
-                    if contador==18:
-                        posi_joga[0]=303
-                        posi_joga[1]=504
-                        CASA3(window)
-                    if contador==19:
-                        posi_joga[0]=404
-                        posi_joga[1]=504
-                    if contador==20:
-                        posi_joga[0]=100 
-                        posi_joga[1]=100 
-                        contador-=20
-                    if contador>21:
-                        contador=21
-                    if contador==21:
-                        posi_joga[0]=591
-                        posi_joga[1]=504 
-
+                        poscir[0]=591
+                        poscir[1]=504 
         window.blit(background, (0, 0))
 
         #desenha casas
