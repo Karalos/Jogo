@@ -250,14 +250,18 @@ def tela_jogo(tela):
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 game=False
             if event.type == pygame.KEYDOWN:  
-                if event.key ==pygame.K_SPACE and flow=='continue':
+                if event.key ==pygame.K_SPACE:
                     dado=randint(1,4)
                     DADO=dado
                     contador+=dado
                     if contador==1:
                         posi_joga[0]=2*101
                         posi_joga[1]=100 
-                        CASA1(window)  
+                        flow=CASA1(window)
+                        if flow=='continue':
+                            pass
+                        if flow=='repita':
+                            contador-+dado
                     if contador==2:
                         posi_joga[0]=3*101
                         posi_joga[1]=100
@@ -334,87 +338,7 @@ def tela_jogo(tela):
                         posi_joga[0]=591
                         posi_joga[1]=504 
 
-                if event.key == pygame.K_SPACE and flow == 'repita':
-                    if contador==1:
-                        posi_joga[0]=2*101
-                        posi_joga[1]=100 
-                        CASA1(window)  
-                    if contador==2:
-                        posi_joga[0]=3*101
-                        posi_joga[1]=100
-                        CASA2(window) 
-                    if contador==3:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
-                    if contador==4:
-                        posi_joga[0]=5*101
-                        posi_joga[1]=100
-                        CASA3(window)
-                    if contador==5:
-                        posi_joga[0]=4*101
-                        posi_joga[1]=100
-                        contador-=2 
-                    if contador==6:
-                        posi_joga[0]=7*101
-                        posi_joga[1]=100
-                    if contador==7:
-                        posi_joga[0]=808
-                        posi_joga[1]=100
-                        CASA4(window)
-                    if contador==8:
-                        posi_joga[1]=100
-                        posi_joga[0]=606
-                        contador+=3
-                    if contador==9:
-                        posi_joga[0]=808
-                        posi_joga[1]=302
-                    if contador==10:
-                        posi_joga[0]=707
-                        posi_joga[1]=302
-                        CASA5(window)
-                    if contador==11:
-                        posi_joga[0]=606
-                        posi_joga[1]=302
-                    if contador==12:
-                        posi_joga[0]=505
-                        posi_joga[1]=302
-                        CASA6(window)
-                    if contador==13:
-                        posi_joga[0]=404
-                        posi_joga[1]=302
-                        CASA7(window)
-                    if contador==14:
-                        posi_joga[0]=303
-                        posi_joga[1]=302
-                        CASA8(window)
-                    if contador==15:
-                        posi_joga[0]=202 
-                        posi_joga[1]=504 
-                        CASA2(window)
-                    if contador==16:
-                        posi_joga[0]=202
-                        posi_joga[1]=403
-                        CASA6(window)
-                    if contador==17:
-                        posi_joga[0]=202
-                        posi_joga[1]=504
-                    if contador==18:
-                        posi_joga[0]=303
-                        posi_joga[1]=504
-                        CASA3(window)
-                    if contador==19:
-                        posi_joga[0]=404
-                        posi_joga[1]=504
-                    if contador==20:
-                        posi_joga[0]=100 
-                        posi_joga[1]=100 
-                        contador-=20
-                    if contador>21:
-                        contador=21
-                    if contador==21:
-                        posi_joga[0]=591
-                        posi_joga[1]=504 
-
+       
         window.blit(background, (0, 0))
 
         #desenha casas
