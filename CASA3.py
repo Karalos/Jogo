@@ -1,7 +1,7 @@
 from random import randint
 import pygame
 from os import path
-
+# funçao principal
 def CASA3(screen):
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background1 = pygame.image.load(path.join(pasta_img,"CASA3.png")).convert()
@@ -20,6 +20,7 @@ def CASA3(screen):
     acao3=0
     acao4=0
     running=True
+    #escolhe uma das 3 perguntas 
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='Qual a teoria evolucionista adotada hoje?'
@@ -54,6 +55,7 @@ def CASA3(screen):
         numero4='Saturno'
         acao4='certa'
         posicao=(175,105)
+    #prerequisitos para imprimar alguma coisa na pagina
     vert1=[(70,75),(930,75),(930,175),(70,175)]
     PERGUNTA1=fonte.render((numero),True,(255,0,0))
     resposta1=fonte.render((numero1),True,(0,0,0))
@@ -66,9 +68,11 @@ def CASA3(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #funçao do botao e sua funcionalidade
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
+        # define a area efetiva do botao
         if x+l>mouse[0]>x and y+h>mouse[1]>y:
             pygame.draw.rect(screen,ca,(x,y,l,h))
             if click[0]==1 and action!=None:
@@ -83,19 +87,24 @@ def CASA3(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                #define se jogara o dado de novo
                 flow='repita'
+        #estabelece o limite de tempo
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #contador de tempo
         if now-tempo>=contador:
             seg-=1
             contador+=1000
         screen.blit(background1, (0, 0))      
         pygame.draw.polygon(screen,(0,0,0), vert1)
+        #cria os butoes
         botao1=button(120,300,325,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(570,300,325,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,325,55,(150,0,0),(250,0,0),acao3)
         botao4=button(120,450,325,55,(150,0,0),(250,0,0),acao4)
+        #define qual botao é certo e qual é errado
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -124,10 +133,12 @@ def CASA3(screen):
                 state='errado'
         elif botao4 is None and seg==0:
             state='TL'
+        
         screen.blit(resposta1,(125,307))
         screen.blit(resposta2,(575,307))
         screen.blit(resposta3,(575,457))
         screen.blit(resposta4,(125,457))
+        #mostra na tela se esta certo ou errado e se jogara o dado novamente
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
