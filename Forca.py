@@ -69,7 +69,6 @@ pygame.init()
 
 #cria tela
 window = pygame.display.set_mode((tela_largura, tela_altura))
-pygame.display.set_caption('Forca')
 
 
 ######################################################################################

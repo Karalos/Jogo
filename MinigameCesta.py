@@ -245,10 +245,8 @@ def tela_dentro_do_jogo(window):
         pygame.display.update()  
 
 def CESTA(window):
-    #pygame.init()
-    #pygame.mixer.init()
-    #window = pygame.display.set_mode((tela_altura, tela_largura))
-    #pygame.display.set_caption('Cesta')
+    pygame.init()
+    pygame.display.set_caption('Cesta')
 
     #roda o jogo
     condicao = instrucao
