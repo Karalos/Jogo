@@ -2,6 +2,7 @@ from random import randint
 import pygame
 from os import path
 
+#define a funçao principal da casa 6
 def CASA6(screen):
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background1 = pygame.image.load(path.join(pasta_img,"Casa6.jpg")).convert()
@@ -22,7 +23,9 @@ def CASA6(screen):
     acao3=0
     acao4=0
     running=True
+    #sortei uma pergunta
     pergunta1=randint(1,3)
+    #decide se vai imprimir uma imagem extra ou n
     imagem1=False
     imagem2=False
     if pergunta1==1:
@@ -35,6 +38,7 @@ def CASA6(screen):
         acao3='certa'
         numero4='Van Gogh'
         acao4='eror'
+        #imprime a imagem 1 mas n a 2
         imagem1=True
         imagem2=False
         posicao=(220,105)
@@ -48,6 +52,7 @@ def CASA6(screen):
         acao3='eror'
         numero4='Picasso'
         acao4='eror'
+        #imprime a imagem 2 mas n a 1
         imagem1=False
         imagem2=True
         posicao=(150,105)
@@ -61,6 +66,7 @@ def CASA6(screen):
         acao3='eror'
         numero4='Pierre Weil'
         acao4='eror'
+        #nao imprime imagens extra 
         imagem1=False
         imagem2=False
         posicao=(120,105)
@@ -76,6 +82,7 @@ def CASA6(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #cria a funçao do botao
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
@@ -97,6 +104,7 @@ def CASA6(screen):
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #contador de tempo
         if now-tempo>=contador:
             seg-=1
             contador+=1000
@@ -106,10 +114,12 @@ def CASA6(screen):
         if imagem2==True:
             screen.blit((IMAGEM2),(360, 250))
         pygame.draw.polygon(screen,(0,0,0), vert1)
+        #cria os butoes
         botao1=button(80,300,270,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(670,300,270,55,(150,0,0),(250,0,0),acao2)
         botao3=button(670,450,270,55,(150,0,0),(250,0,0),acao3)
         botao4=button(80,450,270,55,(150,0,0),(250,0,0),acao4)
+        #define se eles estao certos ou errados
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -142,6 +152,7 @@ def CASA6(screen):
         screen.blit(resposta2,(670,307))
         screen.blit(resposta3,(675,457))
         screen.blit(resposta4,(80,457))
+        #mostra se acertou ou nao 
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
