@@ -505,7 +505,6 @@ def tela_jogo(tela):
                             posi_joga[1]=100
                             jogJ1=JOKENPO(window)
                             if jogJ1!='continue':
-
                                 contador-=dado
                         if contador==7:
                             jog4=CASA4(window)

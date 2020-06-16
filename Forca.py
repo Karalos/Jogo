@@ -74,7 +74,7 @@ window = pygame.display.set_mode((tela_largura, tela_altura))
 ######################################################################################
 #palavra escolhida
 lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
-palavra_escolhida=lista_palavra_escolhida[random.randint(1,50)]
+palavra_escolhida=lista_palavra_escolhida[random.randint(0,49)]
 ######################################################################################
 #carregando imagens
 def load_assets():
@@ -89,12 +89,8 @@ def load_assets():
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
     #imagem
-    tela_instr = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
+    tela_instr = pygame.transform.scale(pygame.image.load(os.path.join(pasta_img, 'Forca.png')).convert(),(1000,600))
     tela_instr_rect = tela_instr.get_rect()
-    fontforca=pygame.font.SysFont(None,70)
-    regra1=fontforca.render('Advinhe a palavra;',True,(0,0,0))
-    regra2=fontforca.render('Você terá 8 chances;',True,(0,0,0))
-    regra3=fontforca.render('Aperte qualquer botão para começar o jogo', True,(0,0,0))
     #codigo jogo
     jogando_i = True
     while jogando_i:
@@ -110,9 +106,6 @@ def tela_de_instrucoes(tela):
                 condicao = jogo
                 jogando_i = False
                 
-        tela.blit(regra1,(100,400))
-        tela.blit(regra2,(100,440))
-        tela.blit(regra3,(100,480))
         tela.fill(cor)
         tela.blit(tela_instr, tela_instr_rect)
         pygame.display.flip()

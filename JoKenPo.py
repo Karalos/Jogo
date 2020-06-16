@@ -110,14 +110,10 @@ def funcao_resultado(escolha_jogador,escolha_bot):
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
     #imagem
-    background = pygame.image.load(os.path.join(pasta_img, 'imagem1.jpg')).convert()
+    background = pygame.transform.scale(pygame.image.load(os.path.join(pasta_img, 'Jokenpo.png')).convert(),(1000,600))
     background_rect = background.get_rect()
     #codigo jogo
     jogando_i = True
-    fontJKP=pygame.font.SysFont(None,170)
-    regra=fontJKP.render('Pedra, papel ou tesoura?',True,(0,0,0))
-    regra1=fontJKP.render('Aperte qualquer botão para começar!',True,(0,0,0))
-
     while jogando_i:
         clock.tick(FPS)
         #eventos
@@ -130,9 +126,7 @@ def tela_de_instrucoes(tela):
             if event.type == pygame.KEYDOWN:
                 condicao = jogo
                 jogando_i = False
-       
-        tela.blit(regra,(270,350))
-        tela.blit(regra1,(250,400))
+
         tela.fill((0,0,0))
         tela.blit(background, background_rect)
         pygame.display.flip()
