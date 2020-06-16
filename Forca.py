@@ -71,10 +71,7 @@ pygame.init()
 window = pygame.display.set_mode((tela_largura, tela_altura))
 pygame.display.set_caption('Forca')
 
-#listas
-lista_chutes=[]
-lista_erros=[]
-lista_acertos=[]
+
 ######################################################################################
 #palavra escolhida
 lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
@@ -88,34 +85,7 @@ def load_assets():
     assets["fonte_texto"] = pygame.font.Font(os.path.join(pasta_font, 'Overlock-Black.ttf'), 40)
     return assets
 
-def erros7():
-    event.set()
-    pygame.draw.polygon(window,cor,perna_direita_corcoordenadas)
-    time.sleep(2)
-    event.clear()
-############################################################################################
-def verifica_tecla(chute):
-    #verifica se o caractere digitado foi uma letra
-    if chute!='pass':
-        #verifica se o caractere ja foi utilizado
-        if chute not in lista_chutes :
-            #adiciona o caractere à lista de usados
-            lista_chutes.append(chute)
-            #verifica se ele esta ou nao na palavra escolhida
-            if chute in palavra_escolhida:
-                lista_acertos.append(chute)
-                #se foi erro ou nao
-                return 0
-            if chute not in palavra_escolhida:
-                lista_erros.append(chute)
-                #se foi erro ou nao                
-                return 1 
-        else:
-            #se foi erro ou nao   
-            return 0
-    else:
-        #se foi erro ou nao
-        return 0    
+############################################################################################  
 #########################################################################
 def tela_de_instrucoes(tela):
     clock = pygame.time.Clock()
@@ -151,6 +121,10 @@ def tela_de_instrucoes(tela):
 
 ########################################################################################
 def tela_dentro_do_jogo(window):
+    #listas
+    lista_chutes=[]
+    lista_erros=[]
+    lista_acertos=[]
     erros=0
     clock = pygame.time.Clock()
     #carregar imagens
@@ -220,8 +194,29 @@ def tela_dentro_do_jogo(window):
                     chute='y'
                 if event.key==pygame.K_z:
                     chute='z'
-                #verifica tecla    
-                erros+=verifica_tecla(chute)
+                #verifica tecla
+                #verifica se o caractere digitado foi uma letra
+                if chute!='pass':
+                    #verifica se o caractere ja foi utilizado
+                    if chute not in lista_chutes :
+                        #adiciona o caractere à lista de usados
+                        lista_chutes.append(chute)
+                        #verifica se ele esta ou nao na palavra escolhida
+                        if chute in palavra_escolhida:
+                            lista_acertos.append(chute)
+                            #se foi erro ou nao
+                            verifica_tecla= 0
+                        if chute not in palavra_escolhida:
+                            lista_erros.append(chute)
+                            #se foi erro ou nao                
+                            verifica_tecla= 1 
+                    else:
+                        #se foi erro ou nao   
+                        verifica_tecla= 0
+                else:
+                    #se foi erro ou nao
+                    verifica_tecla= 0        
+                erros+=verifica_tecla
         #tela de fundo
         window.fill((255,255,0))
         window.blit(assets['background'], (0, 0)) 
@@ -256,6 +251,7 @@ def tela_dentro_do_jogo(window):
             local_palavra_certa.midtop=(palavra_certa_coordenadas)
             window.blit(palavra_certa, local_palavra_certa)
             game=False
+            
             return 'repita',fim
 
         # verifica vitoria
@@ -349,5 +345,6 @@ def FORCA(WINDOW):
             resposta,condicao = tela_dentro_do_jogo(window)
             return resposta
         else:
+            
             condicao = fim
     #encerra o jogo
