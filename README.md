@@ -29,3 +29,6 @@ Para tornar o jogo mais justo, o bot tem uma probabilidade de vencer o desafio. 
 Integrantes
 Carlos Eduardo Abdelmalack Simodo
 João Pedro Marquez
+
+o video esta no git
+
