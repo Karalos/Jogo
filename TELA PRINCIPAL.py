@@ -2,6 +2,7 @@
 from random import randint
 import pygame
 from os import path
+#importa casas e jogos
 from CASA1 import CASA1
 from CASA2 import CASA2
 from CASA3 import CASA3
@@ -24,7 +25,7 @@ fim = 2
     #tela
 altura=600
 largura=1000
-    #cinzas
+    #cores
 azul=(0,0,255)
 verde=(0,200,0)
 preto=(0,0,0)
@@ -38,7 +39,6 @@ roxo=(200,0,200)
 posi_joga=[100,100]
 posi_bot_1=[100,100]
 posi_bot_2=[100,100]
-
 resultado_jogo_coordenadas=(largura/2,altura/2)
 
 #inicia jogo
@@ -242,24 +242,30 @@ def tela_de_instrucoes(tela):
             if event.type == pygame.KEYDOWN:
                 condicao = jogo
                 jogando_i = False
-
         tela.fill((0,0,0))
+        #desenha background
         tela.blit(background, background_rect)
         pygame.display.flip()
     return condicao
 
+#jogo
 def tela_jogo(tela):
+    #valor a ser impresso na tela
     DADO=0
-    game = True
+    #casas andadas pelos participantes
     contador=0
     contador_bot_1=0
     contador_bot_2=0
+    #define quem comeca jogando
     i='jogador'
+    #define quem venceu
     venceu=False
     perdeu=False
+    #loop principal
+    game = True
     while game==True:
         clock.tick(FPS)
-        #bot2
+        #bot2 posicoes
         if contador_bot_2==0:
             posi_bot_2[0]=101
             posi_bot_2[1]=100
@@ -329,8 +335,9 @@ def tela_jogo(tela):
         if contador_bot_2==21:
             posi_bot_2[0]=591
             posi_bot_2[1]=504
+            #define que o jogador perdeu
             perdeu=True
-        #bot1
+        #bot1 posicoes
         if contador_bot_1==0:
             posi_bot_1[0]=101
             posi_bot_1[1]=100
@@ -400,8 +407,9 @@ def tela_jogo(tela):
         if contador_bot_1==21:
             posi_bot_1[0]=591
             posi_bot_1[1]=504
+            #define que o jogador perdeu
             perdeu=True
-        #jogador
+        #jogador posicoes
         if contador==0:
             posi_joga[0]=101
             posi_joga[1]=100
@@ -471,116 +479,154 @@ def tela_jogo(tela):
         if contador==21:
             posi_joga[0]=591
             posi_joga[1]=504
+            #define que o jogador venceu
             venceu=True
-
+        #verifica eventos
         for event in pygame.event.get():
+            #jogador comeca
             if i == 'jogador':
+                #fechar o jogo
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     game=False
+                #avancar no jogo
                 if event.type == pygame.KEYDOWN:  
                     if event.key ==pygame.K_SPACE:
+                        #sorteia numero de casas andadas
                         dado=randint(1,4)
                         DADO=dado
+                        #anda as casas
                         contador+=dado
+                        #verifica em qual casa esta
                         if contador==1:
+                            #roda o jogo
                             jog1=CASA1(window)
                             if jog1=='repita':
                                 contador-=dado  
                         if contador==2:
+                            #roda o jogo
                             jog2=CASA2(window)
+                            #verifica se o desafio foi superado
                             if jog2=='repita':
                                 contador-=dado
                         if contador==3: 
-                            posi_joga[0]=4*101
-                            posi_joga[1]=100
+                            #roda o jogo
                             jogF1=FORCA(window)
+                            #verifica se o desafio foi superado
                             if jogF1!='continue':
                                 contador-=dado
                         if contador==4:
+                            #roda o jogo
                             jog3=CASA3(window)
+                            #verifica se o desafio foi superado
                             if jog3=='repita':
                                 contador-=dado
                         if contador==5:
+                            #volta duas casas
                             contador-=2 
                         if contador==6:
-                            posi_joga[0]=7*101
-                            posi_joga[1]=100
+                            #roda o jogo
+                            #roda o jogo
                             jogJ1=JOKENPO(window)
+                            #verifica se o desafio foi superado
                             if jogJ1!='continue':
                                 contador-=dado
                         if contador==7:
+                            #roda o jogo
                             jog4=CASA4(window)
+                            #verifica se o desafio foi superado
                             if jog4=='repita':
                                 contador-=dado
                         if contador==8:
+                            #avanca tres casas
                             contador+=3
                         if contador==9:
-                            posi_joga[0]=808
-                            posi_joga[1]=302
+                            #roda o jogo
                             jogC1=CESTA(window)
+                            #verifica se o desafio foi superado
                             if jogC1!='continue':
-
                                 contador-=dado
                         if contador==10:
+                            #roda o jogo
                             jog5=CASA5(window)
+                            #verifica se o desafio foi superado
                             if jog5=='repita':
                                 contador-=dado
                         if contador==11:
-                            posi_joga[0]=606
-                            posi_joga[1]=302
+                            #roda o jogo
                             jogF2=FORCA(window)
+                            #verifica se o desafio foi superado
                             if jogF2!='continue':
                                 contador-=dado
                         if contador==12:
+                            #roda o jogo
                             jog6=CASA6(window)
+                            #verifica se o desafio foi superado
                             if jog6=='repita':
                                 contador-=dado
                         if contador==13:
+                            #roda o jogo
                             jog7=CASA7(window)
+                            #verifica se o desafio foi superado
                             if jog7=='repita':
                                 contador-=dado
                         if contador==14:
+                            #roda o jogo
                             jog8=CASA8(window)
+                            #verifica se o desafio foi superado
                             if jog8=='repita':
                                 contador-=dado
                         if contador==15:
+                            #roda o jogo
                             jog9=CASA2(window)
+                            #verifica se o desafio foi superado
                             if jog9=='repita':
                                 contador-=dado
                         if contador==16:
+                            #roda o jogo
                             jog10=CASA6(window)
+                            #verifica se o desafio foi superado
                             if jog10=='repita':
                                 contador-=dado
                         if contador==17:
-                            posi_joga[0]=202
-                            posi_joga[1]=504
+                            #roda o jogo
                             jogJ2=JOKENPO(window)
+                            #verifica se o desafio foi superado
                             if jogJ2!='continue':
                                 contador-=dado
                         if contador==18:
+                            #roda o jogo
                             jog11=CASA3(window)
+                            #verifica se o desafio foi superado
                             if jog11=='repita':
                                 contador-=dado
                         if contador==19:
-                            posi_joga[0]=404
-                            posi_joga[1]=504
+                            #roda o jogo
                             jogC2=CESTA(window)
+                            #verifica se o desafio foi superado
                             if jogC2!='continue':
                                 contador-=dado
                         if contador==20:
+                            #volta para o inicio
                             contador-=20
                         i='bot1'
             if i == 'bot1':
+                #fecha o jogo
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     game=False
+                    #verifica eventos
                 if event.type == pygame.KEYDOWN:  
                     if event.key ==pygame.K_x:
                         #bot 1
+                        #numero de casas andadas
                         dado_bot_1=randint(1,4)
+                        #chance do bot vencer o desafio
                         chance_bot_1=randint(1,11)    
                         DADO=dado_bot_1
+                        #verifica se o bot venceu o desafio
                         if 0<chance_bot_1<7:
+                            #anda casas
                             contador_bot_1+=dado_bot_1    
+                            #vcasas especiais
                             if contador_bot_1==5:
                                 contador_bot_1-=2 
                             if contador_bot_1==8:
@@ -589,18 +635,19 @@ def tela_jogo(tela):
                                 contador_bot_1+=2                                
                             if contador_bot_1==20:
                                 contador_bot_1-=20
-                            if contador_bot_1>21:
-                                contador_bot_1=21
-                            if contador_bot_1==21:
-                                posi_bot_1[0]=591
-                                posi_bot_1[1]=504                                
+
+                             
                         #bot 2
+                        #numero de casas andadas
                         dado_bot_2=randint(1,4)
+                        #chance do bot vencer o desafio
                         chance_bot_2=randint(1,11)    
                         DADO=dado_bot_2
+                        #veerifica se ele venceu o desafio
                         if 0<chance_bot_2<7:
+                            #anda as casas
                             contador_bot_2+=dado_bot_2    
-                            #print('passou')
+                            #casas especiais
                             if contador_bot_2==5:
                                 contador_bot_2-=2 
                             if contador_bot_2==8:
@@ -609,13 +656,6 @@ def tela_jogo(tela):
                                 contador_bot_2+=2                                
                             if contador_bot_2==20:
                                 contador_bot_2-=20
-                            if contador_bot_2>21:
-                                contador_bot_2=21
-                            if contador_bot_2==21:
-                                posi_bot_2[0]=591
-                                posi_bot_2[1]=504 
-                        else:
-                            pass
                         i = 'jogador'
                        
 
