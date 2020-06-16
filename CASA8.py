@@ -1,6 +1,7 @@
 from random import randint
 import pygame
 from os import path
+#funçao principal da casa
 def CASA8(screen):
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background1 = pygame.image.load(path.join(pasta_img,"Casa8.jpg")).convert()
@@ -19,6 +20,7 @@ def CASA8(screen):
     acao3=0
     acao4=0
     running=True
+    #sorteia uma pergunta
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='Tratado mais duradouro do mundo?'
@@ -65,6 +67,7 @@ def CASA8(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #funçao para criar os botoes
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
@@ -91,10 +94,12 @@ def CASA8(screen):
             contador+=1000
         screen.blit(background1, (0, 0))      
         pygame.draw.polygon(screen,(0,0,0), vert1)
+        #cria os botoes
         botao1=button(150,300,250,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(570,300,250,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,250,55,(150,0,0),(250,0,0),acao3)
         botao4=button(150,450,250,55,(150,0,0),(250,0,0),acao4)
+        #define se estao certos ou errados
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -127,6 +132,7 @@ def CASA8(screen):
         screen.blit(resposta2,(570,307))
         screen.blit(resposta3,(570,457))
         screen.blit(resposta4,(155,457))
+        #imprime se o botao escolhido esta certo ou errado
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
