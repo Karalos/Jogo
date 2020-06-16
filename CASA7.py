@@ -1,6 +1,7 @@
 from random import randint
 import pygame
 from os import path
+#define a funçao principal
 def CASA7(screen):
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background1 = pygame.image.load(path.join(pasta_img,"casa7.jpg")).convert()
@@ -18,6 +19,7 @@ def CASA7(screen):
     acao3=0
     acao4=0
     running=True
+    #escolhe uma pergunta
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='Qual o jogo mais vendido da historia?'
@@ -64,6 +66,7 @@ def CASA7(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #cria os botoes
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
@@ -76,6 +79,7 @@ def CASA7(screen):
                     return True
         else:
             pygame.draw.rect(screen,ci,(x,y,l,h))
+    #loop prncipal
     while running==True:
         clock.tick(FPS1) 
         for event in pygame.event.get():
@@ -85,15 +89,18 @@ def CASA7(screen):
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #contador de tempo
         if now-tempo>=contador:
             seg-=1
             contador+=1000
         screen.blit(background1, (0, 0))    
         pygame.draw.polygon(screen,(0,0,0), vert1)
+        #cria os botoes
         botao1=button(150,300,270,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(570,300,270,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,300,55,(150,0,0),(250,0,0),acao3)
         botao4=button(150,450,270,55,(150,0,0),(250,0,0),acao4)
+        #define se eles estao certos ou errados
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -126,6 +133,7 @@ def CASA7(screen):
         screen.blit(resposta2,(570,307))
         screen.blit(resposta3,(570,457))
         screen.blit(resposta4,(155,457))
+        #mostra na tela se estao certos ou nao
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
