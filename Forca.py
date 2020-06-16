@@ -74,7 +74,6 @@ window = pygame.display.set_mode((tela_largura, tela_altura))
 ######################################################################################
 #palavra escolhida
 lista_palavra_escolhida=['sagaz','mexer','termo','senso','nobre','pleno','afeto','audaz','sutil','inato','desde','vigor','sanar','fazer','ideia','anexo','poder','justo','moral','honra','lapso','muito','expor','posse','prole','digno','haver','pesar','tenaz','genro','atroz','dizer','causa','denso','ceder','brado','dever','comum','censo','sobre','culto','saber','fugaz','casal','tempo','louco','sendo','manso','mundo','sonho']
-palavra_escolhida=lista_palavra_escolhida[random.randint(0,49)]
 ######################################################################################
 #carregando imagens
 def load_assets():
@@ -114,6 +113,7 @@ def tela_de_instrucoes(tela):
 ########################################################################################
 def tela_dentro_do_jogo(window):
     #listas
+    palavra_escolhida=lista_palavra_escolhida[random.randint(0,49)]
     lista_chutes=[]
     lista_erros=[]
     lista_acertos=[]
