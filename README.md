@@ -30,5 +30,5 @@ Integrantes
 Carlos Eduardo Abdelmalack Simodo
 João Pedro Marquez
 
-o video esta no git
+link para video do jogo:https://youtu.be/FIwgdyrGkxk
 
