@@ -1,10 +1,13 @@
 from random import randint
 import pygame
 from os import path
+#funçao principal do casa
 def CASA4(screen):
+    #importa a tela de fundo
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background1 = pygame.image.load(path.join(pasta_img,"Casa4.jpg")).convert()
     pygame.display.set_caption('CASA4')
+    # define os prerequisitos para se imprimir algo na tela
     fontdado= pygame.font.SysFont(None,90)
     fonte=pygame.font.SysFont(None,60)
     fonteres= pygame.font.SysFont(None,230)
@@ -19,6 +22,7 @@ def CASA4(screen):
     acao3=0
     acao4=0
     running=True
+    # sortei uma das tres perguntas
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='Maior vencedor do OSCAR?'
@@ -53,6 +57,7 @@ def CASA4(screen):
         numero4='Nada a perder'
         acao4='certa'
         posicao=(140,105)
+    # muda oq vai imprimir de acordo com a escolhida
     vert1=[(120,75),(880,75),(880,175),(120,175)]
     PERGUNTA1=fonte.render((numero),True,(255,0,0))
     resposta1=fonte.render((numero1),True,(0,0,0))
@@ -65,11 +70,13 @@ def CASA4(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #cria a funçao do botao
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
         if x+l>mouse[0]>x and y+h>mouse[1]>y:
             pygame.draw.rect(screen,ca,(x,y,l,h))
+            #define a area de controle do botao
             if click[0]==1 and action!=None:
                 if action=='eror':
                     return False
@@ -82,23 +89,24 @@ def CASA4(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                #define se vai jogar o dado de novo ou nao
                 flow='repita'
+        #coloca o limite de tempo
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #faz o contador
         if now-tempo>=contador:
             seg-=1
             contador+=1000
         screen.blit(background1, (0, 0))  
-        # oscar1.update()
-        # oscar2.update()
-        # window1.blit(oscar1.image, oscar1.rect)
-        # window1.blit(oscar2.image, oscar2.rect)     
+        #cria os bottoes
         pygame.draw.polygon(screen,(0,0,0), vert1)
         botao1=button(150,300,325,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(570,300,325,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,325,55,(150,0,0),(250,0,0),acao3)
         botao4=button(150,450,325,55,(150,0,0),(250,0,0),acao4)
+        #define se a natureza do botao
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -131,6 +139,7 @@ def CASA4(screen):
         screen.blit(resposta2,(575,307))
         screen.blit(resposta3,(570,457))
         screen.blit(resposta4,(155,457))
+        #mostra na tela se acertou ou nao
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
