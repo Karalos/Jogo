@@ -2,6 +2,7 @@ from random import randint
 import pygame
 from os import path
 
+#funçao que roda a casa inteira
 def CASA1(screen):
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background = pygame.image.load(path.join(pasta_img,"game1.png")).convert()
@@ -20,6 +21,7 @@ def CASA1(screen):
     acao3=0
     acao4=0
     running=True
+    # o computador escolhe entre 3 possiveis perguntas
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='17+28=?'
@@ -67,6 +69,7 @@ def CASA1(screen):
     acertou1=None
     state=''
     flow=''
+    #criaçao da funçao do botao e de sua interaçao visual
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
@@ -84,10 +87,12 @@ def CASA1(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                # 'flow' define se vai jogar o dado de novo ou nao
                 flow='repita'
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #contador para o tempo de resposta
         if now-tempo>=contador:
             seg-=1
             contador+=1000
@@ -97,6 +102,7 @@ def CASA1(screen):
         botao2=button(570,300,170,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,170,55,(150,0,0),(250,0,0),acao3)
         botao4=button(245,450,170,55,(150,0,0),(250,0,0),acao4)
+        # define se o que vai printar na tela
         if not botao1 is None:
             if botao1==True:
                 state='certo'
@@ -129,6 +135,7 @@ def CASA1(screen):
         screen.blit(resposta3,(575,450))
         screen.blit(resposta4,(250,450))
         screen.blit(resposta2,(575,300))
+        # mostra na tela se acaertou nao e se vai jogar o dado novamente
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow="continue"
