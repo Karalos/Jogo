@@ -32,6 +32,7 @@ cinza=(127,127,127)
 vermelho=(230,170,0)
 branco=(255,255,255)
 amarelo=(255,255,0)
+roxo=(200,0,200)
 
     #posicao 
 posi_joga=[100,100]
@@ -254,6 +255,8 @@ def tela_jogo(tela):
     contador_bot_1=0
     contador_bot_2=0
     i='jogador'
+    venceu=False
+    perdeu=False
     while game==True:
         clock.tick(FPS)
         #bot2
@@ -326,6 +329,7 @@ def tela_jogo(tela):
         if contador_bot_2==21:
             posi_bot_2[0]=591
             posi_bot_2[1]=504
+            perdeu=True
         #bot1
         if contador_bot_1==0:
             posi_bot_1[0]=101
@@ -396,6 +400,7 @@ def tela_jogo(tela):
         if contador_bot_1==21:
             posi_bot_1[0]=591
             posi_bot_1[1]=504
+            perdeu=True
         #jogador
         if contador==0:
             posi_joga[0]=101
@@ -466,10 +471,7 @@ def tela_jogo(tela):
         if contador==21:
             posi_joga[0]=591
             posi_joga[1]=504
-            resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
-            local_resultado_jogo=resultado_jogo.get_rect()
-            local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
-            window.blit(resultado_jogo, local_resultado_jogo)  
+            venceu=True
 
         for event in pygame.event.get():
             if i == 'jogador':
@@ -579,7 +581,6 @@ def tela_jogo(tela):
                         DADO=dado_bot_1
                         if 0<chance_bot_1<7:
                             contador_bot_1+=dado_bot_1    
-                            #print('passou')
                             if contador_bot_1==5:
                                 contador_bot_1-=2 
                             if contador_bot_1==8:
@@ -592,11 +593,7 @@ def tela_jogo(tela):
                                 contador_bot_1=21
                             if contador_bot_1==21:
                                 posi_bot_1[0]=591
-                                posi_bot_1[1]=504
-                                resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
-                                local_resultado_jogo=resultado_jogo.get_rect()
-                                local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
-                                window.blit(resultado_jogo, local_resultado_jogo)                                
+                                posi_bot_1[1]=504                                
                         #bot 2
                         dado_bot_2=randint(1,4)
                         chance_bot_2=randint(1,11)    
@@ -617,10 +614,6 @@ def tela_jogo(tela):
                             if contador_bot_2==21:
                                 posi_bot_2[0]=591
                                 posi_bot_2[1]=504 
-                                resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
-                                local_resultado_jogo=resultado_jogo.get_rect()
-                                local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
-                                window.blit(resultado_jogo, local_resultado_jogo)
                         else:
                             pass
                         i = 'jogador'
@@ -712,7 +705,18 @@ def tela_jogo(tela):
         pygame.draw.circle(window,branco,posi_bot_1,25)
             #bot2
         pygame.draw.circle(window,preto,posi_bot_2,23)
-
+        
+        #verifica vencedor
+        if perdeu==True:
+            resultado_jogo = pygame.font.SysFont(None,180).render('Voce perdeu', True, (roxo))     
+            local_resultado_jogo=resultado_jogo.get_rect()
+            local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
+            window.blit(resultado_jogo, local_resultado_jogo)  
+        if venceu==True:
+            resultado_jogo = pygame.font.SysFont(None,180).render('Voce venceu', True, (roxo))     
+            local_resultado_jogo=resultado_jogo.get_rect()
+            local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
+            window.blit(resultado_jogo, local_resultado_jogo)  
         #update
         pygame.display.update() 
 
