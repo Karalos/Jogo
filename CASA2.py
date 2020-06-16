@@ -1,10 +1,13 @@
 from random import randint
 import pygame
 from os import path
+#função base do jogo
 def CASA2(screen):
+    #importa as imagens de fundo
     pasta_img=path.join(path.dirname(__file__), 'imagens')
     background = pygame.image.load(path.join(pasta_img,"Casa2.jpg")).convert()
     pygame.display.set_caption('CASA2')
+    #cria as fontes para palavras
     fontdado= pygame.font.SysFont(None,90)
     fonte=pygame.font.SysFont(None,60)
     fonteres= pygame.font.SysFont(None,230)
@@ -19,6 +22,7 @@ def CASA2(screen):
     acao3=0
     acao4=0
     running=True
+    #escolhe entre 3 perguntas disponiveis
     pergunta1=randint(1,3)
     if pergunta1==1:
         numero='Maior placar no futebol?'
@@ -53,6 +57,7 @@ def CASA2(screen):
         numero4='China'
         acao4='eror'
         posicao=(155,105)
+    # define o que avai aparecer na tela
     vert1=[(100,75),(895,75),(895,175),(100,175)]
     PERGUNTA1=fonte.render((numero),True,(255,0,0))
     resposta1=fonte.render((numero1),True,(0,0,0))
@@ -65,6 +70,7 @@ def CASA2(screen):
     Tl2=fonteres.render(('ESGOTADO'),True,(200,200,0))
     acertou1=None
     state=''
+    #funçao das interaçoes com o botao
     def button(x,y,l,h,ci,ca,action=None):
         mouse=pygame.mouse.get_pos()
         click=pygame.mouse.get_pressed()
@@ -82,24 +88,29 @@ def CASA2(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE: 
                 running = False
+                # define se podera jogar o dado ou nao
                 flow='repita'
         if seg==0:
             running=False
         now=pygame.time.get_ticks()
+        #contador para o tempo limite das perguntas
         if now-tempo>=contador:
             seg-=1
             contador+=1000
         screen.blit(background, (0, 0))      
         pygame.draw.polygon(screen,(0,0,0), vert1)
+        #cria os botoes
         botao1=button(245,300,170,55,(150,0,0),(250,0,0),acao1) 
         botao2=button(570,300,215,55,(150,0,0),(250,0,0),acao2)
         botao3=button(570,450,215,55,(150,0,0),(250,0,0),acao3)
         botao4=button(245,450,170,55,(150,0,0),(250,0,0),acao4)
+        #define se o dado botao contem a resposta certa ou nao
         if not botao1 is None:
             if botao1==True:
                 state='certo'
             else:
-                state='errado'
+                state='errado' 
+        #define o tempo limite
         elif botao1 is None and seg==0:
             state='TL'
         if not botao2 is None:
@@ -123,10 +134,12 @@ def CASA2(screen):
                 state='errado'
         elif botao4 is None and seg==0:
             state='TL'
+        #mostra na tela se esta certo ou errado a pergunta
         screen.blit(resposta1,(250,307))
         screen.blit(resposta2,(575,307))
         screen.blit(resposta3,(575,457))
         screen.blit(resposta4,(250,457))
+        #define se jogara o dado novamente
         if state=='certo':
             screen.blit(acertou,(120,250))
             flow='continue'
