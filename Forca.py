@@ -251,7 +251,6 @@ def tela_dentro_do_jogo(window):
             local_palavra_certa.midtop=(palavra_certa_coordenadas)
             window.blit(palavra_certa, local_palavra_certa)
             game=False
-            
             return 'repita',fim
 
         # verifica vitoria
@@ -337,6 +336,7 @@ def tela_dentro_do_jogo(window):
 def FORCA(WINDOW): 
     #roda o jogo
     pygame.init()
+    pygame.display.set_caption('Forca')
     condicao = instrucao
     while condicao != fim:
         if condicao == instrucao:
@@ -345,6 +345,5 @@ def FORCA(WINDOW):
             resposta,condicao = tela_dentro_do_jogo(window)
             return resposta
         else:
-            
             condicao = fim
     #encerra o jogo

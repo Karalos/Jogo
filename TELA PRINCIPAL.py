@@ -31,10 +31,14 @@ preto=(0,0,0)
 cinza=(127,127,127)
 vermelho=(230,170,0)
 branco=(255,255,255)
+amarelo=(255,255,0)
+
     #posicao 
 posi_joga=[100,100]
 posi_bot_1=[100,100]
 posi_bot_2=[100,100]
+
+resultado_jogo_coordenadas=(largura/2,altura/2)
 
 #inicia jogo
 pygame.init()
@@ -462,6 +466,11 @@ def tela_jogo(tela):
         if contador==21:
             posi_joga[0]=591
             posi_joga[1]=504
+            resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
+            local_resultado_jogo=resultado_jogo.get_rect()
+            local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
+            window.blit(resultado_jogo, local_resultado_jogo)  
+
         for event in pygame.event.get():
             if i == 'jogador':
                 if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -483,7 +492,7 @@ def tela_jogo(tela):
                             posi_joga[0]=4*101
                             posi_joga[1]=100
                             jogF1=FORCA(window)
-                            if jogF1=='repita':
+                            if jogF1!='continue':
                                 contador-=dado
                         if contador==4:
                             jog3=CASA3(window)
@@ -495,7 +504,7 @@ def tela_jogo(tela):
                             posi_joga[0]=7*101
                             posi_joga[1]=100
                             jogJ1=JOKENPO(window)
-                            if jogJ1=='repita':
+                            if jogJ1!='continue':
 
                                 contador-=dado
                         if contador==7:
@@ -508,7 +517,7 @@ def tela_jogo(tela):
                             posi_joga[0]=808
                             posi_joga[1]=302
                             jogC1=CESTA(window)
-                            if jogC1=='repita':
+                            if jogC1!='continue':
 
                                 contador-=dado
                         if contador==10:
@@ -519,7 +528,7 @@ def tela_jogo(tela):
                             posi_joga[0]=606
                             posi_joga[1]=302
                             jogF2=FORCA(window)
-                            if jogF2=='repita':
+                            if jogF2!='continue':
                                 contador-=dado
                         if contador==12:
                             jog6=CASA6(window)
@@ -545,7 +554,7 @@ def tela_jogo(tela):
                             posi_joga[0]=202
                             posi_joga[1]=504
                             jogJ2=JOKENPO(window)
-                            if jogJ2=='repita':
+                            if jogJ2!='continue':
                                 contador-=dado
                         if contador==18:
                             jog11=CASA3(window)
@@ -555,7 +564,7 @@ def tela_jogo(tela):
                             posi_joga[0]=404
                             posi_joga[1]=504
                             jogC2=CESTA(window)
-                            if jogC2=='repita':
+                            if jogC2!='continue':
                                 contador-=dado
                         if contador==20:
                             contador-=20
@@ -565,13 +574,13 @@ def tela_jogo(tela):
                     game=False
                 if event.type == pygame.KEYDOWN:  
                     if event.key ==pygame.K_x:
-                        print(contador_bot_1)
+                        #bot 1
                         dado_bot_1=randint(1,4)
                         chance_bot_1=randint(1,11)    
                         DADO=dado_bot_1
                         if 0<chance_bot_1<7:
                             contador_bot_1+=dado_bot_1    
-                            print('passou')
+                            #print('passou')
                             if contador_bot_1==5:
                                 contador_bot_1-=2 
                             if contador_bot_1==8:
@@ -584,13 +593,18 @@ def tela_jogo(tela):
                                 contador_bot_1=21
                             if contador_bot_1==21:
                                 posi_bot_1[0]=591
-                                posi_bot_1[1]=504 
+                                posi_bot_1[1]=504
+                                resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
+                                local_resultado_jogo=resultado_jogo.get_rect()
+                                local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
+                                window.blit(resultado_jogo, local_resultado_jogo)                                
+                        #bot 2
                         dado_bot_2=randint(1,4)
                         chance_bot_2=randint(1,11)    
                         DADO=dado_bot_2
                         if 0<chance_bot_2<7:
                             contador_bot_2+=dado_bot_2    
-                            print('passou')
+                            #print('passou')
                             if contador_bot_2==5:
                                 contador_bot_2-=2 
                             if contador_bot_2==8:
@@ -604,6 +618,10 @@ def tela_jogo(tela):
                             if contador_bot_2==21:
                                 posi_bot_2[0]=591
                                 posi_bot_2[1]=504 
+                                resultado_jogo = pygame.font.SysFont(None,90).render('Voce perdeu', True, (amarelo))     
+                                local_resultado_jogo=resultado_jogo.get_rect()
+                                local_resultado_jogo.midtop=(resultado_jogo_coordenadas)
+                                window.blit(resultado_jogo, local_resultado_jogo)
                         else:
                             pass
                         i = 'jogador'
@@ -709,4 +727,4 @@ while condicao != fim:
     else:
         condicao = fim
 #encerra o jogo
-pygame.quit()  
+pygame.quit()
